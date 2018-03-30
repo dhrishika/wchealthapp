@@ -58,7 +58,7 @@ export class HomePage {
    load() : void
    {
       this.http
-      .get('https://dhrishika.000webhostapp.com/read.php')
+      .get('https://essence-of-you.000webhostapp.com/read.php')
       .subscribe((data : any) =>
       {
          console.dir(data);

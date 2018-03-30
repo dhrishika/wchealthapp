@@ -42,7 +42,7 @@ export class AddReminderPage {
    public pageTitle              : string;
    public recordID               : any      = null;
 
-   private baseURI               : string  = "https://dhrishika.000webhostapp.com/";
+   private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
 
 
 
