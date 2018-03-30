@@ -1,14 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+     <ion-title>
+        Tasks Reminder
+     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+  <ion-item>
+     <button
+        class="add"
+        ion-button
+        end
+        margin-bottom
+        color="primary"
+        (click)="addEntry()">
+           Add
+           <ion-icon name="add"></ion-icon>
+     </button>
+  </ion-item>
+
+
+  <ion-item *ngFor="let item of items">
+     <h2>{{ item.t_name }} </h2>
+     <button
+        ion-button
+        color="primary"
+        item-right
+        (click)="viewEntry({ record: item })">View</button>
+  </ion-item>
 </ion-content>
