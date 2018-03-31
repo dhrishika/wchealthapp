@@ -74,7 +74,7 @@ export class HomePage {
 
 
    /**
-    * Allow navigation to the AddTechnologyPage for creating a new entry
+    * Allow navigation to the AddReminderPage for creating a new entry
     *
     * @public
     * @method addEntry
@@ -86,7 +86,7 @@ export class HomePage {
    }
 
    /**
-    * Allow navigation to the AddTechnologyPage for creating a new entry
+    * Allow navigation to the Login Page for validating user credentials
     *
     * @public
     * @method login
@@ -97,12 +97,22 @@ export class HomePage {
       this.navCtrl.push('LoginPage');
    }
 
-
+   /**
+    * Allow navigation to the Login Page for validating user credentials
+    *
+    * @public
+    * @method login
+    * @return {None}
+    */
+   goRegister() : void
+   {
+      this.navCtrl.push('RegisterPage');
+   }
 
    /**
-    * Allow navigation to the AddTechnologyPage for amending an existing entry
+    * Allow navigation to the AddReminderPage for amending an existing entry
     * (We supply the actual record to be amended, as this method's parameter,
-    * to the AddTechnologyPage
+    * to the AddReminderPage
     *
     * @public
     * @method viewEntry

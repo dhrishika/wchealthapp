@@ -1,0 +1,63 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+
+
+    <div *ngIf="hideForm">
+       <ion-item class="post-entry-message" text-wrap>
+          <h2>Success!</h2>
+          <p>You have Registered!</p>
+       </ion-item>
+    </div>
+
+
+    <div *ngIf="!hideForm">
+       <form [formGroup]="form" (ngSubmit)="register()">
+
+          <ion-list>
+             <ion-item-group>
+                <ion-item-divider color="light">Email</ion-item-divider>
+                <ion-item>
+                   <ion-input
+                      type="text"
+                      placeholder="Enter your email..."
+                      formControlName="t_email"
+                      [(ngModel)]="userEmail"></ion-input>
+                </ion-item>
+             </ion-item-group>
+
+             <ion-item-group>
+                <ion-item-divider color="light">Password</ion-item-divider>
+                <ion-item>
+                   <ion-input
+                      type="password"
+                      placeholder="Enter your password..."
+                      formControlName="t_password"
+                      rows="6"
+                      [(ngModel)]="userPassword"></ion-input>
+                </ion-item>
+             </ion-item-group>
+
+             <ion-item>
+                <button
+                   ion-button
+                   color="primary"
+                   text-center
+                   block
+                   [disabled]="!form.valid">Register</button>
+             </ion-item>
+
+          </ion-list>
+
+       </form>
+    </div>
+ </div>
+</ion-content>
