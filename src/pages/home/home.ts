@@ -28,4 +28,16 @@ export class HomePage {
       this.navCtrl.push('LoginPage');
    }
 
+   /**
+    * Allow navigation to the Login Page for validating user credentials
+    *
+    * @public
+    * @method login
+    * @return {None}
+    */
+   goRegister() : void
+   {
+      this.navCtrl.push('RegisterPage');
+   }
+
 }
