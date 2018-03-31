@@ -43,8 +43,8 @@ export class AddReminderPage {
    public recordID               : any      = null;
 
    private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
-
-
+   hours: number;
+   minutes: number;
 
 
    // Initialise module classes
@@ -64,7 +64,14 @@ export class AddReminderPage {
          "t_time"                  : ["", Validators.required],
          "t_repeat"           : ["", Validators.required]
       });
+      this.hours = new Date().getHours();
+      this.minutes = new Date().getMinutes();
    }
+
+   timeChange(time){
+    this.hours = time.hour;
+    this.minutes = time.minute;
+  }
 
 
 

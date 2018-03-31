@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+     <ion-title>{{ pageTitle }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+     <ion-item *ngIf="isEdited">
+        <button
+           ion-button
+           item-right
+           color="secondary"
+           text-center
+           block
+           (click)="deleteEntry()">Remove this Entry?</button>
+     </ion-item>
+
+        <form [formGroup]="formM" (ngSubmit)="saveEntry()">
+
+           <ion-list>
+                  <ion-item>
+                              <ion-label>Name</ion-label>
+                              <ion-input 
+                              [(ngModel)]="medName"
+                              formControlName="m_name"
+                              placeholder="Medicine Name" 
+                              required></ion-input>
+                        </ion-item>
+      
+                        <ion-item>
+                              <ion-label>Start Date</ion-label>
+                              <ion-datetime displayFormat="DD MMM YYYY" 
+                              [(ngModel)]="medSDate" 
+                              formControlName="m_start_date"></ion-datetime>
+                        </ion-item>
+      
+                        <ion-item>
+                              <ion-label>End Date</ion-label>
+                              <ion-datetime displayFormat="DD MMM YYYY" 
+                              [(ngModel)]="medEDate" 
+                              formControlName="m_end_date"></ion-datetime>
+                        </ion-item>
+                                
+                        <ion-item>
+                              <ion-label>Time</ion-label>
+                              <ion-datetime displayFormat="hh:mm A" 
+                              [(ngModel)]="medTime" 
+                              formControlName="m_time"
+                              (ionChange)="timeChange($event)"></ion-datetime>
+                        </ion-item>
+      
+                        <ion-item>
+                              <ion-label>Repeat</ion-label>
+                              <ion-select [(ngModel)]="medRepeat" formControlName="m_repeat">
+                                    <ion-option value="day">Daily</ion-option>
+                                    <ion-option value="week">Weekly</ion-option>
+                                    <ion-option value="month">Monthly</ion-option>
+                                    <ion-option value=null>None</ion-option>
+                              </ion-select>
+                        </ion-item>
+
+              <ion-item>
+                 <button
+                    ion-button
+                    color="primary"
+                    text-center
+                    block
+                    [disabled]="!formM.valid">Save Entry</button>
+              </ion-item>
+
+           </ion-list>
+
+        </form>
+     </div>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+     <ion-title>
+        Medicine Reminder
+     </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+     <button
+        class="add"
+        ion-button
+        end
+        margin-bottom
+        color="primary"
+        (click)="addEntry()">
+           Add
+           <ion-icon name="add"></ion-icon>
+     </button>
+  </ion-item>
+
+
+  <ion-item *ngFor="let item of itemsM">
+     <h2>{{ item.m_name }} </h2>
+     <button
+        ion-button
+        color="primary"
+        item-right
+        (click)="viewEntry({ record: item })">View</button>
+  </ion-item>
+</ion-content>

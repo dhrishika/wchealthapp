@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+     <ion-title>
+        Tasks Reminder
+     </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+     <button
+        class="add"
+        ion-button
+        end
+        margin-bottom
+        color="primary"
+        (click)="addEntry()">
+           Add
+           <ion-icon name="add"></ion-icon>
+     </button>
+  </ion-item>
+
+
+  <ion-item *ngFor="let item of items">
+     <h2>{{ item.t_name }} </h2>
+     <!-- <h6>{{ item.t_start_date }}</h6><h6>{{ item.t_time }}</h6> -->
+     <button
+        ion-button
+        color="primary"
+        item-right
+        (click)="viewEntry({ record: item })">View</button>
+  </ion-item>
+</ion-content>
