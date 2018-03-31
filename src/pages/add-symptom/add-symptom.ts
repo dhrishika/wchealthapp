@@ -14,12 +14,12 @@ export class AddSymptomPage {
 
   public form                   : FormGroup;
 
-  public taskName : any;
-  public taskType  : any;
-  public taskSDate  : any;
-  public taskEDate  : any;
-  public taskTime  : any;
-  public taskRepeat  : any;
+  public sympName : any;
+  public sympType  : any;
+  public sympDesc  : any;
+  public sympDate  : any;
+  public sympTime  : any;
+  public sympMood  : any;
   
   public isEdited               : boolean = false;
   public pageTitle              : string;
@@ -39,12 +39,12 @@ export class AddSymptomPage {
 
 // Create form builder validation rules
 this.form = fb.group({
-"t_name"                  : ["", Validators.required],
-"t_type"           : ["", Validators.required],
-"t_start_date"                  : ["", Validators.required],
-"t_end_date"           : ["", Validators.required],
-"t_time"                  : ["", Validators.required],
-"t_repeat"           : ["", Validators.required]
+"s_name"                  : ["", Validators.required],
+"s_description"           : [""],
+"s_date"           : ["", Validators.required],
+"s_time"                  : [""],
+"s_type"           : ["", Validators.required],
+"s_mood"           : ["", Validators.required]
 });
 this.hours = new Date().getHours();
 this.minutes = new Date().getMinutes();
@@ -61,29 +61,29 @@ ionViewWillEnter() : void
       {
          this.isEdited      = true;
          this.selectEntry(this.NP.get("record"));
-         this.pageTitle     = 'Edit Reminder';
+         this.pageTitle     = 'Edit Symptom';
       }
       else
       {
          this.isEdited      = false;
-         this.pageTitle     = 'Create Reminder';
+         this.pageTitle     = 'Create Symptom';
       }
    }
    selectEntry(item : any) : void
    {
-      this.taskName = item.t_name;
-      this.taskType = item.t_type;
-      this.taskSDate = item.t_start_date;
-      this.taskEDate = item.t_end_date;
-      this.taskTime = item.t_time;
-      this.taskRepeat = item.t_repeat;
-      this.recordID = item.t_id;
+      this.sympName = item.s_name;
+      this.sympDesc = item.s_description;
+      this.sympDate = item.s_date;
+      this.sympTime = item.s_time;
+      this.sympType = item.s_type;
+      this.sympMood = item.s_mood;
+      this.recordID = item.s_id;
    }
-   createEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
+   createEntry(name : string, description: string, date : Date, time : String, type : string, mood : String) : void
    {
     let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
-        url       : any      	= this.baseURI + "create.php";
+        options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type, "s_mood" : mood },
+        url       : any      	= this.baseURI + "symp_create.php";
 
       this.http.post(url, JSON.stringify(options))
       .subscribe((data : any) =>
@@ -98,97 +98,97 @@ ionViewWillEnter() : void
          this.sendNotification('Something went wrong!');
       });
    }
-   updateEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
-   {
-      let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "key" : "update", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_id" : this.recordID },
-        url       : any      	= this.baseURI + "update.php";
+  //  updateEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
+  //  {
+  //     let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //       options 	: any		= { "key" : "update", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_id" : this.recordID },
+  //       url       : any      	= this.baseURI + "update.php";
 
-      this.http
-      .post(url, JSON.stringify(options))
-      .subscribe(data =>
-      {
-         // If the request was successful notify the user
-         this.navCtrl.push('SymptomDiaryHomePage');
-         this.sendNotification(`${name} was successfully updated`);
-      },
-      (error : any) =>
-      {
-         this.sendNotification('Something went wrong!');
-      });
-   }
-   deleteEntry() : void
-   {
-      let name      : string 	= this.form.controls["t_name"].value,
-          headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= { "key" : "delete", "t_id" : this.recordID},
-          url       : any      	= this.baseURI + "delete.php";
+  //     this.http
+  //     .post(url, JSON.stringify(options))
+  //     .subscribe(data =>
+  //     {
+  //        // If the request was successful notify the user
+  //        this.navCtrl.push('SymptomDiaryHomePage');
+  //        this.sendNotification(`${name} was successfully updated`);
+  //     },
+  //     (error : any) =>
+  //     {
+  //        this.sendNotification('Something went wrong!');
+  //     });
+  //  }
+  //  deleteEntry() : void
+  //  {
+  //     let name      : string 	= this.form.controls["t_name"].value,
+  //         headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //         options 	: any		= { "key" : "delete", "t_id" : this.recordID},
+  //         url       : any      	= this.baseURI + "delete.php";
 
-      this.http
-      .post(url, JSON.stringify(options))
-      .subscribe(data =>
-      {
-        this.navCtrl.push('SymptomDiaryHomePage');
-        this.sendNotification(`${name} was successfully deleted`);
-      },
-      (error : any) =>
-      {
-        console.log("Error = ", error);
-        this.sendNotification('Something went wrong!');
-      });
-   }
-   saveEntry() : void
-   {
-      let name          : string = this.form.controls["t_name"].value,
-          type   : string    = this.form.controls["t_type"].value,
-          sdate : Date = this.form.controls["t_start_date"].value,
-          edate   : Date    = this.form.controls["t_end_date"].value,
-          time          : string = this.form.controls["t_time"].value,
-          repeat   : string    = this.form.controls["t_repeat"].value;
+  //     this.http
+  //     .post(url, JSON.stringify(options))
+  //     .subscribe(data =>
+  //     {
+  //       this.navCtrl.push('SymptomDiaryHomePage');
+  //       this.sendNotification(`${name} was successfully deleted`);
+  //     },
+  //     (error : any) =>
+  //     {
+  //       console.log("Error = ", error);
+  //       this.sendNotification('Something went wrong!');
+  //     });
+  //  }
+  //  saveEntry() : void
+  //  {
+  //     let name          : string = this.form.controls["t_name"].value,
+  //         type   : string    = this.form.controls["t_type"].value,
+  //         sdate : Date = this.form.controls["t_start_date"].value,
+  //         edate   : Date    = this.form.controls["t_end_date"].value,
+  //         time          : string = this.form.controls["t_time"].value,
+  //         repeat   : string    = this.form.controls["t_repeat"].value;
 
-      if(this.isEdited)
-      {
-         this.updateEntry(name, type, sdate, edate, time, repeat);
-      }
-      else
-      {
-         this.createEntry(name, type, sdate, edate, time, repeat);
-          //---------------Create NOTIFICATION-----------------------------
+  //     if(this.isEdited)
+  //     {
+  //        this.updateEntry(name, type, sdate, edate, time, repeat);
+  //     }
+  //     else
+  //     {
+  //        this.createEntry(name, description, date, time, type, mood);
+  //         //---------------Create NOTIFICATION-----------------------------
 
-          let startDateTime = new Date(this.taskSDate);
-          let endDateTime = new Date(this.taskEDate);
+  //         let startDateTime = new Date(this.taskSDate);
+  //         let endDateTime = new Date(this.taskEDate);
       
-          startDateTime.setHours(this.hours);
-          startDateTime.setMinutes(this.minutes);
+  //         startDateTime.setHours(this.hours);
+  //         startDateTime.setMinutes(this.minutes);
       
-          let endDateNotification = endDateTime;
-          endDateNotification.setHours(startDateTime.getHours() + 24);
+  //         let endDateNotification = endDateTime;
+  //         endDateNotification.setHours(startDateTime.getHours() + 24);
           
-          if(this.taskSDate != endDateNotification){
+  //         if(this.taskSDate != endDateNotification){
       
-            let notification = {
-              id: Math.random() * 101,
-              title: 'Reminder Notification',
-              text: `Do not forget your ${this.taskName}`,
-              at: startDateTime,
-              every: this.taskRepeat
-            };
-            this.localNotifications.schedule(notification);
-            console.log("the notification is on: ", notification);
-          }
-          else if(endDateNotification > endDateTime){
-            this.localNotifications.cancel(this.recordID);
-          }  
-      }
-   }
+  //           let notification = {
+  //             id: Math.random() * 101,
+  //             title: 'Reminder Notification',
+  //             text: `Do not forget your ${this.taskName}`,
+  //             at: startDateTime,
+  //             every: this.taskRepeat
+  //           };
+  //           this.localNotifications.schedule(notification);
+  //           console.log("the notification is on: ", notification);
+  //         }
+  //         else if(endDateNotification > endDateTime){
+  //           this.localNotifications.cancel(this.recordID);
+  //         }  
+  //     }
+  //  }
    resetFields() : void
    {
-      this.taskName           = "";
-      this.taskType    = "";
-      this.taskSDate           = "";
-      this.taskEDate    = "";
-      this.taskTime           = "";
-      this.taskRepeat    = "";
+      this.sympName           = "";
+      this.sympDesc    = "";
+      this.sympDate           = "";
+      this.sympTime    = "";
+      this.sympType           = "";
+      this.sympMood    = "";
    }
 
 

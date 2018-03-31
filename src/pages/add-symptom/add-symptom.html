@@ -1,18 +1,95 @@
-<!--
-  Generated template for the AddSymptomPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>AddSymptom</ion-title>
+     <ion-title>{{ pageTitle }}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
 
+  <div>
+     <ion-item *ngIf="isEdited">
+        <button
+           ion-button
+           item-right
+           color="secondary"
+           text-center
+           block
+           (click)="deleteEntry()">Remove this Entry?</button>
+     </ion-item>
+
+        <form [formGroup]="form" (ngSubmit)="saveEntry()">
+
+           <ion-list>
+                  <ion-item>
+                        <ion-label>Name</ion-label>
+                        <ion-input 
+                        [(ngModel)]="sympName"
+                        formControlName="s_name"
+                        placeholder="Symptom Name" 
+                        required></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                        <ion-label>Description</ion-label>
+                        <ion-input 
+                        [(ngModel)]="sympDesc" 
+                        placeholder=""
+                        formControlName="s_description"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                        <ion-label>Date</ion-label>
+                        <ion-datetime displayFormat="DD MMM YYYY" 
+                        [(ngModel)]="sympDate" 
+                        formControlName="s_date"></ion-datetime>
+                  </ion-item>
+                          
+                  <ion-item>
+                        <ion-label>Time</ion-label>
+                        <ion-datetime displayFormat="hh:mm A" 
+                        [(ngModel)]="sympTime" 
+                        formControlName="s_time"
+                        (ionChange)="timeChange($event)"></ion-datetime>
+                  </ion-item>
+
+                  <ion-item>
+                        <ion-label>Type</ion-label>
+                        <ion-select [(ngModel)]="sympType" formControlName="s_type" multiple="true">
+                              <ion-option value="fatigue">Fatigue</ion-option>
+                              <ion-option value="everythingIsFine">Everything is fine</ion-option>
+                              <ion-option value="acne">Acne</ion-option>
+                              <ion-option value="irritation">Irritation</ion-option>
+                              <ion-option value="cramps">Cramps</ion-option>
+                              <ion-option value="headache">Headache</ion-option>
+                              <ion-option value="backache">Backache</ion-option>
+                              <ion-option value="bloating">Bloating</ion-option>
+                              <ion-option value="nausea">Nausea</ion-option>
+                              <ion-option value="tenderBreast">Tender Breast</ion-option>
+                        </ion-select>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Mood</ion-label>
+                    <ion-select [(ngModel)]="sympMood" formControlName="s_mood">
+                          <ion-option value="happy">Happy</ion-option>
+                          <ion-option value="sad">Sad</ion-option>
+                          <ion-option value="angry">Angry</ion-option>
+                          <ion-option value="pain">Pain</ion-option>
+                    </ion-select>
+              </ion-item>
+
+              <ion-item>
+                 <button
+                    ion-button
+                    color="primary"
+                    text-center
+                    block
+                    [disabled]="!form.valid">Save Entry</button>
+              </ion-item>
+
+           </ion-list>
+
+        </form>
+     </div>
 </ion-content>
