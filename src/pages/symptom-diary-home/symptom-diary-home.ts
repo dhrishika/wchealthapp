@@ -50,3 +50,4 @@ export class SymptomDiaryHomePage {
      this.navCtrl.push('AddSymptomPage', param);
   }
 }
+//
