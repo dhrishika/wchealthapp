@@ -1,7 +1,9 @@
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ReminderHomePage } from '../reminder-home/reminder-home';
 
 
 @IonicPage()
@@ -38,7 +40,6 @@ export class AddReminderPage {
     * @description     Flag to be used for checking whether we are adding/editing an entry
     */
    public isEdited               : boolean = false;
-   public hideForm               : boolean = false;
    public pageTitle              : string;
    public recordID               : any      = null;
 
@@ -52,7 +53,8 @@ export class AddReminderPage {
                public http       : HttpClient,
                public NP         : NavParams,
                public fb         : FormBuilder,
-               public toastCtrl  : ToastController)
+               public toastCtrl  : ToastController,
+               private localNotifications: LocalNotifications)
    {
 
       // Create form builder validation rules
@@ -74,8 +76,6 @@ export class AddReminderPage {
   }
 
 
-
-
    /**
     * Triggered when template view is about to be entered
     * Determine whether we adding or editing a record
@@ -93,16 +93,14 @@ export class AddReminderPage {
       {
          this.isEdited      = true;
          this.selectEntry(this.NP.get("record"));
-         this.pageTitle     = 'Amend entry';
+         this.pageTitle     = 'Edit Reminder';
       }
       else
       {
          this.isEdited      = false;
-         this.pageTitle     = 'Create entry';
+         this.pageTitle     = 'Create Reminder';
       }
    }
-
-
 
 
    /**
@@ -140,16 +138,16 @@ export class AddReminderPage {
     */
    createEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
-      let
-          options 	: any		= { "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
-          url       : any      	= this.baseURI + "create.php";
+    let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+        options 	: any		= { "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
+        url       : any      	= this.baseURI + "create.php";
 
       this.http.post(url, JSON.stringify(options))
       .subscribe((data : any) =>
       {
          // If the request was successful notify the user
-         this.hideForm   = true;
-         this.sendNotification(`Congratulations the reminder: ${name} was successfully added`);
+         this.navCtrl.setRoot(ReminderHomePage);
+         this.sendNotification(`${name} was successfully added`);
       },
       (error : any) =>
       {
@@ -183,8 +181,8 @@ export class AddReminderPage {
       .subscribe(data =>
       {
          // If the request was successful notify the user
-         this.hideForm  =  true;
-         this.sendNotification(`Congratulations the reminder: ${name} was successfully updated`);
+         this.navCtrl.setRoot(ReminderHomePage);
+         this.sendNotification(`${name} was successfully updated`);
       },
       (error : any) =>
       {
@@ -215,13 +213,13 @@ export class AddReminderPage {
       .post(url, JSON.stringify(options))
       .subscribe(data =>
       {
-         this.hideForm     = true;
-         this.sendNotification(`Congratulations the reminder: ${name} was successfully deleted`);
+        this.navCtrl.setRoot(ReminderHomePage);
+        this.sendNotification(`${name} was successfully deleted`);
       },
       (error : any) =>
       {
         console.log("Error = ", error);
-         this.sendNotification('Something went wrong!');
+        this.sendNotification('Something went wrong!');
       });
    }
 
@@ -253,6 +251,32 @@ export class AddReminderPage {
       else
       {
          this.createEntry(name, type, sdate, edate, time, repeat);
+          //---------------Create NOTIFICATION-----------------------------
+
+          let startDateTime = new Date(this.taskSDate);
+          let endDateTime = new Date(this.taskEDate);
+      
+          startDateTime.setHours(this.hours);
+          startDateTime.setMinutes(this.minutes);
+      
+          let endDateNotification = endDateTime;
+          endDateNotification.setHours(startDateTime.getHours() + 24);
+          
+          if(this.taskSDate != endDateNotification){
+      
+            let notification = {
+              id: Math.random() * 101,
+              title: 'Reminder Notification',
+              text: `Do not forget your ${this.taskName}`,
+              at: startDateTime,
+              every: this.taskRepeat
+            };
+            this.localNotifications.schedule(notification);
+            console.log("the notification is on: ", notification);
+          }
+          else if(endDateNotification > endDateTime){
+            this.localNotifications.cancel(this.recordID);
+          }  
       }
    }
 
