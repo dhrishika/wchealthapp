@@ -85,6 +85,17 @@ export class HomePage {
       this.navCtrl.push('AddReminderPage');
    }
 
+   /**
+    * Allow navigation to the AddTechnologyPage for creating a new entry
+    *
+    * @public
+    * @method login
+    * @return {None}
+    */
+   goLogin() : void
+   {
+      this.navCtrl.push('LoginPage');
+   }
 
 
 
