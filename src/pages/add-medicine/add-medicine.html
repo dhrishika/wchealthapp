@@ -51,6 +51,14 @@
                               formControlName="m_time"
                               (ionChange)="timeChange($event)"></ion-datetime>
                         </ion-item>
+
+                        <ion-item>
+                              <ion-label>Number of Pills</ion-label>
+                              <ion-input 
+                              [(ngModel)]="medNoPills"
+                              formControlName="noOfPills" 
+                              required></ion-input>
+                        </ion-item>
       
                         <ion-item>
                               <ion-label>Repeat</ion-label>

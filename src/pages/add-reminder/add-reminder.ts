@@ -155,6 +155,32 @@ export class AddReminderPage {
             // this.navCtrl.setRoot(ReminderHomePage);
             this.navCtrl.pop();
             this.sendNotification(`${name} was successfully added`);
+          //---------------Create NOTIFICATION-----------------------------
+
+          let startDateTime = new Date(this.taskSDate);
+          let endDateTime = new Date(this.taskEDate);
+      
+          startDateTime.setHours(this.hours);
+          startDateTime.setMinutes(this.minutes);
+      
+          let endDateNotification = endDateTime;
+          endDateNotification.setHours(startDateTime.getHours() + 24);
+          
+          if(this.taskSDate != endDateNotification){
+      
+            let notification = {
+              id: Math.random() * 101,
+              title: 'Reminder Notification',
+              text: `Do not forget your ${this.taskName}`,
+              at: startDateTime,
+              every: this.taskRepeat
+            };
+            this.localNotifications.schedule(notification);
+            console.log("the notification is on: ", notification);
+          }
+          else if(endDateNotification > endDateTime){
+            this.localNotifications.cancel(this.recordID);
+          }
           }
           else{
             console.log(data);
@@ -267,33 +293,7 @@ export class AddReminderPage {
       }
       else
       {
-         this.createEntry(name, type, sdate, edate, time, repeat);
-          //---------------Create NOTIFICATION-----------------------------
-
-          let startDateTime = new Date(this.taskSDate);
-          let endDateTime = new Date(this.taskEDate);
-      
-          startDateTime.setHours(this.hours);
-          startDateTime.setMinutes(this.minutes);
-      
-          let endDateNotification = endDateTime;
-          endDateNotification.setHours(startDateTime.getHours() + 24);
-          
-          if(this.taskSDate != endDateNotification){
-      
-            let notification = {
-              id: Math.random() * 101,
-              title: 'Reminder Notification',
-              text: `Do not forget your ${this.taskName}`,
-              at: startDateTime,
-              every: this.taskRepeat
-            };
-            this.localNotifications.schedule(notification);
-            console.log("the notification is on: ", notification);
-          }
-          else if(endDateNotification > endDateTime){
-            this.localNotifications.cancel(this.recordID);
-          }  
+         this.createEntry(name, type, sdate, edate, time, repeat);  
       }
    }
 

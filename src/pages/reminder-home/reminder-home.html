@@ -9,22 +9,23 @@
 <ion-content padding>
 
   <ion-item>
-     <button
-        class="add"
-        ion-button
-        end
-        margin-bottom
-        color="primary"
-        (click)="addEntry()">
-           Add
-           <ion-icon name="add"></ion-icon>
-     </button>
-  </ion-item>
+    <button
+       class="add"
+       ion-button
+       end
+       margin-bottom
+       color="primary"
+       (click)="addEntry()">
+          Add
+        <ion-icon name="add"></ion-icon>
+    </button>
+ </ion-item>
 
 
-  <ion-item *ngFor="let item of items" >
-     <h2>{{ item.t_name }} </h2>
-     <!-- <h6>{{ item.t_start_date }}</h6><h6>{{ item.t_time }}</h6> -->
+  <ion-item *ngFor="let item of items">
+     <h2>{{ item.t_name }}</h2>
+     <p>{{ item.t_start_date }}</p>
+     <p>{{ item.t_time }}</p>
      <button
         ion-button
         color="primary"

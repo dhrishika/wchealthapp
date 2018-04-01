@@ -1,3 +1,4 @@
+import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -19,7 +20,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
     MyApp,
     HomePage,
     RegPage,
-    SymptomDiaryHomePage,
+    // SymptomDiaryHomePage,
     ProfilePage,
     RemindersPage
 
@@ -29,6 +30,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
   imports: [
     BrowserModule,
     HttpClientModule,
+    SymptomDiaryHomePageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

@@ -17,17 +17,19 @@
         color="primary"
         (click)="addEntry()">
            Add
-           <ion-icon name="add"></ion-icon>
+          <ion-icon name="add"></ion-icon>
      </button>
   </ion-item>
 
 
   <ion-item *ngFor="let item of itemsM">
-     <h2>{{ item.m_name }} </h2>
-     <button
-        ion-button
-        color="primary"
-        item-right
-        (click)="viewEntry({ record: item })">View</button>
-  </ion-item>
+    <h2>{{ item.m_name }} </h2>
+    <p>{{ item.m_start_date }} </p>
+    <p>{{ item.m_time }} </p>
+    <button
+       ion-button
+       color="primary"
+       item-right
+       (click)="viewEntry({ record: item })">View</button>
+ </ion-item>
 </ion-content>
