@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MedicineHomePage } from '../medicine-home/medicine-home';
+import { Storage} from '@ionic/storage';
 
 
 @IonicPage()
@@ -29,6 +30,7 @@ export class AddMedicinePage {
      public medTime  : any;
      public medNoPills  : any;
      public medRepeat  : any;
+     public storage : Storage;
   
   
   
@@ -54,16 +56,18 @@ export class AddMedicinePage {
                  public http       : HttpClient,
                  public NP         : NavParams,
                  public fb         : FormBuilder,
-                 public toastCtrl  : ToastController)
+                 public toastCtrl  : ToastController,
+                 private storage2: Storage)
      {
-  
+        this.storage = storage2;
+        
         // Create form builder validation rules
         this.formM = fb.group({
            "m_name"                  : ["", Validators.required],
            "m_start_date"                  : ["", Validators.required],
            "m_end_date"           : ["", Validators.required],
            "m_time"                  : ["", Validators.required],
-           "noOfPills"           : ["", Validators.required],
+           "noOfPills"           : [""],
            "m_repeat"           : ["", Validators.required]
         });
 
@@ -115,22 +119,31 @@ export class AddMedicinePage {
   
      createEntry(name : string, np : number, sDate : Date, eDate : Date, time : String, repeat : String) : void
      {
-        let
-            options 	: any		= { "key" : "create", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat },
+        this.storage.get('authToken').then((token) => {
+            let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+            options 	: any		= { "t_token":token, "key" : "create", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat },
             url       : any      	= this.baseURI + "create-medicine.php";
-  
-        this.http.post(url, JSON.stringify(options))
-        .subscribe((data : any) =>
-        {
-           // If the request was successful notify the user
-        //    this.navCtrl.setRoot(MedicineHomePage);
-        this.navCtrl.pop();
-           this.sendNotification(`Congratulations the medicine: ${name} was successfully added`);
-        },
-        (error : any) =>
-        {
-          console.log("Error is", error);
-           this.sendNotification('Something went wrong!');
+    
+          this.http.post(url, JSON.stringify(options))
+          .subscribe((data : any) =>
+          {
+              if(data && data['success']){
+                // If the request was successful notify the user
+                // this.navCtrl.setRoot(ReminderHomePage);
+                this.navCtrl.pop();
+                this.sendNotification(`Congratulations the medicine: ${name} was successfully added`);
+              }
+              else{
+                console.log(data);
+                this.sendNotification(`${name} was not added successfully!`);
+              }
+             
+          },
+          (error : any) =>
+          {
+            console.log("Error is", error);
+             this.sendNotification('Something went wrong!');
+          });
         });
      }
   

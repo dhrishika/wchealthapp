@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -17,13 +18,14 @@ export class MedicineHomePage {
       * @description     Used to store returned PHP data
       */
      public itemsM : Array<any> = [];
-  
+     public storage: Storage;
   
   
      constructor(public navCtrl: NavController,
-                 public http   : HttpClient)
+                 public http   : HttpClient,
+                 private storage2: Storage)
      {
-  
+      this.storage = storage2;
      }
   
      /**
@@ -53,17 +55,17 @@ export class MedicineHomePage {
       */
      load() : void
      {
+      this.storage.get('authToken').then((token) => {
         this.http
-        .get('https://essence-of-you.000webhostapp.com/read-medicine.php?ts='+Date.now())
-        .subscribe((data : any) =>
-        {
-           console.dir(data);
-           this.itemsM = data;
-        },
-        (error : any) =>
-        {
-           console.dir(error);
-        });
+          .get('https://essence-of-you.000webhostapp.com/read-medicine.php?t_token='+ token +'&ts=' + Date.now())
+          .subscribe((data: any) => {
+            console.dir(data);
+            this.itemsM = data;
+          },
+            (error: any) => {
+              console.dir(error);
+            });
+      });
      }
   
   
