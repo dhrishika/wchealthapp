@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage} from '@ionic/storage';
 
 
 @IonicPage()
@@ -23,6 +24,8 @@ export class LoginPage {
    public userPassword  : any;
    public userToken  : any;
 
+   public storage : Storage;
+
 
 
    /**
@@ -43,13 +46,15 @@ export class LoginPage {
               public http       : HttpClient,
               public NP         : NavParams,
               public fb         : FormBuilder,
-              public toastCtrl  : ToastController) 
+              public toastCtrl  : ToastController,
+              private storage2: Storage) 
   {
       // Create form builder validation rules
       this.form = fb.group({
         "t_email"                  : ["", Validators.required],
         "t_password"           : ["", Validators.required],
      });
+     this.storage = storage2;
   }
 
   ionViewDidLoad() {
@@ -88,15 +93,23 @@ export class LoginPage {
           url       : any      	= this.baseURI + "login.php";
 
       this.http.post(url, JSON.stringify(options), headers)
-      .subscribe((data : any) =>
+      .subscribe(async (data : any) =>
       {
          // If the request was successful notify the user
-         this.hideForm   = true;
-         this.sendNotification(`Congratulations: ${email} has successfully logged in`);
+         if(data && data['success']){
+          await this.storage.set('authToken', data['t_token']); 
+          this.hideForm   = true;
+          this.storage.get('authToken').then((val) => {
+            this.sendNotification(`Congratulations: ${email} has successfully logged in`);
+          });
+         }
+         else{
+          this.sendNotification('Email or password is incorrect!');
+         }
       },
       (error : any) =>
       {
-         this.sendNotification('Something went wrong!');
+         this.sendNotification('Authentication in server failed!');
       });
    }
 

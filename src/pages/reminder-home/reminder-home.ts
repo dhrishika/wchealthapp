@@ -57,7 +57,7 @@ export class ReminderHomePage {
    load() : void
    {
       this.http
-      .get('https://essence-of-you.000webhostapp.com/read.php')
+      .get('https://essence-of-you.000webhostapp.com/read.php?ts='+Date.now())
       .subscribe((data : any) =>
       {
          console.dir(data);

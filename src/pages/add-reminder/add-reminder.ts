@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ReminderHomePage } from '../reminder-home/reminder-home';
+import { Storage} from '@ionic/storage';
 
 
 @IonicPage()
@@ -29,6 +30,7 @@ export class AddReminderPage {
    public taskEDate  : any;
    public taskTime  : any;
    public taskRepeat  : any;
+   public storage : Storage;
 
 
 
@@ -54,8 +56,10 @@ export class AddReminderPage {
                public NP         : NavParams,
                public fb         : FormBuilder,
                public toastCtrl  : ToastController,
-               private localNotifications: LocalNotifications)
+               private localNotifications: LocalNotifications,
+               private storage2: Storage)
    {
+       this.storage = storage2;
 
       // Create form builder validation rules
       this.form = fb.group({
@@ -138,22 +142,32 @@ export class AddReminderPage {
     */
    createEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
-    let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
+    this.storage.get('authToken').then((token) => {
+        let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+        options 	: any		= { "t_token":token, "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
         url       : any      	= this.baseURI + "create.php";
 
       this.http.post(url, JSON.stringify(options))
       .subscribe((data : any) =>
       {
-         // If the request was successful notify the user
-         this.navCtrl.setRoot(ReminderHomePage);
-         this.sendNotification(`${name} was successfully added`);
+          if(data && data['success']){
+            // If the request was successful notify the user
+            this.navCtrl.setRoot(ReminderHomePage);
+            this.sendNotification(`${name} was successfully added`);
+          }
+          else{
+            console.log(data);
+            this.sendNotification(`${name} was not added successfully!`);
+          }
+         
       },
       (error : any) =>
       {
         console.log("Error is", error);
          this.sendNotification('Something went wrong!');
       });
+    });
+    
    }
 
 

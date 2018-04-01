@@ -30,7 +30,7 @@ export class SymptomDiaryHomePage {
   load() : void
   {
      this.http
-     .get('https://essence-of-you.000webhostapp.com/symp_read.php')
+     .get('https://essence-of-you.000webhostapp.com/symp_read.php?ts='+Date.now())
      .subscribe((data : any) =>
      {
         console.dir(data);
