@@ -14,6 +14,10 @@ import { RegPage } from '../pages/reg/reg';
 import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
 import { ProfilePage } from '../pages/profile/profile';
 import { RemindersPage } from '../pages/reminders/reminders';
+import { WordpressService } from '../services/wordpress.service';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +26,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
     RegPage,
     // SymptomDiaryHomePage,
     ProfilePage,
-    RemindersPage
+    RemindersPage,
 
     
     
@@ -30,6 +34,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     SymptomDiaryHomePageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
@@ -47,6 +52,8 @@ import { RemindersPage } from '../pages/reminders/reminders';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    NativeStorage,
+    WordpressService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
