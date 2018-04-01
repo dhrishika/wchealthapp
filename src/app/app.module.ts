@@ -1,3 +1,4 @@
+import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -11,34 +12,25 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { IonicStorageModule} from '@ionic/storage';
 import { RegPage } from '../pages/reg/reg';
 import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
-<<<<<<< HEAD
-import { RemindersPage } from '../pages/reminders/reminders';
-import { ProfilePage } from '../pages/profile/profile';
-=======
 import { ProfilePage } from '../pages/profile/profile';
 import { RemindersPage } from '../pages/reminders/reminders';
->>>>>>> 6373dcf711286cc719642bd27e41e7eb6d76bda6
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     RegPage,
-    SymptomDiaryHomePage,
-<<<<<<< HEAD
-    RemindersPage,
-    ProfilePage
-=======
+    // SymptomDiaryHomePage,
     ProfilePage,
     RemindersPage
 
     
     
->>>>>>> 6373dcf711286cc719642bd27e41e7eb6d76bda6
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    SymptomDiaryHomePageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -48,13 +40,8 @@ import { RemindersPage } from '../pages/reminders/reminders';
     HomePage,
     RegPage,
     SymptomDiaryHomePage,
-<<<<<<< HEAD
-    RemindersPage,
-    ProfilePage
-=======
     ProfilePage,
     RemindersPage
->>>>>>> 6373dcf711286cc719642bd27e41e7eb6d76bda6
   ],
   providers: [
     StatusBar,
