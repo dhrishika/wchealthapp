@@ -153,6 +153,7 @@ export class AddReminderPage {
           if(data && data['success']){
             // If the request was successful notify the user
             // this.navCtrl.setRoot(ReminderHomePage);
+            this.navCtrl.pop();
             this.sendNotification(`${name} was successfully added`);
           //---------------Create NOTIFICATION-----------------------------
 
@@ -222,6 +223,7 @@ export class AddReminderPage {
       {
          // If the request was successful notify the user
         //  this.navCtrl.setRoot(ReminderHomePage);
+        this.navCtrl.pop();
          this.sendNotification(`${name} was successfully updated`);
       },
       (error : any) =>
@@ -254,6 +256,7 @@ export class AddReminderPage {
       .subscribe(data =>
       {
         // this.navCtrl.setRoot(ReminderHomePage);
+        this.navCtrl.pop();
         this.sendNotification(`${name} was successfully deleted`);
       },
       (error : any) =>

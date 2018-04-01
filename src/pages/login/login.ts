@@ -92,6 +92,7 @@ export class LoginPage {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
           options 	: any		= { "key" : "login", "t_email" : email, "t_password" : password },
           url       : any      	= this.baseURI + "login.php";
+          // this.navCtrl.setRoot(HomePage);
 
       this.http.post(url, JSON.stringify(options), headers)
       .subscribe(async (data : any) =>
@@ -147,4 +148,5 @@ export class LoginPage {
       });
       notification.present();
    }
+   
 }

@@ -124,6 +124,7 @@ export class AddMedicinePage {
         {
            // If the request was successful notify the user
         //    this.navCtrl.setRoot(MedicineHomePage);
+        this.navCtrl.pop();
            this.sendNotification(`Congratulations the medicine: ${name} was successfully added`);
         },
         (error : any) =>
@@ -151,6 +152,7 @@ export class AddMedicinePage {
         {
            // If the request was successful notify the user
         //    this.navCtrl.setRoot(MedicineHomePage);
+        this.navCtrl.pop();
            this.sendNotification(`Congratulations the medicine: ${name} was successfully updated`);
         },
         (error : any) =>
@@ -181,6 +183,7 @@ export class AddMedicinePage {
         .subscribe(data =>
         {
         //   this.navCtrl.setRoot(MedicineHomePage);
+        this.navCtrl.pop();
           this.sendNotification(`Congratulations the medicine: ${name} was successfully deleted`);
         },
         (error : any) =>

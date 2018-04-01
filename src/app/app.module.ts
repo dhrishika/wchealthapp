@@ -11,8 +11,13 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { IonicStorageModule} from '@ionic/storage';
 import { RegPage } from '../pages/reg/reg';
 import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
+<<<<<<< HEAD
 import { RemindersPage } from '../pages/reminders/reminders';
 import { ProfilePage } from '../pages/profile/profile';
+=======
+import { ProfilePage } from '../pages/profile/profile';
+import { RemindersPage } from '../pages/reminders/reminders';
+>>>>>>> 6373dcf711286cc719642bd27e41e7eb6d76bda6
 
 @NgModule({
   declarations: [
@@ -20,8 +25,16 @@ import { ProfilePage } from '../pages/profile/profile';
     HomePage,
     RegPage,
     SymptomDiaryHomePage,
+<<<<<<< HEAD
     RemindersPage,
     ProfilePage
+=======
+    ProfilePage,
+    RemindersPage
+
+    
+    
+>>>>>>> 6373dcf711286cc719642bd27e41e7eb6d76bda6
   ],
   imports: [
     BrowserModule,
@@ -35,8 +48,13 @@ import { ProfilePage } from '../pages/profile/profile';
     HomePage,
     RegPage,
     SymptomDiaryHomePage,
+<<<<<<< HEAD
     RemindersPage,
     ProfilePage
+=======
+    ProfilePage,
+    RemindersPage
+>>>>>>> 6373dcf711286cc719642bd27e41e7eb6d76bda6
   ],
   providers: [
     StatusBar,
