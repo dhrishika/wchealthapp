@@ -67,7 +67,7 @@ export class AddMedicinePage {
            "m_start_date"                  : ["", Validators.required],
            "m_end_date"           : ["", Validators.required],
            "m_time"                  : ["", Validators.required],
-           "noOfPills"           : [""],
+           "noOfPills"           : ["", Validators.required],
            "m_repeat"           : ["", Validators.required]
         });
 
