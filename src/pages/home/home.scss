@@ -1,10 +1,11 @@
 page-home {
-
-    .button1{
-        margin-top: 45%;
+    #cat{
+        display: flex;
+        flex-direction: column;
+    }
+    #cat button{
+        flex: 4;
     }
 
-    .button2{
-        margin-top: 15%;
-    }
+    
 }
