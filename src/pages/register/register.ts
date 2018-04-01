@@ -85,9 +85,13 @@ export class RegisterPage {
       this.http.post(url, JSON.stringify(options), headers)
       .subscribe((data : any) =>
       {
-         // If the request was successful notify the user
-         this.hideForm   = true;
-         this.sendNotification(`Congratulations: ${email} has successfully registered`);
+        if(data && data['success']){
+          this.hideForm   = true;
+          this.sendNotification(`Congratulations: ${email} has successfully registered`);
+         }
+         else{
+          this.sendNotification('This email already exists!');
+         }
       },
       (error : any) =>
       {

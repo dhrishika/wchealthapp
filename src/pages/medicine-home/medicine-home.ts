@@ -54,7 +54,7 @@ export class MedicineHomePage {
      load() : void
      {
         this.http
-        .get('https://essence-of-you.000webhostapp.com/read-medicine.php')
+        .get('https://essence-of-you.000webhostapp.com/read-medicine.php?ts='+Date.now())
         .subscribe((data : any) =>
         {
            console.dir(data);

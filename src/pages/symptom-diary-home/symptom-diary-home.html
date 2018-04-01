@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
      <ion-title>
-        Tasks Reminder
+        Symptom Diary
      </ion-title>
   </ion-navbar>
 </ion-header>
@@ -22,8 +22,11 @@
   </ion-item>
 
 
-  <ion-item *ngFor="let item of items" >
-     <h2>{{ item.t_name }} </h2>
+  <ion-item *ngFor="let item of items">
+     <h2>{{ item.s_name }} </h2>
+     <p>{{ item.s_description }} </p>
+     <p>{{ item.s_date }} </p>
+     <p>{{ item.s_type }} </p>
      <!-- <h6>{{ item.t_start_date }}</h6><h6>{{ item.t_time }}</h6> -->
      <button
         ion-button
