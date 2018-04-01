@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -16,8 +17,11 @@ export class SymptomDiaryHomePage {
     * @description     Used to store returned PHP data
     */
    public items : Array<any> = [];
+   public storage: Storage;
 
-  constructor(public navCtrl: NavController, public http: HttpClient) {
+  constructor(public navCtrl: NavController, public http: HttpClient,
+    private storage2: Storage) {
+      this.storage = storage2;
   }
 
   // ionViewDidLoad() {
@@ -29,17 +33,17 @@ export class SymptomDiaryHomePage {
   }
   load() : void
   {
-     this.http
-     .get('https://essence-of-you.000webhostapp.com/symp_read.php?ts='+Date.now())
-     .subscribe((data : any) =>
-     {
-        console.dir(data);
-        this.items = data;
-     },
-     (error : any) =>
-     {
-        console.dir(error);
-     });
+    this.storage.get('authToken').then((token) => {
+      this.http
+        .get('https://essence-of-you.000webhostapp.com/symp_read.php?t_token='+ token +'&ts=' + Date.now())
+        .subscribe((data: any) => {
+          console.dir(data);
+          this.items = data;
+        },
+          (error: any) => {
+            console.dir(error);
+          });
+    });
   }
   addEntry() : void
   {

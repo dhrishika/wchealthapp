@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-
+import { Storage} from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -20,6 +20,7 @@ export class AddSymptomPage {
   public sympDate  : any;
   public sympTime  : any;
   public sympMood  : any;
+  public storage : Storage;
   
   public isEdited               : boolean = false;
   public pageTitle              : string;
@@ -34,9 +35,10 @@ export class AddSymptomPage {
     public NP         : NavParams,
     public fb         : FormBuilder,
     public toastCtrl  : ToastController,
-    private localNotifications: LocalNotifications)
+    private localNotifications: LocalNotifications,
+    private storage2: Storage)
 {
-
+  this.storage = storage2;
 // Create form builder validation rules
 this.form = fb.group({
 "s_name"                  : ["", Validators.required],
@@ -86,22 +88,33 @@ ionViewWillEnter() : void
    }
    createEntry(name : string, description: string, date : Date, time : String, type : string, mood : String) : void
    {
-    let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type, "s_mood" : mood },
+    this.storage.get('authToken').then((token) => {
+      let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+        options 	: any		= { "t_token":token, "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type, "s_mood" : mood },
         url       : any      	= this.baseURI + "symp_create.php";
 
-      this.http.post(url, JSON.stringify(options))
-      .subscribe((data : any) =>
-      {
-         // If the request was successful notify the user
-         this.navCtrl.pop();
-         this.sendNotification(`${name} was successfully added`);
-      },
-      (error : any) =>
-      {
-        console.log("Error is", error);
-         this.sendNotification('Something went wrong!');
-      });
+    this.http.post(url, JSON.stringify(options))
+    .subscribe((data : any) =>
+    {
+        if(data && data['success']){
+          // If the request was successful notify the user
+          // this.navCtrl.setRoot(ReminderHomePage);
+          this.navCtrl.pop();
+          this.sendNotification(`${name} was successfully added`);
+
+        }
+        else{
+          console.log(data);
+          this.sendNotification(`${name} was not added successfully!`);
+        }
+       
+    },
+    (error : any) =>
+    {
+      console.log("Error is", error);
+       this.sendNotification('Something went wrong!');
+    });
+  });
    }
 
    updateEntry(name : string, description: string, date : Date, time : String, type : string, mood : String) : void
