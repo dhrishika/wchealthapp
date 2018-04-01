@@ -89,7 +89,7 @@ ionViewWillEnter() : void
       .subscribe((data : any) =>
       {
          // If the request was successful notify the user
-         this.navCtrl.push('SymptomDiaryHomePage');
+         this.navCtrl.pop();
          this.sendNotification(`${name} was successfully added`);
       },
       (error : any) =>

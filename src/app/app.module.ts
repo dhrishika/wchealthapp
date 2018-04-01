@@ -10,12 +10,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { IonicStorageModule} from '@ionic/storage';
 import { RegPage } from '../pages/reg/reg';
+import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
+import { ProfilePage } from '../pages/profile/profile';
+import { RemindersPage } from '../pages/reminders/reminders';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     RegPage,
+    SymptomDiaryHomePage,
+    ProfilePage,
+    RemindersPage
+
     
     
   ],
@@ -30,7 +37,9 @@ import { RegPage } from '../pages/reg/reg';
     MyApp,
     HomePage,
     RegPage,
-
+    SymptomDiaryHomePage,
+    ProfilePage,
+    RemindersPage
   ],
   providers: [
     StatusBar,
