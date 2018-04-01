@@ -1,26 +1,57 @@
 <ion-header>
-  <ion-navbar>
-     <ion-title>
-        Tasks Reminder
-     </ion-title>
+  <ion-navbar color="button">
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-item>
-    <button class="login" ion-button end margin-bottom color="primary" (click)="goLogin()">
-      Login Page
-      <ion-icon name="login"></ion-icon>
-    </button>
-    <button class="register" ion-button end margin-bottom color="primary" (click)="goRegister()">
-      Registration Page
-      <ion-icon name="register"></ion-icon>
-    </button>
-  </ion-item>
+  <div id="cat">
+      <button ion-button outline color="button" class="button button-light" (click)="yourBody()">
+          Your Body
+      </button>
 
-  <button class="button1" ion-button navPush="ReminderHomePage" block outline>Task Reminder</button>
-  <button class="button2" ion-button navPush="MedicineHomePage" block outline>Medicine Reminder</button>
-  <button class="button3" ion-button navPush="SymptomDiaryHomePage" block outline>Symptom Diary</button>
+      <button ion-button outline color="button" class="button button-light" (click)="healthyLiving()">
+          Healthy Living
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="mensuration()">
+          Mensuration
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="cancerPrevention()">
+          Cancer prevention
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="contraception()">
+          Contraception
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="genitalConc()">
+          Genital Concerns
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="menopause()">
+          Menopause
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="other()">
+          Other Health Concerns
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="repro()">
+          Reproductive Problems
+      </button>
+
+      <button ion-button outline color="button" class="button button-light" (click)="faq()">
+          FAQS
+      </button>
+
+  </div>
+
+
 
 </ion-content>
