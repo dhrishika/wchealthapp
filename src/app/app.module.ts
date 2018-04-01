@@ -9,11 +9,15 @@ import { HomePage } from '../pages/home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { IonicStorageModule} from '@ionic/storage';
+import { RegPage } from '../pages/reg/reg';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    RegPage,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,9 @@ import { IonicStorageModule} from '@ionic/storage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    RegPage,
+
   ],
   providers: [
     StatusBar,

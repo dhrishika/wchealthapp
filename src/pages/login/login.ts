@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -101,6 +102,7 @@ export class LoginPage {
           this.hideForm   = true;
           this.storage.get('authToken').then((val) => {
             this.sendNotification(`Congratulations: ${email} has successfully logged in`);
+            this.navCtrl.setRoot(HomePage);
           });
          }
          else{

@@ -123,7 +123,7 @@ export class AddMedicinePage {
         .subscribe((data : any) =>
         {
            // If the request was successful notify the user
-           this.navCtrl.setRoot(MedicineHomePage);
+        //    this.navCtrl.setRoot(MedicineHomePage);
            this.sendNotification(`Congratulations the medicine: ${name} was successfully added`);
         },
         (error : any) =>
@@ -150,7 +150,7 @@ export class AddMedicinePage {
         .subscribe(data =>
         {
            // If the request was successful notify the user
-           this.navCtrl.setRoot(MedicineHomePage);
+        //    this.navCtrl.setRoot(MedicineHomePage);
            this.sendNotification(`Congratulations the medicine: ${name} was successfully updated`);
         },
         (error : any) =>
@@ -180,7 +180,7 @@ export class AddMedicinePage {
         .post(url, JSON.stringify(options))
         .subscribe(data =>
         {
-          this.navCtrl.setRoot(MedicineHomePage);
+        //   this.navCtrl.setRoot(MedicineHomePage);
           this.sendNotification(`Congratulations the medicine: ${name} was successfully deleted`);
         },
         (error : any) =>

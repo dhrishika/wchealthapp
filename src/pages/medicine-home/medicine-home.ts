@@ -40,8 +40,6 @@ export class MedicineHomePage {
      }
   
   
-  
-  
      /**
       * Retrieve the JSON encoded data from the remote server
       * Using Angular's Http class and an Observable - then

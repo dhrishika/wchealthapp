@@ -152,7 +152,7 @@ export class AddReminderPage {
       {
           if(data && data['success']){
             // If the request was successful notify the user
-            this.navCtrl.setRoot(ReminderHomePage);
+            // this.navCtrl.setRoot(ReminderHomePage);
             this.sendNotification(`${name} was successfully added`);
           }
           else{
@@ -195,7 +195,11 @@ export class AddReminderPage {
       .subscribe(data =>
       {
          // If the request was successful notify the user
+<<<<<<< HEAD
          this.navCtrl.push('ReminderHomePage');
+=======
+        //  this.navCtrl.setRoot(ReminderHomePage);
+>>>>>>> 990f491acfe9b45fbaa721cd8ce91dcace23b07f
          this.sendNotification(`${name} was successfully updated`);
       },
       (error : any) =>
@@ -227,7 +231,11 @@ export class AddReminderPage {
       .post(url, JSON.stringify(options))
       .subscribe(data =>
       {
+<<<<<<< HEAD
         this.navCtrl.push('ReminderHomePage');
+=======
+        // this.navCtrl.setRoot(ReminderHomePage);
+>>>>>>> 990f491acfe9b45fbaa721cd8ce91dcace23b07f
         this.sendNotification(`${name} was successfully deleted`);
       },
       (error : any) =>
