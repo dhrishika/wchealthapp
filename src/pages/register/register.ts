@@ -20,6 +20,10 @@ export class RegisterPage {
 
   public userEmail: any;
   public userPassword: any;
+  public userName: any;
+  public userDOB: any;
+  public userWeight: any;
+  public userHeight: any;
 
 
 
@@ -45,6 +49,10 @@ export class RegisterPage {
       this.form = fb.group({
         "t_email"                  : ["", Validators.required],
         "t_password"           : ["", Validators.required],
+        "u_name"           : ["", Validators.required],
+        "u_dob"           : ["", Validators.required],
+        "u_weight"           : ["", Validators.required],
+        "u_height"           : ["", Validators.required],
      });
   }
 
@@ -64,6 +72,10 @@ export class RegisterPage {
    {
       this.userEmail    = item.t_email;
       this.userPassword = item.t_password;
+      this.userName = item.u_name;
+      this.userDOB = item.u_dob;
+      this.userWeight = item.u_weight;
+      this.userHeight = item.u_height;
       this.recordID     = item.id;
    }
    /**
@@ -76,10 +88,10 @@ export class RegisterPage {
     * @param description 	{String} 			Description value from form field
     * @return {None}
     */
-   tryRegister(email : string, password : string) : void
+   tryRegister(email : String, password : String, name : String, dob : Date, weight : Number, height : Number) : void
    {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= { "key" : "login", "t_email" : email, "t_password" : password },
+          options 	: any		= { "key" : "login", "t_email" : email, "t_password" : password, "u_name" : name, "u_dob" : dob, "u_weight" : weight, "u_height" : height },
           url       : any      	= this.baseURI + "register.php";
 
       this.http.post(url, JSON.stringify(options), headers)
@@ -110,10 +122,14 @@ export class RegisterPage {
    register() : void
    {
       let email          : string = this.form.controls["t_email"].value,
-          password   : string    = this.form.controls["t_password"].value;
+          password   : string    = this.form.controls["t_password"].value,
+          name   : string    = this.form.controls["u_name"].value,
+          dob   : Date    = this.form.controls["u_dob"].value,
+          weight   : Number    = this.form.controls["u_weight"].value,
+          height   : Number    = this.form.controls["u_height"].value;
 
 
-         this.tryRegister(email, password);
+         this.tryRegister(email, password, name, dob, weight, height);
    }
 
    /**

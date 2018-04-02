@@ -41,10 +41,49 @@
                       type="password"
                       placeholder="Enter your password..."
                       formControlName="t_password"
-                      rows="6"
                       [(ngModel)]="userPassword"></ion-input>
                 </ion-item>
              </ion-item-group>
+             <ion-item-group>
+              <ion-item-divider color="light">Name</ion-item-divider>
+              <ion-item>
+                 <ion-input
+                    type="text"
+                    placeholder="Enter your name..."
+                    formControlName="u_name"
+                    [(ngModel)]="userName"></ion-input>
+              </ion-item>
+           </ion-item-group>
+           <ion-item-group>
+            <ion-item-divider color="light">Date of Birth</ion-item-divider>
+            <ion-item>
+               <ion-datetime
+                  displayFormat="DD MMM YYYY"
+                  placeholder="Enter your date of birth..."
+                  formControlName="u_dob"
+                  [(ngModel)]="userDOB"></ion-datetime>
+            </ion-item>
+         </ion-item-group>
+         <ion-item-group>
+          <ion-item-divider color="light">Weight</ion-item-divider>
+          <ion-item>
+             <ion-input
+                type="number"
+                placeholder="Enter your weight..."
+                formControlName="u_weight"
+                [(ngModel)]="userWeight"></ion-input>
+          </ion-item>
+       </ion-item-group>
+       <ion-item-group>
+        <ion-item-divider color="light">Height</ion-item-divider>
+        <ion-item>
+           <ion-input
+              type="number"
+              placeholder="Enter your height..."
+              formControlName="u_height"
+              [(ngModel)]="userHeight"></ion-input>
+        </ion-item>
+      </ion-item-group>
 
              <ion-item>
                 <button
