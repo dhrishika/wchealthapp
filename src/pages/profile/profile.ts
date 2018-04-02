@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +11,59 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+     /**
+      * @name items
+      * @type {Array}
+      * @public
+      * @description     Used to store returned PHP data
+      */
+     public items : Array<any> = [];
+     public storage: Storage;
+  
+  
+     constructor(public navCtrl: NavController,
+                 public http   : HttpClient,
+                 private storage2: Storage)
+     {
+      this.storage = storage2;
+     }
+  
+     /**
+      * Triggered when template view is about to be entered
+      * Returns and parses the PHP data through the load() method
+      *
+      * @public
+      * @method ionViewWillEnter
+      * @return {None}
+      */
+     ionViewWillEnter() : void
+     {
+        this.load();
+     }
+  
+  
+     /**
+      * Retrieve the JSON encoded data from the remote server
+      * Using Angular's Http class and an Observable - then
+      * assign this to the items array for rendering to the HTML template
+      *
+      * @public
+      * @method load
+      * @return {None}
+      */
+     load() : void
+     {
+      this.storage.get('authToken').then((token) => {
+        this.http
+          .get('https://essence-of-you.000webhostapp.com/profile_read.php?t_token='+ token +'&ts=' + Date.now())
+          .subscribe((data: any) => {
+            console.dir(data);
+            this.items = data;
+          },
+            (error: any) => {
+              console.dir(error);
+            });
+      });
+     }
+  
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
-  }
-
-}

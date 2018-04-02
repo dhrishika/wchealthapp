@@ -98,7 +98,7 @@ export class RegisterPage {
       .subscribe((data : any) =>
       {
         if(data && data['success']){
-          this.hideForm   = true;
+          this.navCtrl.pop();
           this.sendNotification(`Congratulations: ${email} has successfully registered`);
          }
          else{
