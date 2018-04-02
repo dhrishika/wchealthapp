@@ -28,14 +28,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <p class="bold-title">Comments:</p>
-    <ion-item *ngFor="let comment of comments">
-      <ion-avatar item-start>
-        <img src="{{comment.author_avatar_urls[24]}}">
-      </ion-avatar>
-      <h2>{{comment.author_name}}</h2>
-      <p [innerHTML]="comment.content.rendered"></p>
-    </ion-item>
     <ion-infinite-scroll [enabled]="morePagesAvailable" (ionInfinite)="loadMoreComments($event)">
       <ion-infinite-scroll-content
       loadingSpinner="bubbles"
