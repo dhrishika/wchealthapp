@@ -1,3 +1,4 @@
+import { PostPage } from './../pages/post/post';
 import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -14,6 +15,10 @@ import { RegPage } from '../pages/reg/reg';
 import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
 import { ProfilePage } from '../pages/profile/profile';
 import { RemindersPage } from '../pages/reminders/reminders';
+import { WordpressService } from '../services/wordpress.service';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,8 @@ import { RemindersPage } from '../pages/reminders/reminders';
     RegPage,
     // SymptomDiaryHomePage,
     ProfilePage,
-    RemindersPage
+    RemindersPage,
+    PostPage
 
     
     
@@ -30,6 +36,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     SymptomDiaryHomePageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
@@ -41,12 +48,15 @@ import { RemindersPage } from '../pages/reminders/reminders';
     RegPage,
     SymptomDiaryHomePage,
     ProfilePage,
-    RemindersPage
+    RemindersPage,
+    PostPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    NativeStorage,
+    WordpressService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
