@@ -74,6 +74,8 @@ ionViewWillEnter() : void
          this.pageTitle     = 'Create Symptom';
       }
    }
+
+
    selectEntry(item : any) : void
    {
       this.sympName = item.s_name;
@@ -84,12 +86,14 @@ ionViewWillEnter() : void
       this.sympMood = item.s_mood;
       this.recordID = item.s_id;
    }
-   createEntry(name : string, description: string, date : Date, time : String, type : string, mood : String) : void
+
+   createEntry(name : string, description: string, date : Date, time : String, type : string[], mood : String) : void
    {
     let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type, "s_mood" : mood },
+        options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type.toString(), "s_mood" : mood },
         url       : any      	= this.baseURI + "symp_create.php";
 
+        console.log("type", type);
       this.http.post(url, JSON.stringify(options))
       .subscribe((data : any) =>
       {
@@ -104,10 +108,10 @@ ionViewWillEnter() : void
       });
    }
 
-   updateEntry(name : string, description: string, date : Date, time : String, type : string, mood : String) : void
+   updateEntry(name : string, description: string, date : Date, time : String, type : string[], mood : String) : void
    {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-      options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type, "s_mood" : mood, "s_id" : this.recordID },
+      options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type.toString(), "s_mood" : mood, "s_id" : this.recordID },
       url       : any      	= this.baseURI + "symp_update.php";
 
       this.http
@@ -152,7 +156,7 @@ ionViewWillEnter() : void
           description   : string    = this.form.controls["s_description"].value,
           date          : Date      = this.form.controls["s_date"].value,
           time          : string    = this.form.controls["s_time"].value,
-          type          : string    = this.form.controls["s_type"].value,
+          type          : string[]    = this.form.controls["s_type"].value,
           mood          : string    = this.form.controls["s_mood"].value;
 
       if(this.isEdited)
