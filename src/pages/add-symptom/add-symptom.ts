@@ -131,7 +131,7 @@ ionViewWillEnter() : void
       .subscribe(data =>
       {
          // If the request was successful notify the user
-         this.navCtrl.push('SymptomDiaryHomePage');
+         this.navCtrl.pop();
          this.sendNotification(`${name} was successfully updated`);
       },
       (error : any) =>
@@ -152,7 +152,7 @@ ionViewWillEnter() : void
       .post(url, JSON.stringify(options))
       .subscribe(data =>
       {
-        this.navCtrl.push('SymptomDiaryHomePage');
+        this.navCtrl.pop();
         this.sendNotification(`${name} was successfully deleted`);
       },
       (error : any) =>
