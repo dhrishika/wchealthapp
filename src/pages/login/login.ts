@@ -100,7 +100,7 @@ export class LoginPage {
          // If the request was successful notify the user
          if(data && data['success']){
           await this.storage.set('authToken', data['t_token']); 
-          // this.hideForm   = true;
+          this.hideForm   = true;
           this.storage.get('authToken').then((val) => {
             this.sendNotification(`Congratulations: ${email} has successfully logged in`);
             this.navCtrl.setRoot(HomePage);
