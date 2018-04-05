@@ -7,6 +7,7 @@
         <ion-icon class="toolbar-icon" name="log-out"></ion-icon>
       </button>
     </ion-buttons>
+    
   </ion-navbar>
 </ion-header>
 
@@ -29,10 +30,5 @@
        </ion-col>
      </ion-row>
   </ion-card>
-  <ion-infinite-scroll [enabled]="morePagesAvailable" (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-    loadingSpinner="bubbles"
-    loadingText="Loading more posts ...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+
 </ion-content>
