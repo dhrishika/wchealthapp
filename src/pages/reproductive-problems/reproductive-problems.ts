@@ -22,4 +22,20 @@ export class ReproductiveProblemsPage {
     console.log('ionViewDidLoad ReproductiveProblemsPage');
   }
 
+  breastProblems(){
+    this.navCtrl.push('BreastProblemsPage');
+  }
+
+  fibroids(){
+    this.navCtrl.push('FibroidsPage');
+  }
+
+  pelvicPain(){
+    this.navCtrl.push('PelvicPainPage');
+  }
+
+  infertility(){
+    this.navCtrl.push('InfertilityPage');
+  }
+
 }

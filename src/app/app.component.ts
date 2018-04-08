@@ -1,9 +1,9 @@
+import { FaqsPage } from './../pages/faqs/faqs';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
 
 import { RegPage } from '../pages/reg/reg';
 import { ProfilePage } from '../pages/profile/profile';
@@ -28,6 +28,7 @@ export class MyApp {
       { title: 'Profile', component: ProfilePage },
       { title: 'Symptoms Diary', component: SymptomDiaryHomePage },
       { title: 'Reminders', component: RemindersPage },
+      { title: 'FAQS', component: FaqsPage },
       { title: 'Logout', component: RegPage }
     ];
 

@@ -1,3 +1,4 @@
+import { FaqsPage } from './../pages/faqs/faqs';
 import { PostPage } from './../pages/post/post';
 import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,7 +29,8 @@ import { HttpModule } from '@angular/http';
     // SymptomDiaryHomePage,
     ProfilePage,
     RemindersPage,
-    PostPage
+    PostPage,
+    FaqsPage
 
     
     
@@ -49,7 +51,8 @@ import { HttpModule } from '@angular/http';
     SymptomDiaryHomePage,
     ProfilePage,
     RemindersPage,
-    PostPage
+    PostPage,
+    FaqsPage
   ],
   providers: [
     StatusBar,
