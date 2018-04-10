@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
@@ -65,5 +65,22 @@ export class ProfilePage {
             });
       });
      }
+
   
+
+    /**
+     * Allow navigation to the EditProfile for amending an existing entry
+     * (We supply the actual record to be amended, as this method's parameter,
+     * to the EditProfile
+     *
+     * @public
+     * @method viewEntry
+     * @param param 		{any} 			Navigation data to send to the next page
+     * @return {None}
+     */
+    viewEntry(param: any): void {
+      this.navCtrl.push('EditProfilePage', param);
+    }
+
+
   }

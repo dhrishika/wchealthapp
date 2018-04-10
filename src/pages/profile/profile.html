@@ -10,6 +10,12 @@
   
   
     <ion-item *ngFor="let item of items">
+        <ion-buttons end>
+            <button (click)="viewEntry()" ion-button>
+                Edit
+            </button>
+        </ion-buttons>
+
         <ion-card>
 
             <ion-card-header>
