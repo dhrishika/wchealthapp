@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { WordpressService } from '../../services/wordpress.service';
 import { Observable } from 'rxjs/Observable';
-import { HomePage } from '../home/home';
+import { YourBodyPage } from '../your-body/your-body';
 
 /**
  * Generated class for the PostPage page.
@@ -82,81 +82,11 @@ export class PostPage {
   }
 
   goToCategoryPosts(categoryId, categoryTitle){
-    this.navCtrl.push(HomePage, {
+    this.navCtrl.push(YourBodyPage, {
       id: categoryId,
       title: categoryTitle
     })
   }
-  
 
-  /* createComment(){
-    let user: any;
-
-    this.authenticationService.getUser()
-    .then(res => {
-      user = res;
-
-      let alert = this.alertCtrl.create({
-      title: 'Add a comment',
-      inputs: [
-        {
-          name: 'comment',
-          placeholder: 'Comment'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Accept',
-          handler: data => {
-            let loading = this.loadingCtrl.create();
-            loading.present();
-            this.wordpressService.createComment(this.post.id, user, data.comment)
-            .subscribe(
-              (data) => {
-                console.log("ok", data);
-                this.getComments();
-                loading.dismiss();
-              },
-              (err) => {
-                console.log("err", err);
-                loading.dismiss();
-              }
-            );
-          }
-        }
-      ]
-    });
-    alert.present();
-    },
-    err => {
-      let alert = this.alertCtrl.create({
-        title: 'Please login',
-        message: 'You need to login in order to comment',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
-          },
-          {
-            text: 'Login',
-            handler: () => {
-              this.navCtrl.push(HomePage);
-            }
-          }
-        ]
-      });
-    alert.present();
-    });
-  } */
 
 }

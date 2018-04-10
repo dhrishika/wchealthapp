@@ -22,4 +22,16 @@ export class ContraceptionPage {
     console.log('ionViewDidLoad ContraceptionPage');
   }
 
+  hormonalContraception(){
+    this.navCtrl.push('HormonalContraceptionPage');
+  }
+
+  iud(){
+    this.navCtrl.push('IudPage');
+  }
+
+  permanentSterilization(){
+    this.navCtrl.push('PermanentSterilizationPage');
+  }
+
 }

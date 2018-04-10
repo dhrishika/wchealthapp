@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { ReproductiveProblemsPage } from '../reproductive-problems/reproductive-problems';
+
 
 
 
@@ -10,6 +10,7 @@ import { ReproductiveProblemsPage } from '../reproductive-problems/reproductive-
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
 
 
    constructor(public navCtrl: NavController,
@@ -39,43 +40,19 @@ export class HomePage {
     */
    goRegister() : void
    {
-      this.navCtrl.push('RegisterPage');
+    this.navCtrl.push('RegisterPage');
    }
 
-   yourBody(){
-    this.navCtrl.push('YourBodyPage');
+ femaleBody(){
+    this.navCtrl.push('FemaleBodyPage');
   } 
 
-  healthyLiving(){
-    this.navCtrl.push('HealthyLivingPage');
-  }
-  
-  mensuration(){
-    this.navCtrl.push('MensurationPage');
-  }
-  
-  cancerPrevention(){
-    this.navCtrl.push('CancerPreventionPage');
-  }
- 
-  contraception(){
-    this.navCtrl.push('ContraceptionPage');
-  }
-
-  genitalConcerns(){
-    this.navCtrl.push('GenitalConcernsPage');
-  }
- 
-  menopause(){
-    this.navCtrl.push('MenopausePage');
-  }
-
-  others(){
-    this.navCtrl.push('OthersPage');
+  health(){
+    this.navCtrl.push('HealthWellnessPage');
   }
   
   repro(){
-    this.navCtrl.push('ReproductiveProblemsPage');
+    this.navCtrl.push('ReproductionPage');
   }
 
   faq(){

@@ -22,4 +22,16 @@ export class CancerPreventionPage {
     console.log('ionViewDidLoad CancerPreventionPage');
   }
 
+  breastCancer(){
+    this.navCtrl.push('BreastCancerPage');
+  }
+
+  colonCancer(){
+    this.navCtrl.push('ColonCancerPage');
+  }
+
+  cervicalCancer(){
+    this.navCtrl.push('CervicalCancerPage');
+  }
+
 }

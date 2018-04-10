@@ -1,12 +1,13 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title *ngIf="!categoryTitle">Recent posts</ion-title>
+    <ion-title *ngIf="!categoryTitle">Your Body</ion-title>
     <ion-title *ngIf="categoryTitle">{{categoryTitle}} posts</ion-title>
     <ion-buttons *ngIf="loggedUser" end>
       <button ion-button icon-only (click)="logOut()">
         <ion-icon class="toolbar-icon" name="log-out"></ion-icon>
       </button>
     </ion-buttons>
+    
   </ion-navbar>
 </ion-header>
 
@@ -29,10 +30,5 @@
        </ion-col>
      </ion-row>
   </ion-card>
-  <ion-infinite-scroll [enabled]="morePagesAvailable" (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-    loadingSpinner="bubbles"
-    loadingText="Loading more posts ...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+
 </ion-content>

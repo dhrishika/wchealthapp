@@ -1,3 +1,9 @@
 page-mensuration {
-
+    #cat{
+        display: flex;
+        flex-direction: column;
+    }
+    #cat button{
+        flex: 4;
+    }
 }

@@ -9,13 +9,25 @@ import 'rxjs/add/observable/forkJoin';
 export class WordpressService {
   constructor(public http: Http){}
 
-  getRecentPosts(categoryId:number, page:number = 1){
+  getRecentPosts(categoryId:number, page:number = 9){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";
 
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
-      + 'posts?page=' + page
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+  getRecentPostsHealthy(categoryId:number, page:number = 14){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -24,12 +36,15 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + "comments?post=" + postId
-      + '&page=' + page)
+      + '&page=' + page
+    )
     .map(res => res.json());
   }
 
   getAuthor(author){
-    return this.http.get(Config.WORDPRESS_REST_API_URL + "users/" + author)
+    return this.http.get(Config.WORDPRESS_REST_API_URL 
+       + "users/" + author
+    )
     .map(res => res.json());
   }
 

@@ -22,4 +22,16 @@ export class MensurationPage {
     console.log('ionViewDidLoad MensurationPage');
   }
 
+  mensurualPain(){
+    this.navCtrl.push('MensurualPainPage');
+  }
+
+  abnormalBleeding(){
+    this.navCtrl.push('AbnormalBleedingPage');
+  }
+
+  others(){
+    this.navCtrl.push('OthersPage');
+  }
+
 }
