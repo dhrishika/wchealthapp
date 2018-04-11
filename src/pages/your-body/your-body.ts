@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { WordpressService } from '../../services/wordpress.service';
 import { PostPage } from '../post/post';
 import { HomePage } from '../home/home';
-
+import { Storage} from '@ionic/storage';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
  * Generated class for the YourBodyPage page.
@@ -25,13 +26,17 @@ export class YourBodyPage {
 
   categoryId: number;
   categoryTitle: string;
-
+  public storage : Storage;
+  private baseURI               : string  = "http://womanovaapp.com/";
   constructor(
     public navCtrl: NavController,
+    public http       : HttpClient,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
-    public wordpressService: WordpressService
-    ) {}
+    public wordpressService: WordpressService,
+    public toastCtrl  : ToastController,
+    private storage2: Storage
+    ) {this.storage = storage2;}
 
   ionViewWillEnter() {
     
@@ -56,7 +61,7 @@ export class YourBodyPage {
   }
 
   postTapped(event, post) {
-		this.navCtrl.push(PostPage, {
+		this.navCtrl.push('PostPage', {
 		  item: post
 		});
   }
@@ -80,12 +85,8 @@ export class YourBodyPage {
     })
   }
 
-  logOut(){
-    
-  }
-
   goToLogin(){
-    this.navCtrl.push(HomePage);
+    this.navCtrl.push('HomePage');
   }
-
+  
 }

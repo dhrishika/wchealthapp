@@ -1,3 +1,5 @@
+import { LogoutPage } from './../pages/logout/logout';
+import { RegPageModule } from './../pages/reg/reg.module';
 import { FaqsPage } from './../pages/faqs/faqs';
 import { PostPage } from './../pages/post/post';
 import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
@@ -19,41 +21,41 @@ import { RemindersPage } from '../pages/reminders/reminders';
 import { WordpressService } from '../services/wordpress.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpModule } from '@angular/http';
-import { PrincipalProvider } from '../providers/principal/principal';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    RegPage,
-    // SymptomDiaryHomePage,
-    ProfilePage,
-    RemindersPage,
-    PostPage,
-    FaqsPage
-
-    
+    // HomePage,
+    // // RegPage,
+    // // SymptomDiaryHomePage,
+    // ProfilePage,
+    // RemindersPage,
+    // PostPage,
+    // FaqsPage,
+    // LogoutPage
     
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    SymptomDiaryHomePageModule,
+    // SymptomDiaryHomePageModule,
+    RegPageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    RegPage,
-    SymptomDiaryHomePage,
-    ProfilePage,
-    RemindersPage,
-    PostPage,
-    FaqsPage
+    // HomePage,
+    // RegPage,
+    // SymptomDiaryHomePage,
+    // ProfilePage,
+    // RemindersPage,
+    // PostPage,
+    // FaqsPage,
+    // LogoutPage
   ],
   providers: [
     StatusBar,
@@ -62,7 +64,6 @@ import { PrincipalProvider } from '../providers/principal/principal';
     NativeStorage,
     WordpressService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PrincipalProvider
   ]
 })
 export class AppModule {}

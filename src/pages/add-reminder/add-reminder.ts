@@ -138,7 +138,23 @@ export class AddReminderPage {
      * @private 
      * @description     Remote URI for retrieving data from and sending data to
      */
-    private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
+    private baseURI              : string  = "http://womanovaapp.com/";
+
+    /**
+     * @name notifyID
+     * @type {any}
+     * @public
+     * @description     Property to store notification IDs in the task reminder table
+     */
+    public notifyID             : any = [];
+
+    /**
+     * @name IDs
+     * @type {any}
+     * @public
+     * @description     Property to update the notification IDs for when an existing entry is being edited    
+     */
+    public IDs                  : any;
 
 
    // Initialise module classes
@@ -159,7 +175,8 @@ export class AddReminderPage {
          "t_start_date"             : ["", Validators.required],
          "t_end_date"               : [""],
          "t_time"                   : ["", Validators.required],
-         "t_repeat"                 : ["", Validators.required]
+         "t_repeat"                 : ["", Validators.required],
+         "t_notifyID" : [""]
       });
 
         this.hours = new Date().getHours();
@@ -224,7 +241,10 @@ export class AddReminderPage {
       this.taskEDate    = item.t_end_date;
       this.taskTime     = item.t_time;
       this.taskRepeat   = item.t_repeat;
+      this.notifyID     = item.t_notifyID;
       this.recordID     = item.t_id;
+      console.log("Reminder Name", this.taskEDate);
+      console.log("notification ID", item.t_notifyID);
    }
 
     
@@ -245,8 +265,9 @@ export class AddReminderPage {
    createEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
     this.storage.get('authToken').then((token) => {
+      this.getDifference();
         let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-            options 	: any		= { "t_token":token, "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
+            options 	: any		= { "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_notifyID": this.notifyID.toString() },
             url       : any   = this.baseURI + "create.php";
 
       this.http.post(url, JSON.stringify(options))
@@ -259,7 +280,7 @@ export class AddReminderPage {
             this.sendNotification(`${name} was successfully added`);
 
           //---------------Create NOTIFICATION-----------------------------
-        //   this.getNotify();
+          this.scheduleNotification();
           } 
       },
       (error : any) =>
@@ -289,9 +310,35 @@ export class AddReminderPage {
     */
    updateEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
+      let startDate = moment(this.taskSDate, "YYYY-MM-DD"),
+          endDate   = moment(this.taskEDate, "YYYY-MM-DD"),
+          daysDiff  = 0;
+
+      console.log("Notify ID", this.notifyID);
+
+      this.IDs = this.notifyID.split(',');
+
+      console.log("Array od additional ids", this.IDs);
+
+      if(this.taskRepeat.match("day")){
+        daysDiff = endDate.diff(startDate, "days");
+      }
+      else if(this.taskRepeat.match("week")){
+        daysDiff = endDate.diff(startDate, "weeks");
+      }
+      else if(this.taskRepeat.match("month")){
+        daysDiff = endDate.diff(startDate, "months");
+      }
+
+      if(daysDiff > this.IDs.length){
+        for(let i =0; i<=daysDiff; i++){
+          this.IDs.push(Math.random().toFixed(10));
+        }
+      }
+
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "key" : "update", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_id" : this.recordID },
-        url       : any      	= this.baseURI + "update.php";
+          options 	: any		= { "key" : "update", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_notifyID" : this.IDs.toString(), "t_id" : this.recordID },
+          url       : any   = this.baseURI + "update.php";
 
       this.http
       .post(url, JSON.stringify(options))
@@ -301,6 +348,7 @@ export class AddReminderPage {
         //  this.navCtrl.setRoot(ReminderHomePage);
         this.navCtrl.pop();
          this.sendNotification(`${name} was successfully updated`);
+         this.updateNotification();
       },
       (error : any) =>
       {
@@ -331,6 +379,7 @@ export class AddReminderPage {
       {
         this.navCtrl.pop();
         this.sendNotification(`${name} was successfully deleted`);
+        this.cancelNotification();
       },
       (error : any) =>
       {
@@ -364,7 +413,7 @@ export class AddReminderPage {
       }
       else
       {
-         this.createEntry(name, type, sdate, edate, time, repeat);  
+         this.createEntry(name, type, sdate, edate, time, repeat);
       }
    }
 
@@ -404,73 +453,196 @@ export class AddReminderPage {
       notification.present();
    }
 
+   /** 
+    * Manage creating IDs based on the difference between Start and End Dates
+    * to use it for creating notification
+   */
+   getDifference(){
+      let startDate = moment(this.taskSDate, "YYYY-MM-DD"),
+          endDate   = moment(this.taskEDate, "YYYY-MM-DD"),
+          daysDiff  = 0;
 
-    /** 
-    * Manage the notification function
-    * It starts by initializing the start and end dates
-    * Then it combines the time with both dates
-    * the If condition is to test if the user included an end date or not
-    * If end date is not null the function creates an array of all notifications
-    * Then it schedules the notifications 
+      if(this.taskRepeat.match("day")){
+        daysDiff = endDate.diff(startDate, "days");
+      }
+      if(this.taskRepeat.match("week")){
+        daysDiff = endDate.diff(startDate, "weeks");
+      }
+      if(this.taskRepeat.match("month")){
+        daysDiff = endDate.diff(startDate, "months");
+      }
+
+      for(let i =0; i<=daysDiff; i++){
+        this.notifyID.push(Math.random().toFixed(10));
+      }
+      console.log("Days differenc", daysDiff);
+      console.log("the notification Array", this.notifyID);
+   }
+  
+   /** 
+    * Manage creating notification to notify the user about 
+    * the created reminder
     * 
-    */
-//    getNotify() : void
-//    {
-//       let firstDate = new Date(this.taskSDate);
-//       firstDate.setHours(this.hours);
-//       firstDate.setMinutes(this.minutes);
+   */
+   scheduleNotification(){
+     //set the start Date
+    let firstDate = new Date(this.taskSDate);
+    firstDate.setHours(this.hours);
+    firstDate.setMinutes(this.minutes);
 
-//       let lastDate = new Date(this.taskEDate);
-//       lastDate.setHours(this.hours);
-//       lastDate.setMinutes(this.minutes);
+    // set the End Date
+    let lastDate = new Date(this.taskEDate);
+    lastDate.setHours(this.hours);
+    lastDate.setMinutes(this.minutes);
 
-//       let SDate = moment(firstDate);
-//       let EDate = moment(lastDate);
+    // convert dates to moments object
+    let SDate = moment(firstDate);
+    let EDate = moment(lastDate);
 
-//       if(this.taskEDate.match("")){
-//         let notification = {
-//             id: Math.random() * 101,
-//             title: 'Reminder Notification',
-//             text: `Do not forget your ${this.taskName}`,
-//             at: firstDate,
-//             every: this.taskRepeat
-//           };
+    // check if user included End Date
+    if(this.taskEDate === ""){
+      let notification = {
+          id: this.notifyID[0],
+          title: 'Reminder Notification',
+          text: `Do not forget your ${this.taskName}`,
+          at: firstDate,
+          every: this.taskRepeat
+        };
 
-//           this.localNotifications.schedule(notification);
-//           console.log("Notification to be schedualed", notification);
-//       }
+        this.localNotifications.schedule(notification);
+        console.log("Single Notification to be schedualed", notification);
+    }
 
-//       else {
-//       while(SDate <= EDate){
-//           this.arr.push(SDate.toDate());
+    // the user included an End Date
+    else {
+      while(SDate <= EDate){
+        // create an array of dates from start untill end dates
+          this.arr.push(SDate.toDate());
 
-//           if(this.taskRepeat.match("day")){
-//               SDate = moment(SDate).add(1, 'days');
-//           }
-//           else if(this.taskRepeat.match("week")){
-//               SDate = moment(SDate).add(1, 'week');
-//           }
-//           else if(this.taskRepeat.match("month")){
-//               SDate = moment(SDate).add(1, 'month');
-//           }
-//           else{
-//               SDate = SDate;
-//           }
-//       }
-//       console.log("dates array", this.arr);
-      
-//       for(let day of this.arr){
-//           let notification = {
-//               id: Math.random() * 101,
-//               title: 'Reminder Notification',
-//               text: `Do not forget your ${this.taskName}`,
-//               at: day
-//             };
+          if(this.taskRepeat.match("day")){
+              SDate = moment(SDate).add(1, 'days');
+          }
+          else if(this.taskRepeat.match("week")){
+              SDate = moment(SDate).add(1, 'week');
+          }
+          else if(this.taskRepeat.match("month")){
+              SDate = moment(SDate).add(1, 'month');
+          }
+          else{
+              SDate = SDate;
+          }
+      }
+      console.log("dates array", this.arr);
+      // create notification objects
+      let i : number = 0;
+      for(let day of this.arr){
+          let notification = {
+              id: this.notifyID[i],
+              title: 'Reminder Notification',
+              text: `Do not forget your ${this.taskName}`,
+              at: day
+            };
+            i = i + 1;
+            this.notifications.push(notification);
+            
+      }
+      console.log("Notifications to be schedualed", this.notifications);
+      // schedule the array of notifications
+      this.localNotifications.schedule(this.notifications);
+    }
+   }
 
-//             this.notifications.push(notification);
-//       }
-//       console.log("Notifications to be schedualed", this.notifications);
-//       this.localNotifications.schedule(this.notifications);
-//     }
-//    }
+
+   /** 
+    * Manage cancel notifications and create new notifications
+    * based on the updated Start and End Dates
+   */
+   updateNotification(){
+
+    //cancel any schedualed notifications
+    let x : any;
+    for(x in this.IDs){
+      if(this.localNotifications.isScheduled(x)){
+        this.localNotifications.cancel(x);        
+      }
+
+    }
+    console.log("notification canceled", x);
+
+    // create new notification with the new start and end dated
+    let firstDate = new Date(this.taskSDate);
+    firstDate.setHours(this.hours);
+    firstDate.setMinutes(this.minutes);
+
+    let lastDate = new Date(this.taskEDate);
+    lastDate.setHours(this.hours);
+    lastDate.setMinutes(this.minutes);
+
+    let SDate = moment(firstDate);
+    let EDate = moment(lastDate);
+
+    if(this.taskEDate == "0000-00-00"){
+      let notification = {
+          id: this.IDs[0],
+          title: 'Reminder Notification',
+          text: `Do not forget your ${this.taskName}`,
+          at: firstDate,
+          every: this.taskRepeat
+        };
+
+        this.localNotifications.schedule(notification);
+        console.log("Single Notification to be schedualed", notification);
+    }
+
+    else {
+      while(SDate <= EDate){
+        this.arr.push(SDate.toDate());
+
+        if(this.taskRepeat.match("day")){
+            SDate = moment(SDate).add(1, 'days');
+        }
+        else if(this.taskRepeat.match("week")){
+            SDate = moment(SDate).add(1, 'week');
+        }
+        else if(this.taskRepeat.match("month")){
+            SDate = moment(SDate).add(1, 'month');
+        }
+        else{
+            SDate = SDate;
+        }
+      }
+      console.log("dates array", this.arr);
+      let i : number = 0;
+      for(let day of this.arr){
+        let notification = {
+            id: this.IDs[i],
+            title: 'Reminder Notification',
+            text: `Do not forget your ${this.taskName}`,
+            at: day
+          };
+          i = i + 1;
+          this.notifications.push(notification);
+            
+      }
+      console.log("Notifications to be schedualed", this.notifications);
+      this.localNotifications.schedule(this.notifications);
+    }
+   }
+
+
+   /** 
+    * Manage canceling notifications if the user delete the reminder
+    * 
+   */
+   cancelNotification(){
+    let x : any;
+    this.IDs = this.notifyID.split(',');
+    for(x in this.IDs){
+      if(this.localNotifications.isScheduled(this.IDs[x])){
+        this.localNotifications.cancel(this.IDs[x]);        
+      }
+    }
+    console.log("notification canceled", x);
+
+  }
 }

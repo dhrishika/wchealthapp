@@ -55,7 +55,7 @@ export class ProfilePage {
      {
       this.storage.get('authToken').then((token) => {
         this.http
-          .get('https://essence-of-you.000webhostapp.com/profile_read.php?t_token='+ token +'&ts=' + Date.now())
+          .get('http://womanovaapp.com/profile_read.php?t_token='+ token +'&ts=' + Date.now())
           .subscribe((data: any) => {
             console.dir(data);
             this.items = data;

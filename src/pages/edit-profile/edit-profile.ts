@@ -1,4 +1,3 @@
-import { ProfilePage } from './../profile/profile';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, IonicPage} from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -62,12 +61,20 @@ export class EditProfilePage {
 
 
     /**
+    * @name isEdited
+    * @type {Boolean}
+    * @public
+    * @description     Flag to be used for checking whether we are adding/editing an entry
+    */
+    public isEdited               : boolean = false;
+
+    /**
      * @name baseURI 
      * @type {string} 
      * @private 
      * @description     Remote URI for retrieving data from and sending data to
      */
-    private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
+    private baseURI               : string  = "http://womanovaapp.com/";
 
    // Initialise module classes
    constructor(public navCtrl            : NavController,
@@ -95,12 +102,8 @@ export class EditProfilePage {
     */
    ionViewWillEnter() : void
    {
-      this.resetFields();
-
-      if(this.NP.get("record"))
-      {
-        this.selectEntry(this.NP.get("record"));
-      }
+      this.selectEntry(this.NP.get("record"));
+      this.isEdited = true;
    }
 
 
@@ -119,7 +122,7 @@ export class EditProfilePage {
       this.Udob         = item.u_dob;
       this.Uweight      = item.u_weight;
       this.Uheight      = item.u_height;
-      this.recordID     = item.u_id;
+      this.recordID     = item.t_token;
    }
 
 
@@ -139,7 +142,7 @@ export class EditProfilePage {
    updateEntry(name : string, dob : Date, weight : number, height: number) : void
    {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= { "key" : "update", "u_name" : name, "u_dob" : dob, "u_weight" : weight, "u_height" : height, "u_id" : this.recordID },
+          options 	: any		= { "key" : "update", "u_name" : name, "u_dob" : dob, "u_weight" : weight, "u_height" : height, "t_token" : this.recordID },
           url       : any      	= this.baseURI + "profile_update.php";
 
       this.http

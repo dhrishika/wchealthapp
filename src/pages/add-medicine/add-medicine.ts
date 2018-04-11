@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MedicineHomePage } from '../medicine-home/medicine-home';
 import { Storage} from '@ionic/storage';
 import * as moment from 'moment';
 
@@ -136,6 +135,7 @@ export class AddMedicinePage {
      */
     public itemID                   : any      = null;
   
+     
 
     /**
      * @name baseURI 
@@ -143,11 +143,25 @@ export class AddMedicinePage {
      * @private 
      * @description     Remote URI for retrieving data from and sending data to
      */
-    private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
+    private baseURI               : string  = "http://womanovaapp.com/";
+
+    /**
+     * @name notifyID
+     * @type {any}
+     * @public
+     * @description     Property to store notification IDs in the medicine reminder table
+     */
+    public notifyID             : any = [];
+
+    /**
+     * @name IDs
+     * @type {any}
+     * @public
+     * @description     Property to update the notification IDs for when an existing entry is being edited    
+     */
+    public IDs                  : any;
   
-  
-  
-  
+
      // Initialise module classes
     constructor(public navCtrl              : NavController,
                  public http                : HttpClient,
@@ -166,7 +180,8 @@ export class AddMedicinePage {
            "m_end_date"              : [""],
            "m_time"                  : ["", Validators.required],
            "noOfPills"               : ["", Validators.required],
-           "m_repeat"                : ["", Validators.required]
+           "m_repeat"                : ["", Validators.required],
+           "m_notifyID"              : [""]
         });
 
         this.hours = new Date().getHours();
@@ -231,6 +246,7 @@ export class AddMedicinePage {
         this.medTime    = item.m_time;
         this.medNoPills = item.noOfPills;
         this.medRepeat  = item.m_repeat;
+        this.notifyID   = item.m_notifyID;
         this.itemID     = item.m_id;
     }
   
@@ -252,8 +268,10 @@ export class AddMedicinePage {
     createEntry(name : string, np : number, sDate : Date, eDate : Date, time : String, repeat : String) : void
     {
         this.storage.get('authToken').then((token) => {
+            this.getDifference();
+
             let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-                options 	: any		= { "t_token":token, "key" : "create", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat },
+                options 	: any		= { "t_token" : token, "key" : "create", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat, "m_notifyID" : this.notifyID.toString() },
                 url         : any      	= this.baseURI + "create-medicine.php";
         
           this.http.post(url, JSON.stringify(options))
@@ -264,6 +282,7 @@ export class AddMedicinePage {
                 // this.navCtrl.setRoot(ReminderHomePage);
                 this.navCtrl.pop();
                 this.sendNotification(`Congratulations the medicine: ${name} was successfully added`);
+                this.scheduleNotification();
               }
               else{
                 console.log(data);
@@ -296,8 +315,34 @@ export class AddMedicinePage {
         */
     updateEntry(name : string, np : number, sDate : Date, eDate : Date, time : String, repeat : String) : void
     {
+        let startDate = moment(this.medSDate, "YYYY-MM-DD"),
+            endDate   = moment(this.medEDate, "YYYY-MM-DD"),
+            daysDiff  = 0;
+
+        console.log("Notify ID", this.notifyID);
+
+        this.IDs = this.notifyID.split(',');
+
+        console.log("Array od additional ids", this.IDs);
+        
+        if(this.medRepeat.match("day")){
+        daysDiff = endDate.diff(startDate, "days");
+        }
+        else if(this.medRepeat.match("week")){
+        daysDiff = endDate.diff(startDate, "weeks");
+        }
+        else if(this.medRepeat.match("month")){
+        daysDiff = endDate.diff(startDate, "months");
+        }
+
+        if(daysDiff > this.IDs.length){
+            for(let i =0; i<=daysDiff; i++){
+                this.IDs.push(Math.random().toFixed(10));
+            }
+        }
+
         let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-            options 	: any		= { "key" : "update", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat, "m_id" : this.itemID },
+            options 	: any		= { "key" : "update", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat, "m_notifyID" : this.IDs.toString(), "m_id" : this.itemID },
             url         : any      	= this.baseURI + "update-medicine.php";
     
         this.http
@@ -308,6 +353,7 @@ export class AddMedicinePage {
         //    this.navCtrl.setRoot(MedicineHomePage);
         this.navCtrl.pop();
            this.sendNotification(`Congratulations the medicine: ${name} was successfully updated`);
+           this.updateNotification();
         },
         (error : any) =>
         {
@@ -339,6 +385,7 @@ export class AddMedicinePage {
         //   this.navCtrl.setRoot(MedicineHomePage);
         this.navCtrl.pop();
           this.sendNotification(`Congratulations the medicine: ${name} was successfully deleted`);
+          this.cancelNotification();
         },
         (error : any) =>
         {
@@ -373,7 +420,6 @@ export class AddMedicinePage {
         else
         {
            this.createEntry(name, np, sdate, edate, time, repeat);
-           this.getNotify();
         }
     }
   
@@ -414,77 +460,193 @@ export class AddMedicinePage {
     }
   
     /** 
-      * Manage the notification function
-      * It starts by initializing the start and end dates
-      * Then it combines the time with both dates
-      * the If condition is to test if the user included an end date or not
-      * If end date is not null the function creates an array of all notifications
-      * Then it schedules the notifications 
-      * 
-     */
-    getNotify() : void
-    {        
-        let firstDate = new Date(this.medSDate);
-        firstDate.setHours(this.hours);
-        firstDate.setMinutes(this.minutes);
-  
-        let lastDate = new Date(this.medEDate);
-        lastDate.setHours(this.hours);
-        lastDate.setMinutes(this.minutes);
-  
-        let SDate = moment(firstDate);
-        let EDate = moment(lastDate);
+    * Manage creating IDs based on the difference between Start and End Dates
+    * to use it for creating notification
+   */
+   getDifference(){
+    let startDate = moment(this.medSDate, "YYYY-MM-DD"),
+        endDate   = moment(this.medEDate, "YYYY-MM-DD"),
+        daysDiff  = 0;
 
-        // let firstDate = moment(this.medSDate + " " + this.medTime);
-        // let lastDate = moment(this.medEDate + " " + this.medTime);
-        
-        // let SDate = moment(firstDate);
-        // let EDate = moment(lastDate);
-  
-        if(this.medEDate.match("")){
-          let notification = {
-              id: Math.random() * 101,
-              title: 'Reminder Notification',
-              text: `Do not forget your ${this.medName}`,
-              at: firstDate,
-              every: this.medRepeat
-            };
-  
-            this.localNotifications.schedule(notification);
-            console.log("Notification to be schedualed", notification);
-        }
-  
-        else {
-        while(SDate <= EDate){
-            this.arr.push(SDate.toDate());
-  
-            if(this.medRepeat.match("day")){
-                SDate = moment(SDate).add(1, 'days');
-            }
-            else if(this.medRepeat.match("week")){
-                SDate = moment(SDate).add(1, 'week');
-            }
-            else if(this.medRepeat.match("month")){
-                SDate = moment(SDate).add(1, 'month');
-            }
-            else{
-                SDate = SDate;
-            }
-        }
-        console.log("dates array", this.arr);
-        
-        for(let day of this.arr){
-            let notification = {
-                id: Math.random() * 101,
-                title: 'Reminder Notification',
-                text: `Do not forget your ${this.medName}`,
-                at: day
-              };
-  
-              this.notifications.push(notification);
-        }
-        console.log("Notifications to be schedualed", this.notifications);
-        this.localNotifications.schedule(this.notifications);
-      }
+    if(this.medRepeat.match("day")){
+    daysDiff = endDate.diff(startDate, "days");
     }
+    if(this.medRepeat.match("week")){
+    daysDiff = endDate.diff(startDate, "weeks");
+    }
+    if(this.medRepeat.match("month")){
+    daysDiff = endDate.diff(startDate, "months");
+    }
+
+    for(let i =0; i<=daysDiff; i++){
+    this.notifyID.push(Math.random().toFixed(10));
+    }
+    console.log("Days differene", daysDiff);
+    console.log("the notification Array", this.notifyID);
+  }
+ 
+  /** 
+   * Manage creating notification to notify the user about 
+   * the created reminder
+   * 
+  */
+  scheduleNotification(){
+    //set the start Date
+   let firstDate = new Date(this.medSDate);
+   firstDate.setHours(this.hours);
+   firstDate.setMinutes(this.minutes);
+
+   // set the End Date
+   let lastDate = new Date(this.medEDate);
+   lastDate.setHours(this.hours);
+   lastDate.setMinutes(this.minutes);
+
+   // convert dates to moments object
+   let SDate = moment(firstDate);
+   let EDate = moment(lastDate);
+
+   // check if user included End Date
+   if(this.medEDate === ""){
+     let notification = {
+         id: this.notifyID[0],
+         title: 'Reminder Notification',
+         text: `Do not forget your ${this.medName}`,
+         at: firstDate,
+         every: this.medRepeat
+       };
+
+       this.localNotifications.schedule(notification);
+       console.log("Single Notification to be schedualed", notification);
+   }
+
+   // the user included an End Date
+   else {
+     while(SDate <= EDate){
+       // create an array of dates from start untill end dates
+         this.arr.push(SDate.toDate());
+
+         if(this.medRepeat.match("day")){
+             SDate = moment(SDate).add(1, 'days');
+         }
+         else if(this.medRepeat.match("week")){
+             SDate = moment(SDate).add(1, 'week');
+         }
+         else if(this.medRepeat.match("month")){
+             SDate = moment(SDate).add(1, 'month');
+         }
+         else{
+             SDate = SDate;
+         }
+     }
+     console.log("dates array", this.arr);
+     // create notification objects
+     let i : number = 0;
+     for(let day of this.arr){
+         let notification = {
+             id: this.notifyID[i],
+             title: 'Reminder Notification',
+             text: `Do not forget your ${this.medName}`,
+             at: day
+           };
+           i = i + 1;
+           this.notifications.push(notification);
+           
+     }
+     console.log("Notifications to be schedualed", this.notifications);
+     // schedule the array of notifications
+     this.localNotifications.schedule(this.notifications);
+   }
+  }
+
+
+  /** 
+   * Manage cancel notifications and create new notifications
+   * based on the updated Start and End Dates
+  */
+  updateNotification(){
+    //cancel any schedualed notifications
+   let x : any;
+   for(x in this.IDs){
+     if(this.localNotifications.isScheduled(x)){
+       this.localNotifications.cancel(x);
+     }
+     console.log("notification canceled", x);
+   }
+
+   // create new notification with the new start and end dated
+   let firstDate = new Date(this.medSDate);
+   firstDate.setHours(this.hours);
+   firstDate.setMinutes(this.minutes);
+
+   let lastDate = new Date(this.medEDate);
+   lastDate.setHours(this.hours);
+   lastDate.setMinutes(this.minutes);
+
+   let SDate = moment(firstDate);
+   let EDate = moment(lastDate);
+
+   if(this.medEDate == "0000-00-00"){
+     let notification = {
+         id: this.IDs[0],
+         title: 'Reminder Notification',
+         text: `Do not forget your ${this.medName}`,
+         at: firstDate,
+         every: this.medRepeat
+       };
+
+       this.localNotifications.schedule(notification);
+       console.log("Single Notification to be updated", notification);
+   }
+
+   else {
+     while(SDate <= EDate){
+       this.arr.push(SDate.toDate());
+
+       if(this.medRepeat.match("day")){
+           SDate = moment(SDate).add(1, 'days');
+       }
+       else if(this.medRepeat.match("week")){
+           SDate = moment(SDate).add(1, 'week');
+       }
+       else if(this.medRepeat.match("month")){
+           SDate = moment(SDate).add(1, 'month');
+       }
+       else{
+           SDate = SDate;
+       }
+     }
+     console.log("dates array", this.arr);
+     let i : number = 0;
+     for(let day of this.arr){
+       let notification = {
+           id: this.IDs[i],
+           title: 'Reminder Notification',
+           text: `Do not forget your ${this.medName}`,
+           at: day
+         };
+         i = i + 1;
+         this.notifications.push(notification);
+           
+     }
+     console.log("Notifications to be updated", this.notifications);
+     this.localNotifications.schedule(this.notifications);
+   }
+  }
+
+
+  /** 
+   * Manage canceling notifications if the user delete the reminder
+   * 
+  */
+  cancelNotification(){
+   let x:any;
+   this.IDs = this.notifyID.split(',');
+   for(x in this.IDs){
+     if(this.localNotifications.isScheduled(this.IDs[x])){
+       this.localNotifications.cancel(this.IDs[x]);       
+     }
+   }
+   console.log("notification canceled", this.IDs);
+
+ }
 }
