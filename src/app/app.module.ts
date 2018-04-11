@@ -1,3 +1,5 @@
+import { LogoutPage } from './../pages/logout/logout';
+import { RegPageModule } from './../pages/reg/reg.module';
 import { FaqsPage } from './../pages/faqs/faqs';
 import { PostPage } from './../pages/post/post';
 import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
@@ -25,12 +27,13 @@ import { HttpModule } from '@angular/http';
   declarations: [
     MyApp,
     HomePage,
-    RegPage,
+    // RegPage,
     // SymptomDiaryHomePage,
     ProfilePage,
     RemindersPage,
     PostPage,
-    FaqsPage
+    FaqsPage,
+    LogoutPage
 
     
     
@@ -40,6 +43,7 @@ import { HttpModule } from '@angular/http';
     HttpClientModule,
     HttpModule,
     SymptomDiaryHomePageModule,
+    RegPageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -52,7 +56,8 @@ import { HttpModule } from '@angular/http';
     ProfilePage,
     RemindersPage,
     PostPage,
-    FaqsPage
+    FaqsPage,
+    LogoutPage
   ],
   providers: [
     StatusBar,

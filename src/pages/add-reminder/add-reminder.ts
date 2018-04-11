@@ -138,7 +138,7 @@ export class AddReminderPage {
      * @private 
      * @description     Remote URI for retrieving data from and sending data to
      */
-    private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
+    private baseURI               : string  = "http://womanovaapp.com/";
 
 
    // Initialise module classes

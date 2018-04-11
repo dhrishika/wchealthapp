@@ -136,6 +136,7 @@ export class AddMedicinePage {
      */
     public itemID                   : any      = null;
   
+     
 
     /**
      * @name baseURI 
@@ -143,7 +144,7 @@ export class AddMedicinePage {
      * @private 
      * @description     Remote URI for retrieving data from and sending data to
      */
-    private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
+    private baseURI               : string  = "http://womanovaapp.com/";
   
   
   

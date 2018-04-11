@@ -25,7 +25,7 @@
                         <ion-label>Description</ion-label>
                         <ion-input 
                         [(ngModel)]="sympDesc" 
-                        placeholder=""
+                        placeholder="(Optional)"
                         formControlName="s_description"></ion-input>
                   </ion-item>
 
@@ -39,7 +39,8 @@
                   <ion-item>
                         <ion-label>Time</ion-label>
                         <ion-datetime displayFormat="hh:mm A" 
-                        [(ngModel)]="sympTime" 
+                        [(ngModel)]="sympTime"
+                        placeholder="(Optional)"
                         formControlName="s_time"
                         ></ion-datetime>
                   </ion-item>

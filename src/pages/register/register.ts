@@ -38,7 +38,7 @@ export class RegisterPage {
   public pageTitle: string;
   public recordID: any = null;
 
-  private baseURI: string = "https://essence-of-you.000webhostapp.com/";
+  private baseURI: string = "http://womanovaapp.com/";
 
   constructor(public navCtrl: NavController, 
     public NP: NavParams,
@@ -49,7 +49,7 @@ export class RegisterPage {
       this.form = fb.group({
         "t_email"                  : ["", Validators.required],
         "t_password"           : ["", Validators.required],
-        "u_name"           : ["", Validators.required],
+        "u_name"           : ["", Validators.compose([Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         "u_dob"           : ["", Validators.required],
         "u_weight"           : ["", Validators.required],
         "u_height"           : ["", Validators.required],
@@ -107,7 +107,8 @@ export class RegisterPage {
       },
       (error : any) =>
       {
-         this.sendNotification('Something went wrong!');
+        console.log("Error is", error);
+        this.sendNotification('Something went wrong!');
       });
    }
       /**
