@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
-
-
-
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
   
-
+  public tab1Root: any = 'RemindersPage';
+  public tab2Root: any = 'SymptomsDiaryPage';
 
    constructor(public navCtrl: NavController,
                public http   : HttpClient)

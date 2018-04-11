@@ -4,7 +4,6 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
 import { RegPage } from '../pages/reg/reg';
 import { ProfilePage } from '../pages/profile/profile';
 import { RemindersPage } from '../pages/reminders/reminders';
@@ -14,23 +13,26 @@ import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
-  rootPage:any = RegPage;
+
+  rootPage:any = 'LoginPage';
+
   @ViewChild(Nav) nav: Nav;
-  pages: Array<{title: string, component: any}>;
+  // pages: Array<{title: string, component: any}>;
 
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Profile', component: ProfilePage },
-      { title: 'Symptoms Diary', component: SymptomDiaryHomePage },
-      { title: 'Reminders', component: RemindersPage },
-      { title: 'FAQS', component: FaqsPage },
-      { title: 'Logout', component: RegPage }
-    ];
+    // this.pages = [
+    //   { title: 'Profile', component: ProfilePage },
+    //   { title: 'Symptoms Diary', component: SymptomDiaryHomePage },
+    //   { title: 'Reminders', component: RemindersPage },
+    //   { title: 'FAQS', component: FaqsPage },
+    //   { title: 'Logout', component: RegPage }
+    // ];
 
   }
 

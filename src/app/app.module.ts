@@ -19,6 +19,7 @@ import { RemindersPage } from '../pages/reminders/reminders';
 import { WordpressService } from '../services/wordpress.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpModule } from '@angular/http';
+import { PrincipalProvider } from '../providers/principal/principal';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { HttpModule } from '@angular/http';
     LocalNotifications,
     NativeStorage,
     WordpressService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PrincipalProvider
   ]
 })
 export class AppModule {}
