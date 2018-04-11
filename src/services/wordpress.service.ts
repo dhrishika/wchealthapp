@@ -9,7 +9,7 @@ import 'rxjs/add/observable/forkJoin';
 export class WordpressService {
   constructor(public http: Http){}
 
-  getRecentPosts(categoryId:number, page:number = 9){
+  getRecentPosts(categoryId:number, page:number = 36){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";
 
