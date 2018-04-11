@@ -46,7 +46,7 @@ export class AddMedicinePage {
      public pageTitle              : string;
      public itemID               : any      = null;
   
-     private baseURI               : string  = "https://essence-of-you.000webhostapp.com/";
+     private baseURI               : string  = "http://womanovaapp.com/";
   
   
   

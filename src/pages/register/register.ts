@@ -38,7 +38,7 @@ export class RegisterPage {
   public pageTitle: string;
   public recordID: any = null;
 
-  private baseURI: string = "https://essence-of-you.000webhostapp.com/";
+  private baseURI: string = "http://womanovaapp.com/";
 
   constructor(public navCtrl: NavController, 
     public NP: NavParams,
@@ -107,7 +107,8 @@ export class RegisterPage {
       },
       (error : any) =>
       {
-         this.sendNotification('Something went wrong!');
+        console.log("Error is", error);
+        this.sendNotification('Something went wrong!');
       });
    }
       /**
