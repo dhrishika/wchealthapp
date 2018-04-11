@@ -49,7 +49,7 @@ export class RegisterPage {
       this.form = fb.group({
         "t_email"                  : ["", Validators.required],
         "t_password"           : ["", Validators.required],
-        "u_name"           : ["", Validators.required],
+        "u_name"           : ["", Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         "u_dob"           : ["", Validators.required],
         "u_weight"           : ["", Validators.required],
         "u_height"           : ["", Validators.required],

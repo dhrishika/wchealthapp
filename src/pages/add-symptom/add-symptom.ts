@@ -53,16 +53,18 @@ export class AddSymptomPage {
     public toastCtrl: ToastController,
     private localNotifications: LocalNotifications,
     private storage2: Storage) {
-    this.storage = storage2;
-    // Create form builder validation rules
-    this.form = fb.group({
-      "s_name": ["", Validators.required],
-      "s_description": [""],
-      "s_date": ["", Validators.required],
-      "s_time": [""],
-      "s_type": ["", Validators.required],
-      "s_mood": ["", Validators.required]
-    });
+    
+      this.storage = storage2;
+
+      // Create form builder validation rules
+      this.form = fb.group({
+        "s_name": ["", Validators.required],
+        "s_description": [""],
+        "s_date": ["", Validators.required],
+        "s_time": [""],
+        "s_type": ["", Validators.required],
+        "s_mood": ["", Validators.required]
+      });
   }
 
   /**
