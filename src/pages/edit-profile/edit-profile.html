@@ -1,0 +1,61 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit your Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="form" (ngSubmit)="saveEntry()">
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input 
+        [(ngModel)]="Uname"
+        formControlName="u_name"
+        placeholder="Your Name" 
+        required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Date of Birth</ion-label>
+        <ion-datetime displayFormat="DD MMM YYYY" 
+        [(ngModel)]="Udob" 
+        formControlName="u_dob"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Weight</ion-label>
+          <ion-input 
+          type="number"
+          [(ngModel)]="Uweight"
+          formControlName="u_weight"
+          required></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Height</ion-label>
+          <ion-input 
+          type="number"
+          [(ngModel)]="Uheight"
+          formControlName="u_height"
+          required></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <button
+             ion-button
+             color="primary"
+             text-center
+             block
+             [disabled]="!form.valid">Save Entry</button>
+       </ion-item>
+          
+    </ion-list>
+  </form>
+
+</ion-content>

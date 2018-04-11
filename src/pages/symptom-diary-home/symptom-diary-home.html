@@ -22,15 +22,12 @@
   </ion-item>
 
 
-  <ion-item *ngFor="let item of items">
+  <ion-item *ngFor="let item of items"
+  detail-push
+  (click)="viewEntry({ record: item })">
      <h2>{{ item.s_name }} </h2>
      <p>{{ item.s_description }} </p>
      <p>{{ item.s_date }} </p>
      <!-- <h6>{{ item.t_start_date }}</h6><h6>{{ item.t_time }}</h6> -->
-     <button
-        ion-button
-        color="primary"
-        item-right
-        (click)="viewEntry({ record: item })">View</button>
-        </ion-item>
+      </ion-item>
       </ion-content>

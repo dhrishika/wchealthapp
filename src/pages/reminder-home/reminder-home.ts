@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -12,8 +13,6 @@ import { Storage } from '@ionic/storage';
 
 export class ReminderHomePage {
 
-
-
   /**
    * @name items
    * @type {Array}
@@ -21,13 +20,17 @@ export class ReminderHomePage {
    * @description     Used to store returned PHP data
    */
   public items: Array<any> = [];
+
   public storage: Storage;
 
 
+
   constructor(public navCtrl: NavController,
-    public http: HttpClient,
+    public http: HttpClient, 
     private storage2: Storage) {
+
     this.storage = storage2;
+
   }
 
   /**
@@ -70,10 +73,8 @@ export class ReminderHomePage {
   }
 
 
-
-
   /**
-   * Allow navigation to the AddTechnologyPage for creating a new entry
+   * Allow navigation to the AddReminderPage for creating a new entry
    *
    * @public
    * @method addEntry
@@ -84,12 +85,10 @@ export class ReminderHomePage {
   }
 
 
-
-
   /**
-   * Allow navigation to the AddTechnologyPage for amending an existing entry
+   * Allow navigation to the AddReminderPage for amending an existing entry
    * (We supply the actual record to be amended, as this method's parameter,
-   * to the AddTechnologyPage
+   * to the AddReminderPage
    *
    * @public
    * @method viewEntry
@@ -99,5 +98,4 @@ export class ReminderHomePage {
   viewEntry(param: any): void {
     this.navCtrl.push('AddReminderPage', param);
   }
-
 }

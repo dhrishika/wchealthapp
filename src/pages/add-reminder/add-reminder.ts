@@ -1,10 +1,10 @@
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ReminderHomePage } from '../reminder-home/reminder-home';
 import { Storage} from '@ionic/storage';
+import * as moment from 'moment';
 
 
 @IonicPage()
@@ -14,26 +14,99 @@ import { Storage} from '@ionic/storage';
 })
 export class AddReminderPage {
 
-
-
    /**
     * @name form
     * @type {FormGroup}
     * @public
     * @description     Define FormGroup property for managing form validation / data retrieval
     */
-   public form                   : FormGroup;
+    public form                   : FormGroup;
 
-   public taskName : any;
-   public taskType  : any;
-   public taskSDate  : any;
-   public taskEDate  : any;
-   public taskTime  : any;
-   public taskRepeat  : any;
-   public storage : Storage;
+    /**
+    * @name taskName
+    * @type {Any}
+    * @public
+    * @description     Model for managing the task reminder Name field
+    */
+    public taskName               : any;
+
+    /**
+    * @name taskType
+    * @type {Any}
+    * @public
+    * @description     Model for managing the task reminder Type field
+    */
+    public taskType               : any;
+
+    /**
+    * @name taskSDate
+    * @type {Any}
+    * @public
+    * @description     Model for managing the task reminder Start Date field
+    */
+    public taskSDate              : any;
+
+    /**
+    * @name taskEDate
+    * @type {Any}
+    * @public
+    * @description     Model for managing the task reminder End Date field
+    */
+    public taskEDate              : any;
+
+    /**
+    * @name taskTime
+    * @type {Any}
+    * @public
+    * @description     Model for managing the task reminder Time field
+    */
+    public taskTime               : any;
+
+    /**
+    * @name taskRepeat
+    * @type {Any}
+    * @public
+    * @description     Model for managing the task reminder Repeat field
+    */
+    public taskRepeat             : any;
 
 
+    public storage               : Storage;
 
+    /**
+      * @name arr
+      * @type {any[]}
+      * @description    Array that will contain the dates between the start and end dates
+      */
+    arr                           : any[] = [];
+
+    /**
+      * @name notifications
+      * @type {any[]}
+      * @description    Array that we will contain all the local notifications the user adds
+      */
+    notifications                 : any[] = [];
+
+    /**
+    * @name hours
+    * @type {number}
+    * @description      Represent the hour of the day that the user wants to be notified
+    */
+    hours                         : number;
+
+   /**
+   * @name minutes
+   * @type {number}
+   * @description      Represent the minutes of the day that the user wants to be notified
+   */
+    minutes                       : number;
+
+  /**
+   * @name notifyTime
+   * @type {any}
+   * @description      Contain an ISO datetime string to set a default time for the <ion-datetime> input field
+   */
+    notifyTime                    : any;
 
    /**
     * @name isEdited
@@ -41,44 +114,71 @@ export class AddReminderPage {
     * @public
     * @description     Flag to be used for checking whether we are adding/editing an entry
     */
-   public isEdited               : boolean = false;
-   public pageTitle              : string;
-   public recordID               : any      = null;
+    public isEdited               : boolean = false;
 
-   private baseURI               : string  = "http://womanovaapp.com/";
-   hours: number;
-   minutes: number;
+    /**
+     * @name pageTitle
+     * @type {String}
+     * @public
+     * @description     Property to help set the page title
+     */
+    public pageTitle              : string;
+
+    /**
+     * @name recordID 
+     * @type {any} 
+     * @public
+     * @description     Property to store the recordID for when an existing entry is being edited
+     */
+    public recordID               : any      = null;
+
+    /**
+     * @name baseURI 
+     * @type {string} 
+     * @private 
+     * @description     Remote URI for retrieving data from and sending data to
+     */
+    private baseURI               : string  = "http://womanovaapp.com/";
 
 
    // Initialise module classes
-   constructor(public navCtrl    : NavController,
-               public http       : HttpClient,
-               public NP         : NavParams,
-               public fb         : FormBuilder,
-               public toastCtrl  : ToastController,
-               private localNotifications: LocalNotifications,
-               private storage2: Storage)
+   constructor(public navCtrl             : NavController,
+               public http                : HttpClient,
+               public NP                  : NavParams,
+               public fb                  : FormBuilder,
+               public toastCtrl           : ToastController,
+               public localNotifications  : LocalNotifications,
+               private storage2           : Storage)
    {
        this.storage = storage2;
 
       // Create form builder validation rules
       this.form = fb.group({
-         "t_name"                  : ["", Validators.required],
-         "t_type"           : ["", Validators.required],
-         "t_start_date"                  : ["", Validators.required],
-         "t_end_date"           : ["", Validators.required],
-         "t_time"                  : ["", Validators.required],
-         "t_repeat"           : ["", Validators.required]
+         "t_name"                   : ["", Validators.required],
+         "t_type"                   : ["", Validators.required],
+         "t_start_date"             : ["", Validators.required],
+         "t_end_date"               : [""],
+         "t_time"                   : ["", Validators.required],
+         "t_repeat"                 : ["", Validators.required]
       });
-      this.hours = new Date().getHours();
-      this.minutes = new Date().getMinutes();
+
+        this.hours = new Date().getHours();
+        this.minutes = new Date().getMinutes();
+
+        this.taskTime = moment(new Date()).format(); 
+
    }
 
-   timeChange(time){
+    /**
+     * This function listens for change in the <ion-datetime> input
+     * that we will add to getNotify function
+     * 
+     * @param time      the time selected in the ion-datetime field
+     */
+    timeChange(time){
     this.hours = time.hour;
     this.minutes = time.minute;
-  }
-
+    }
 
    /**
     * Triggered when template view is about to be entered
@@ -118,18 +218,16 @@ export class AddReminderPage {
     */
    selectEntry(item : any) : void
    {
-      this.taskName = item.t_name;
-      this.taskType = item.t_type;
-      this.taskSDate = item.t_start_date;
-      this.taskEDate = item.t_end_date;
-      this.taskTime = item.t_time;
-      this.taskRepeat = item.t_repeat;
-      this.recordID = item.t_id;
+      this.taskName     = item.t_name;
+      this.taskType     = item.t_type;
+      this.taskSDate    = item.t_start_date;
+      this.taskEDate    = item.t_end_date;
+      this.taskTime     = item.t_time;
+      this.taskRepeat   = item.t_repeat;
+      this.recordID     = item.t_id;
    }
 
-
-
-
+    
    /**
     * Save a new record that has been added to the page's HTML form
     * Use angular's http post method to submit the record data
@@ -137,15 +235,19 @@ export class AddReminderPage {
     * @public
     * @method createEntry
     * @param name 			{String} 			Name value from form field
-    * @param description 	{String} 			Description value from form field
+    * @param type 	    {String} 			Type value from form field
+    * @param sDate 			{Date} 			  Start Date value from form field
+    * @param eDate 	    {Date} 			  End Date value from form field
+    * @param time 			{String} 			Time value from form field
+    * @param repeat 	  {String} 			Repeat value from form field
     * @return {None}
     */
    createEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
     this.storage.get('authToken').then((token) => {
         let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options 	: any		= { "t_token":token, "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
-        url       : any      	= this.baseURI + "create.php";
+            options 	: any		= { "t_token":token, "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat },
+            url       : any   = this.baseURI + "create.php";
 
       this.http.post(url, JSON.stringify(options))
       .subscribe((data : any) =>
@@ -155,38 +257,10 @@ export class AddReminderPage {
             // this.navCtrl.setRoot(ReminderHomePage);
             this.navCtrl.pop();
             this.sendNotification(`${name} was successfully added`);
-          //---------------Create NOTIFICATION-----------------------------
 
-          let startDateTime = new Date(this.taskSDate);
-          let endDateTime = new Date(this.taskEDate);
-      
-          startDateTime.setHours(this.hours);
-          startDateTime.setMinutes(this.minutes);
-      
-          let endDateNotification = endDateTime;
-          endDateNotification.setHours(startDateTime.getHours() + 24);
-          
-          if(this.taskSDate != endDateNotification){
-      
-            let notification = {
-              id: Math.random() * 101,
-              title: 'Reminder Notification',
-              text: `Do not forget your ${this.taskName}`,
-              at: startDateTime,
-              every: this.taskRepeat
-            };
-            this.localNotifications.schedule(notification);
-            console.log("the notification is on: ", notification);
-          }
-          else if(endDateNotification > endDateTime){
-            this.localNotifications.cancel(this.recordID);
-          }
-          }
-          else{
-            console.log(data);
-            this.sendNotification(`${name} was not added successfully!`);
-          }
-         
+          //---------------Create NOTIFICATION-----------------------------
+        //   this.getNotify();
+          } 
       },
       (error : any) =>
       {
@@ -198,8 +272,6 @@ export class AddReminderPage {
    }
 
 
-
-
    /**
     * Update an existing record that has been edited in the page's HTML form
     * Use angular's http post method to submit the record data
@@ -208,7 +280,11 @@ export class AddReminderPage {
     * @public
     * @method updateEntry
     * @param name 			{String} 			Name value from form field
-    * @param description 	{String} 			Description value from form field
+    * @param type 	        {String} 			Type value from form field
+    * @param sDate 			{Date} 			    Start Date value from form field
+    * @param eDate 	        {Date} 			    End Date value from form field
+    * @param time 			{String} 			Time value from form field
+    * @param repeat 	    {String} 			Repeat value from form field
     * @return {None}
     */
    updateEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
@@ -233,8 +309,6 @@ export class AddReminderPage {
    }
 
 
-
-
    /**
     * Remove an existing record that has been selected in the page's HTML form
     * Use angular's http post method to submit the record data
@@ -255,7 +329,6 @@ export class AddReminderPage {
       .post(url, JSON.stringify(options))
       .subscribe(data =>
       {
-        // this.navCtrl.setRoot(ReminderHomePage);
         this.navCtrl.pop();
         this.sendNotification(`${name} was successfully deleted`);
       },
@@ -265,8 +338,6 @@ export class AddReminderPage {
         this.sendNotification('Something went wrong!');
       });
    }
-
-
 
 
    /**
@@ -280,12 +351,12 @@ export class AddReminderPage {
     */
    saveEntry() : void
    {
-      let name          : string = this.form.controls["t_name"].value,
-          type   : string    = this.form.controls["t_type"].value,
-          sdate : Date = this.form.controls["t_start_date"].value,
-          edate   : Date    = this.form.controls["t_end_date"].value,
-          time          : string = this.form.controls["t_time"].value,
-          repeat   : string    = this.form.controls["t_repeat"].value;
+      let name          : string    = this.form.controls["t_name"].value,
+          type          : string    = this.form.controls["t_type"].value,
+          sdate         : Date      = this.form.controls["t_start_date"].value,
+          edate         : Date      = this.form.controls["t_end_date"].value,
+          time          : string    = this.form.controls["t_time"].value,
+          repeat        : string    = this.form.controls["t_repeat"].value;
 
       if(this.isEdited)
       {
@@ -298,8 +369,6 @@ export class AddReminderPage {
    }
 
 
-
-
    /**
     * Clear values in the page's HTML form fields
     *
@@ -309,15 +378,13 @@ export class AddReminderPage {
     */
    resetFields() : void
    {
-      this.taskName           = "";
-      this.taskType    = "";
-      this.taskSDate           = "";
-      this.taskEDate    = "";
-      this.taskTime           = "";
-      this.taskRepeat    = "";
+      this.taskName         = "";
+      this.taskType         = "";
+      this.taskSDate        = "";
+      this.taskEDate        = "";
+      this.taskTime         = "";
+      this.taskRepeat       = "";
    }
-
-
 
 
    /**
@@ -325,7 +392,7 @@ export class AddReminderPage {
     *
     * @public
     * @method sendNotification
-    * @param message 	{String} 			Message to be displayed in the notification
+    * @param    message 	    {String} 			Message to be displayed in the notification
     * @return {None}
     */
    sendNotification(message : string)  : void
@@ -337,4 +404,73 @@ export class AddReminderPage {
       notification.present();
    }
 
+
+    /** 
+    * Manage the notification function
+    * It starts by initializing the start and end dates
+    * Then it combines the time with both dates
+    * the If condition is to test if the user included an end date or not
+    * If end date is not null the function creates an array of all notifications
+    * Then it schedules the notifications 
+    * 
+    */
+//    getNotify() : void
+//    {
+//       let firstDate = new Date(this.taskSDate);
+//       firstDate.setHours(this.hours);
+//       firstDate.setMinutes(this.minutes);
+
+//       let lastDate = new Date(this.taskEDate);
+//       lastDate.setHours(this.hours);
+//       lastDate.setMinutes(this.minutes);
+
+//       let SDate = moment(firstDate);
+//       let EDate = moment(lastDate);
+
+//       if(this.taskEDate.match("")){
+//         let notification = {
+//             id: Math.random() * 101,
+//             title: 'Reminder Notification',
+//             text: `Do not forget your ${this.taskName}`,
+//             at: firstDate,
+//             every: this.taskRepeat
+//           };
+
+//           this.localNotifications.schedule(notification);
+//           console.log("Notification to be schedualed", notification);
+//       }
+
+//       else {
+//       while(SDate <= EDate){
+//           this.arr.push(SDate.toDate());
+
+//           if(this.taskRepeat.match("day")){
+//               SDate = moment(SDate).add(1, 'days');
+//           }
+//           else if(this.taskRepeat.match("week")){
+//               SDate = moment(SDate).add(1, 'week');
+//           }
+//           else if(this.taskRepeat.match("month")){
+//               SDate = moment(SDate).add(1, 'month');
+//           }
+//           else{
+//               SDate = SDate;
+//           }
+//       }
+//       console.log("dates array", this.arr);
+      
+//       for(let day of this.arr){
+//           let notification = {
+//               id: Math.random() * 101,
+//               title: 'Reminder Notification',
+//               text: `Do not forget your ${this.taskName}`,
+//               at: day
+//             };
+
+//             this.notifications.push(notification);
+//       }
+//       console.log("Notifications to be schedualed", this.notifications);
+//       this.localNotifications.schedule(this.notifications);
+//     }
+//    }
 }

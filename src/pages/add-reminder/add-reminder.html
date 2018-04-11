@@ -8,16 +8,6 @@
     <ion-content padding>
     
       <div>
-         <ion-item *ngIf="isEdited">
-            <button
-               ion-button
-               item-right
-               color="secondary"
-               text-center
-               block
-               (click)="deleteEntry()">Remove this Entry?</button>
-         </ion-item>
-    
             <form [formGroup]="form" (ngSubmit)="saveEntry()">
     
                <ion-list>
@@ -78,6 +68,16 @@
                         block
                         [disabled]="!form.valid">Save Entry</button>
                   </ion-item>
+
+                  <ion-item *ngIf="isEdited">
+                        <button
+                           ion-button
+                           item-right
+                           color="danger"
+                           text-center
+                           block
+                           (click)="deleteEntry()">Remove this Entry?</button>
+                     </ion-item>
     
                </ion-list>
     

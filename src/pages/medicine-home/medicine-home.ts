@@ -70,7 +70,7 @@ export class MedicineHomePage {
   
   
      /**
-      * Allow navigation to the AddTechnologyPage for creating a new entry
+      * Allow navigation to the AddMedicinePage for creating a new entry
       *
       * @public
       * @method addEntry
@@ -85,9 +85,9 @@ export class MedicineHomePage {
   
   
      /**
-      * Allow navigation to the AddTechnologyPage for amending an existing entry
+      * Allow navigation to the AddMedicinePage for amending an existing entry
       * (We supply the actual record to be amended, as this method's parameter,
-      * to the AddTechnologyPage
+      * to the AddMedicinePage
       *
       * @public
       * @method viewEntry
