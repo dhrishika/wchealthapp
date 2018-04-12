@@ -478,6 +478,8 @@ export class AddReminderPage {
       console.log("Days differenc", daysDiff);
       console.log("the notification Array", this.notifyID);
    }
+
+   
   
    /** 
     * Manage creating notification to notify the user about 
@@ -639,10 +641,10 @@ export class AddReminderPage {
     this.IDs = this.notifyID.split(',');
     for(x in this.IDs){
       if(this.localNotifications.isScheduled(this.IDs[x])){
-        this.localNotifications.cancel(this.IDs[x]);        
+        this.localNotifications.cancel(this.IDs[x]);
+        console.log("notification canceled", x);        
       }
     }
-    console.log("notification canceled", x);
 
   }
 }

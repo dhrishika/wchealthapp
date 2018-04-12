@@ -9,7 +9,18 @@ import 'rxjs/add/observable/forkJoin';
 export class WordpressService {
   constructor(public http: Http){}
 
-  getRecentPosts(categoryId:number, page:number = 9){
+  getRecentPosts(categoryId:number, page:number = 36){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url +'&ts=' + Date.now())
+    .map(res => res.json());
+  }
+  getRecentPostsGeneConc(categoryId:number, page:number = 19){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";
 
@@ -20,6 +31,306 @@ export class WordpressService {
       + category_url)
     .map(res => res.json());
   }
+  getRecentPostsPFP(categoryId:number, page:number = 39){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsBC(categoryId:number, page:number = 41){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsCoC(categoryId:number, page:number = 42){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsCeC(categoryId:number, page:number = 43){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsD(categoryId:number, page:number = 44){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsHD(categoryId:number, page:number = 45){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsS(categoryId:number, page:number = 51){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsO(categoryId:number, page:number = 52){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsHBP(categoryId:number, page:number = 53){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsN(categoryId:number, page:number = 47){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsE(categoryId:number, page:number = 48){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsT(categoryId:number, page:number = 70){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsBP(categoryId:number, page:number = 56){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsF(categoryId:number, page:number = 57){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsPP(categoryId:number, page:number = 58){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsI(categoryId:number, page:number = 59){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsMeno(categoryId:number, page:number = 11){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsHC(categoryId:number, page:number = 60){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsIUD(categoryId:number, page:number = 61){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsPS(categoryId:number, page:number = 62){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsMP(categoryId:number, page:number = 63){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsAB(categoryId:number, page:number = 64){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsOthers(categoryId:number, page:number = 65){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsST(categoryId:number, page:number = 66){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
+  getRecentPostsUTI(categoryId:number, page:number = 68){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      // + 'posts?page=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
   getRecentPostsHealthy(categoryId:number, page:number = 14){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";

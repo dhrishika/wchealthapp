@@ -47,7 +47,7 @@ export class PelvicPainPage {
       let loading = this.loadingCtrl.create();
       loading.present();
 
-      this.wordpressService.getRecentPosts(this.categoryId)
+      this.wordpressService.getRecentPostsPP(this.categoryId)
       .subscribe(data => {
         for(let post of data){
           post.excerpt.rendered = post.excerpt.rendered.split('<a')[0] + "</p>";
@@ -68,7 +68,7 @@ export class PelvicPainPage {
     let page = (Math.ceil(this.posts.length/10)) + 1;
     let loading = true;
 
-    this.wordpressService.getRecentPosts(this.categoryId, page)
+    this.wordpressService.getRecentPostsPP(this.categoryId, page)
     .subscribe(data => {
       for(let post of data){
         if(!loading){
