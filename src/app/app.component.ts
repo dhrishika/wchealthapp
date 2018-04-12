@@ -11,12 +11,13 @@ import { RemindersPage } from '../pages/reminders/reminders';
 
 import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
 import { LogoutPage } from '../pages/logout/logout';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = RegPage;
+  rootPage:any = HomePage;
   @ViewChild(Nav) nav: Nav;
   pages: Array<{title: string, component: any}>;
 
