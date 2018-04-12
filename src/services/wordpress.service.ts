@@ -17,7 +17,7 @@ export class WordpressService {
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
       // + 'posts?page=' + page
-      + category_url)
+      + category_url +'&ts=' + Date.now())
     .map(res => res.json());
   }
   getRecentPostsHealthy(categoryId:number, page:number = 14){
