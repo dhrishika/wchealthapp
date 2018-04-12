@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
@@ -19,11 +19,24 @@ export class HomePage {
     public http: HttpClient,
     public NP: NavParams,
     public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController,
     private storage2: Storage) {
     this.storage = storage2;
     // this.checkLogin();
   }
-
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      // showBackdrop: false,
+      dismissOnPageChange: true,
+      content: 'Please wait...'
+    });
+  
+    loading.present();
+  
+    setTimeout(() => {
+      loading.dismiss();
+    }, 3000);
+  }
   checkLogin(): void {
     this.storage.get('authToken').then((token) => {
       let headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -51,8 +64,9 @@ export class HomePage {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewCanEnter(){
     console.log("GONNA LOAD LIT!!!!");
+    this.presentLoadingDefault();
     this.checkLogin();
   }
 
