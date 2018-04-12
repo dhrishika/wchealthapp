@@ -4,8 +4,6 @@ import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
-import { RegPage } from '../pages/reg/reg';
 import { ProfilePage } from '../pages/profile/profile';
 import { RemindersPage } from '../pages/reminders/reminders';
 

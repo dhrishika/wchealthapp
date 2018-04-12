@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MedicineHomePage } from '../medicine-home/medicine-home';
 import { Storage} from '@ionic/storage';
 import * as moment from 'moment';
 

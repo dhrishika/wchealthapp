@@ -4,7 +4,7 @@ import { WordpressService } from '../../services/wordpress.service';
 import { PostPage } from '../post/post';
 import { HomePage } from '../home/home';
 import { Storage} from '@ionic/storage';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
 /**
  * Generated class for the YourBodyPage page.

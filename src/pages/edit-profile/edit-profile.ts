@@ -1,4 +1,3 @@
-import { ProfilePage } from './../profile/profile';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, IonicPage } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
