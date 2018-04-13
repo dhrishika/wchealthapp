@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button (click)="viewEntry({ record: items })" ion-button>
+            Edit
+            </button>
+          </ion-buttons>
+       <ion-title>
+          {{ medName }}
+       </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+
+    <ion-card>
+
+      <ion-card-header>
+      Medicine Name
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ medName }} 
+      </ion-card-content>
+
+      <ion-card-header>
+      NNumber of pills
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ medNoPills }} 
+      </ion-card-content>
+
+      <ion-card-header>
+      Start Date
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ medSDate }} 
+      </ion-card-content>
+
+      <ion-card-header>
+      End Date
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ medEDate }}
+      </ion-card-content>
+
+      <ion-card-header>
+      Time
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ medTime }}
+      </ion-card-content>
+
+      <ion-card-header>
+      Repeat
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ medRepeat }}
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

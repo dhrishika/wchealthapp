@@ -151,7 +151,7 @@ export class AddMedicinePage {
      * @public
      * @description     Property to store notification IDs in the medicine reminder table
      */
-    public notifyID             : any = [];
+    public notifyID             : any;
 
     /**
      * @name IDs
@@ -267,9 +267,8 @@ export class AddMedicinePage {
     */
     createEntry(name : string, np : number, sDate : Date, eDate : Date, time : String, repeat : String) : void
     {
+        this.getDifference();
         this.storage.get('authToken').then((token) => {
-            this.getDifference();
-
             let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
                 options 	: any		= { "t_token" : token, "key" : "create", "m_name" : name, "noOfPills" : np, "m_start_date" : sDate, "m_end_date" : eDate, "m_time" : time, "m_repeat" : repeat, "m_notifyID" : this.notifyID.toString() },
                 url         : any      	= this.baseURI + "create-medicine.php";
@@ -464,6 +463,7 @@ export class AddMedicinePage {
     * to use it for creating notification
    */
    getDifference(){
+    this.notifyID = [];
     let startDate = moment(this.medSDate, "YYYY-MM-DD"),
         endDate   = moment(this.medEDate, "YYYY-MM-DD"),
         daysDiff  = 0;
@@ -478,7 +478,7 @@ export class AddMedicinePage {
     daysDiff = endDate.diff(startDate, "months");
     }
 
-    for(let i =0; i<=daysDiff; i++){
+    for(let i =0; i<=daysDiff +1; i++){
     this.notifyID.push(Math.random().toFixed(10));
     }
     console.log("Days differene", daysDiff);

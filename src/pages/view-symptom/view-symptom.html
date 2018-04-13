@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+        <ion-buttons end>
+            <button (click)="viewEntry({ record: items })" ion-button>
+                Edit
+            </button>
+        </ion-buttons>
+     <ion-title>
+        {{ sympName }}
+     </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+      <ion-card>
+
+          <ion-card-header>
+            Symptom Name
+          </ion-card-header>
+        
+          <ion-card-content>
+              {{ sympName }} 
+          </ion-card-content>
+
+          <ion-card-header>
+              Description
+            </ion-card-header>
+          
+            <ion-card-content>
+                {{ sympDesc }} 
+            </ion-card-content>
+
+            <ion-card-header>
+            Symptom Type
+            </ion-card-header>
+        
+            <ion-card-content>
+                {{ sympType }} 
+            </ion-card-content>
+
+            <ion-card-header>
+            Mood
+            </ion-card-header>
+        
+            <ion-card-content>
+                {{ sympMood }}
+            </ion-card-content>
+
+            <ion-card-header>
+                Date
+              </ion-card-header>
+            
+              <ion-card-content>
+                  {{ sympDate }}
+              </ion-card-content>
+              
+              <ion-card-header>
+                Time
+              </ion-card-header>
+            
+              <ion-card-content>
+                  {{ sympTime }}
+              </ion-card-content>
+        
+        </ion-card>
+</ion-content>

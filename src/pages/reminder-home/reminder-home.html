@@ -1,5 +1,13 @@
 <ion-header>
   <ion-navbar>
+      <ion-buttons end>
+          <button 
+          ion-button 
+          icon-only
+          (click)="addEntry()">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-buttons>
      <ion-title>
         Tasks Reminder
      </ion-title>
@@ -7,20 +15,6 @@
 </ion-header>
 
 <ion-content padding>
-
-  <ion-item>
-    <button
-       class="add"
-       ion-button
-       end
-       margin-bottom
-       color="primary"
-       (click)="addEntry()">
-          Add
-        <ion-icon name="add"></ion-icon>
-    </button>
- </ion-item>
-
 
   <ion-item *ngFor="let item of items"
   detail-push
