@@ -85,9 +85,9 @@ export class MedicineHomePage {
   
   
      /**
-      * Allow navigation to the AddMedicinePage for amending an existing entry
+      * Allow navigation to the ViewMedicinePage for amending an existing entry
       * (We supply the actual record to be amended, as this method's parameter,
-      * to the AddMedicinePage
+      * to the ViewMedicinePage
       *
       * @public
       * @method viewEntry
@@ -96,7 +96,7 @@ export class MedicineHomePage {
       */
      viewEntry(param : any) : void
      {
-        this.navCtrl.push('AddMedicinePage', param);
+        this.navCtrl.push('ViewMedicinePage', param);
      }
   
   }

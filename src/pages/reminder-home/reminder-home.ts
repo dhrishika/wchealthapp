@@ -86,9 +86,9 @@ export class ReminderHomePage {
 
 
   /**
-   * Allow navigation to the AddReminderPage for amending an existing entry
+   * Allow navigation to the ViewReminderPage for amending an existing entry
    * (We supply the actual record to be amended, as this method's parameter,
-   * to the AddReminderPage
+   * to the ViewReminderPage
    *
    * @public
    * @method viewEntry
@@ -96,6 +96,6 @@ export class ReminderHomePage {
    * @return {None}
    */
   viewEntry(param: any): void {
-    this.navCtrl.push('AddReminderPage', param);
+    this.navCtrl.push('ViewReminderPage', param);
   }
 }

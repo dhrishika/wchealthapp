@@ -82,7 +82,7 @@ export class PostPage {
   }
 
   goToCategoryPosts(categoryId, categoryTitle){
-    this.navCtrl.push(YourBodyPage, {
+    this.navCtrl.push('YourBodyPage', {
       id: categoryId,
       title: categoryTitle
     })

@@ -60,7 +60,7 @@ export class InfertilityPage {
   }
 
   postTapped(event, post) {
-		this.navCtrl.push(PostPage, {
+		this.navCtrl.push("PostPage", {
 		  item: post
 		});
   }
@@ -89,7 +89,7 @@ export class InfertilityPage {
   }
 
   goToLogin(){
-    this.navCtrl.push(HomePage);
+    this.navCtrl.push("HomePage");
   }
 
 

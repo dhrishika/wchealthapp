@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-navbar>
+        <ion-buttons end>
+            <button (click)="viewEntry({ record: items })" ion-button>
+            Edit
+            </button>
+          </ion-buttons>
+       <ion-title>
+          {{ taskName }}
+       </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+
+    <ion-card>
+
+      <ion-card-header>
+      Reminder Name
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ taskName }} 
+      </ion-card-content>
+
+      <ion-card-header>
+      Type
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ taskType }} 
+      </ion-card-content>
+
+      <ion-card-header>
+      Start Date
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ taskSDate }} 
+      </ion-card-content>
+
+      <ion-card-header>
+      End Date
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ taskEDate }}
+      </ion-card-content>
+
+      <ion-card-header>
+      Time
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ taskTime }}
+      </ion-card-content>
+
+      <ion-card-header>
+      Repeat
+      </ion-card-header>
+
+      <ion-card-content>
+      {{ taskRepeat }}
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

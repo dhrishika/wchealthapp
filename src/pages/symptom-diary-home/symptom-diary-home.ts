@@ -79,11 +79,10 @@ export class SymptomDiaryHomePage {
   }
 
 
-
   /**
-   * Allow navigation to the AddSymptomPage for amending an existing entry
+   * Allow navigation to the ViewSymptomPage for amending an existing entry
    * (We supply the actual record to be amended, as this method's parameter,
-   * to the AddSymptomPage
+   * to the ViewSymptomPage
    *
    * @public
    * @method viewEntry
@@ -92,6 +91,6 @@ export class SymptomDiaryHomePage {
    */
   viewEntry(param : any) : void
   {
-     this.navCtrl.push('AddSymptomPage', param);
+     this.navCtrl.push('ViewSymptomPage', param);
   }
 }

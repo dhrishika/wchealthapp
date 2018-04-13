@@ -91,8 +91,7 @@ export class LoginPage {
    {
       let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
           options 	: any		= { "key" : "login", "t_email" : email, "t_password" : password },
-          url       : any      	= this.baseURI + "login.php";
-          // this.navCtrl.setRoot(HomePage);
+          url       : any   = this.baseURI + "login.php";
 
       this.http.post(url, JSON.stringify(options), headers)
       .subscribe(async (data : any) =>
@@ -103,7 +102,7 @@ export class LoginPage {
           // this.hideForm   = true;
           this.storage.get('authToken').then((val) => {
             this.sendNotification(`Congratulations: ${email} has successfully logged in`);
-            this.navCtrl.setRoot(HomePage);
+            this.navCtrl.setRoot("HomePage");
           });
          }
          else{
@@ -149,4 +148,7 @@ export class LoginPage {
       notification.present();
    }
    
+   goRegister(){
+     this.navCtrl.push("RegisterPage");
+   }
 }

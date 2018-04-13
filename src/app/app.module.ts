@@ -26,23 +26,21 @@ import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    // RegPage,
-    // SymptomDiaryHomePage,
-    ProfilePage,
-    RemindersPage,
-    PostPage,
-    FaqsPage,
-    LogoutPage
-
-    
+    // HomePage,
+    // // RegPage,
+    // // SymptomDiaryHomePage,
+    // ProfilePage,
+    // RemindersPage,
+    // PostPage,
+    // FaqsPage,
+    // LogoutPage
     
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    SymptomDiaryHomePageModule,
+    // SymptomDiaryHomePageModule,
     RegPageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
@@ -50,14 +48,14 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    RegPage,
-    SymptomDiaryHomePage,
-    ProfilePage,
-    RemindersPage,
-    PostPage,
-    FaqsPage,
-    LogoutPage
+    // HomePage,
+    // RegPage,
+    // SymptomDiaryHomePage,
+    // ProfilePage,
+    // RemindersPage,
+    // PostPage,
+    // FaqsPage,
+    // LogoutPage
   ],
   providers: [
     StatusBar,
@@ -65,7 +63,7 @@ import { HttpModule } from '@angular/http';
     LocalNotifications,
     NativeStorage,
     WordpressService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

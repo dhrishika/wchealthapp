@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { Storage} from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-/**
- * Generated class for the LogoutPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

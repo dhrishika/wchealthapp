@@ -11,39 +11,98 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'add-symptom.html',
 })
 export class AddSymptomPage {
-  /**
-  * @name form
-  * @type {FormGroup}
-  * @public
-  * @description     Define FormGroup property for managing form validation / data retrieval
-  */
-  public form: FormGroup;
 
-  public sympName: any;
-  public sympType: any;
-  public sympDesc: any;
-  public sympDate: any;
-  public sympTime: any;
-  public sympMood: any;
-  public storage: Storage;
+    /**
+    * @name form
+    * @type {FormGroup}
+    * @public
+    * @description     Define FormGroup property for managing form validation / data retrieval
+    */
+    public form                   : FormGroup;
 
-  /**
-   * @name isEdited
-   * @type {Boolean}
-   * @public
-   * @description     Flag to be used for checking whether we are adding/editing an entry
-   */
-  public isEdited: boolean = false;
+    /**
+    * @name sympName
+    * @type {Any}
+    * @public
+    * @description     Model for managing the Symptom Diary Name field
+    */
+    public sympName : any;
 
-  // Change the page title when the user add/edit an entry
-  public pageTitle: string;
+        /**
+    * @name sympType
+    * @type {Any}
+    * @public
+    * @description     Model for managing the Symptom Diary Type field
+    */
+    public sympType  : any;
 
-  // the unique identifier for each record in the database
-  public recordID: any = null;
+    /**
+    * @name sympesc
+    * @type {Any}
+    * @public
+    * @description     Model for managing the Symptom Diary Description field
+    */
+    public sympDesc  : any;
 
-  private baseURI: string = "http://womanovaapp.com/";
-  // hours: number;
-  // minutes: number;
+    /**
+    * @name sympDate
+    * @type {Any}
+    * @public
+    * @description     Model for managing the Symptom Diary Date field
+    */
+    public sympDate  : any;
+
+    /**
+    * @name sympTime
+    * @type {Any}
+    * @public
+    * @description     Model for managing the Symptom Diary Time field
+    */
+    public sympTime  : any;
+
+    /**
+    * @name sympMood
+    * @type {Any}
+    * @public
+    * @description     Model for managing the Symptom Diary Mood field
+    */
+    public sympMood  : any;
+
+
+    public storage : Storage;
+    
+    /**
+    * @name isEdited
+    * @type {Boolean}
+    * @public
+    * @description     Flag to be used for checking whether we are adding/editing an entry
+    */
+    public isEdited               : boolean = false;
+  
+    /**
+     * @name pageTitle
+     * @type {String}
+     * @public
+     * @description     Property to help set the page title
+     */
+    public pageTitle              : string;
+
+    /**
+     * @name recordID 
+     * @type {any} 
+     * @public
+     * @description     Property to store the recordID for when an existing entry is being edited
+     */
+    public recordID               : any      = null;
+
+    /**
+     * @name baseURI 
+     * @type {string} 
+     * @private 
+     * @description     Remote URI for retrieving data from and sending data to
+     */
+    private baseURI               : string  = "http://womanovaapp.com/";
+
 
   // Initialise module classes
   constructor(public navCtrl: NavController,
@@ -111,25 +170,26 @@ export class AddSymptomPage {
   }
 
 
-  /**
-  * Save a new record that has been added to the page's HTML form
-  * Use angular's http post method to submit the record data
-  *
-  * @public
-  * @method createEntry
-  * @param name 			{String} 			Name value from form field
-  * @param description 	{String} 			Description value from form field
-  * @param date 			{Date} 			 Date value from form field
-  * @param time 			{String} 			Time value from form field
-  * @param type 			{String []} 			Type array from form field
-  * @param mood 			{String} 			Mood value from form field
-  * @return {None}
-  */
-  createEntry(name: string, description: string, date: Date, time: String, type: string[], mood: String): void {
-    this.storage.get('authToken').then((token) => {
-      let headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),
-        options: any = { "t_token": token, "key": "create", "s_name": name, "s_description": description, "s_date": date, "s_time": time, "s_type": type.toString(), "s_mood": mood },
-        url: any = this.baseURI + "symp_create.php";
+    /**
+    * Save a new record that has been added to the page's HTML form
+    * Use angular's http post method to submit the record data
+    *
+    * @public
+    * @method createEntry
+    * @param name 			  {String} 			Name value from form field
+    * @param description 	{String} 			Description value from form field
+    * @param date 			  {Date} 			  Date value from form field
+    * @param time 			  {String} 			Time value from form field
+    * @param type 			  {String []} 	Type array from form field
+    * @param mood 			  {String} 			Mood value from form field
+    * @return {None}
+    */
+    createEntry(name : string, description: string, date : Date, time : String, type : string[], mood : String) : void
+    {
+      this.storage.get('authToken').then((token) => {
+        let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+            options 	: any		= { "t_token":token, "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type.toString(), "s_mood" : mood },
+            url       : any   = this.baseURI + "symp_create.php";
 
       this.http.post(url, JSON.stringify(options))
         .subscribe((data: any) => {
@@ -153,23 +213,23 @@ export class AddSymptomPage {
     });
   }
 
-
-  /**
-  * Update an existing record that has been edited in the page's HTML form
-  * Use angular's http post method to submit the record data
-  * to our remote PHP script
-  * @param name 			{String} 			Name value from form field
-  * @param np 	{number} 			No of Pills from form field
-  * @param sDate 			{Date} 			Start Date value from form field
-  * @param eDate 	{Date} 			End Date value from form field
-  * @param time 			{String} 			Time value from form field
-  * @param repeat 	{String} 			Repeat value from form field
-  * @return {None}
+    /**
+    * Update an existing record that has been edited in the page's HTML form
+    * Use angular's http post method to submit the record data
+    * to our remote PHP script
+    * @param name 			{String} 			Name value from form field
+    * @param np 	      {number} 			No of Pills from form field
+    * @param sDate 			{Date} 			  Start Date value from form field
+    * @param eDate 	    {Date} 			  End Date value from form field
+    * @param time 			{String} 			Time value from form field
+    * @param repeat 	  {String} 			Repeat value from form field
+    * @return {None}
     */
-  updateEntry(name: string, description: string, date: Date, time: String, type: string[], mood: String): void {
-    let headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),
-      options: any = { "key": "create", "s_name": name, "s_description": description, "s_date": date, "s_time": time, "s_type": type.toString(), "s_mood": mood, "s_id": this.recordID },
-      url: any = this.baseURI + "symp_update.php";
+    updateEntry(name : string, description: string, date : Date, time : String, type : string[], mood : String) : void
+    {
+        let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+            options 	: any		= { "key" : "create", "s_name" : name, "s_description" : description, "s_date" : date, "s_time" : time, "s_type" : type.toString(), "s_mood" : mood, "s_id" : this.recordID },
+            url       : any   = this.baseURI + "symp_update.php";
 
     this.http
       .post(url, JSON.stringify(options))
@@ -194,10 +254,10 @@ export class AddSymptomPage {
   * @return {None}
   */
   deleteEntry(): void {
-    let name: string = this.form.controls["s_name"].value,
-      headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),
-      options: any = { "key": "delete", "s_id": this.recordID },
-      url: any = this.baseURI + "symp_delete.php";
+    let name      : string    = this.form.controls["s_name"].value,
+        headers   : any       = new HttpHeaders({ 'Content-Type': 'application/json' }),
+        options   : any       = { "key": "delete", "s_id": this.recordID },
+        url       : any       = this.baseURI + "symp_delete.php";
 
     this.http
       .post(url, JSON.stringify(options))
@@ -222,12 +282,12 @@ export class AddSymptomPage {
   * @return {None}
   */
   saveEntry(): void {
-    let name: string = this.form.controls["s_name"].value,
-      description: string = this.form.controls["s_description"].value,
-      date: Date = this.form.controls["s_date"].value,
-      time: string = this.form.controls["s_time"].value,
-      type: string[] = this.form.controls["s_type"].value,
-      mood: string = this.form.controls["s_mood"].value;
+    let name        : string    = this.form.controls["s_name"].value,
+      description   : string    = this.form.controls["s_description"].value,
+      date          : Date      = this.form.controls["s_date"].value,
+      time          : string    = this.form.controls["s_time"].value,
+      type          : string[]  = this.form.controls["s_type"].value,
+      mood          : string    = this.form.controls["s_mood"].value;
 
     if (this.isEdited) {
       this.updateEntry(name, description, date, time, type, mood);
@@ -245,13 +305,14 @@ export class AddSymptomPage {
   * @method resetFields
   * @return {None}
   */
-  resetFields(): void {
-    this.sympName = "";
-    this.sympDesc = "";
-    this.sympDate = "";
-    this.sympTime = "";
-    this.sympType = "";
-    this.sympMood = "";
+  resetFields() : void
+  {
+    this.sympName       = "";
+    this.sympDesc       = "";
+    this.sympDate       = "";
+    this.sympTime       = "";
+    this.sympType       = "";
+    this.sympMood       = "";
   }
 
   /**
