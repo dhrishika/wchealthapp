@@ -16,7 +16,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url +'&ts=' + Date.now())
     .map(res => res.json());
   }
@@ -27,7 +26,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -38,7 +36,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -50,7 +47,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -62,7 +58,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -74,7 +69,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -86,7 +80,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -98,7 +91,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -110,7 +102,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -122,7 +113,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -134,7 +124,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -146,7 +135,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -158,7 +146,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -170,7 +157,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -182,7 +168,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -194,7 +179,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -206,7 +190,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -218,7 +201,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -230,7 +212,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -242,7 +223,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -254,7 +234,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -266,7 +245,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -278,7 +256,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -290,7 +267,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -302,7 +278,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -314,7 +289,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -326,7 +300,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
@@ -338,7 +311,6 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      // + 'posts?page=' + page
       + category_url)
     .map(res => res.json());
   }
