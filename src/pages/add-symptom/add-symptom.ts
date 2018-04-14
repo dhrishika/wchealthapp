@@ -103,6 +103,13 @@ export class AddSymptomPage {
      */
     private baseURI               : string  = "http://womanovaapp.com/";
 
+    /**
+     * @name minDate
+     * @type {any}
+     * @description     Property to manage the minimum date for date
+     */
+    minStartDate  : any;
+
 
   // Initialise module classes
   constructor(public navCtrl: NavController,
@@ -124,6 +131,8 @@ export class AddSymptomPage {
       "s_type": ["", Validators.required],
       "s_mood": ["", Validators.required]
     });
+
+    this.minStartDate = new Date().toISOString();
   }
 
   /**

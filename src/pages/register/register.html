@@ -57,11 +57,11 @@
            <ion-item-group>
             <ion-item-divider color="light">Date of Birth</ion-item-divider>
             <ion-item>
-               <ion-datetime
-                  displayFormat="DD MMM YYYY"
+               <ion-datetime displayFormat="DD MMM YYYY"
+                  [(ngModel)]="userDOB"
                   placeholder="Enter your date of birth..."
                   formControlName="u_dob"
-                  [(ngModel)]="userDOB"></ion-datetime>
+                  [max]="maxDate"></ion-datetime>
             </ion-item>
          </ion-item-group>
          <ion-item-group>

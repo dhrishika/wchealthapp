@@ -1,11 +1,10 @@
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage} from '@ionic/storage';
 import * as moment from 'moment';
-
 
 @IonicPage()
 @Component({
@@ -13,113 +12,116 @@ import * as moment from 'moment';
   templateUrl: 'add-reminder.html'
 })
 export class AddReminderPage {
+    
+    /**
+      * @name form
+      * @type {FormGroup}
+      * @public
+      * @description     Define FormGroup property for managing form validation / data retrieval
+      */
+    public form                   : FormGroup;
+  
 
    /**
-    * @name form
-    * @type {FormGroup}
-    * @public
-    * @description     Define FormGroup property for managing form validation / data retrieval
-    */
-    public form                   : FormGroup;
-
-    /**
     * @name taskName
     * @type {Any}
     * @public
     * @description     Model for managing the task reminder Name field
     */
-    public taskName               : any;
+   public taskName               : any;
 
-    /**
-    * @name taskType
-    * @type {Any}
+   /**
+   * @name taskType
+   * @type {Any}
+   * @public
+   * @description     Model for managing the task reminder Type field
+   */
+   public taskType               : any;
+
+   /**
+   * @name taskSDate
+   * @type {Any}
+   * @public
+   * @description     Model for managing the task reminder Start Date field
+   */
+   public taskSDate              : any;
+
+   /**
+   * @name taskEDate
+   * @type {Any}
+   * @public
+   * @description     Model for managing the task reminder End Date field
+   */
+   public taskEDate              : any;
+
+   /**
+   * @name taskTime
+   * @type {Any}
+   * @public
+   * @description     Model for managing the task reminder Time field
+   */
+   public taskTime               : any;
+
+   /**
+   * @name taskRepeat
+   * @type {Any}
+   * @public
+   * @description     Model for managing the task reminder Repeat field
+   */
+   public taskRepeat             : any;
+
+   /**
+    * @name recordID 
+    * @type {any} 
     * @public
-    * @description     Model for managing the task reminder Type field
+    * @description     Property to store the recordID for when an existing entry is being edited
     */
-    public taskType               : any;
-
-    /**
-    * @name taskSDate
-    * @type {Any}
-    * @public
-    * @description     Model for managing the task reminder Start Date field
-    */
-    public taskSDate              : any;
-
-    /**
-    * @name taskEDate
-    * @type {Any}
-    * @public
-    * @description     Model for managing the task reminder End Date field
-    */
-    public taskEDate              : any;
-
-    /**
-    * @name taskTime
-    * @type {Any}
-    * @public
-    * @description     Model for managing the task reminder Time field
-    */
-    public taskTime               : any;
-
-    /**
-    * @name taskRepeat
-    * @type {Any}
-    * @public
-    * @description     Model for managing the task reminder Repeat field
-    */
-    public taskRepeat             : any;
-
-    /**
-     * @name recordID 
-     * @type {any} 
-     * @public
-     * @description     Property to store the recordID for when an existing entry is being edited
-     */
-    public recordID               : any      = null;
-
-    public storage               : Storage;
+   public recordID               : any      = null;
 
     /**
       * @name arr
       * @type {any[]}
       * @description    Array that will contain the dates between the start and end dates
       */
-    arr                           : any[] = [];
+    arr                             : any[] = [];
 
     /**
       * @name notifications
       * @type {any[]}
       * @description    Array that we will contain all the local notifications the user adds
       */
-    notifications                 : any[] = [];
+    notifications                   : any[] = [];
+
 
     /**
-    * @name hours
-    * @type {number}
-    * @description      Represent the hour of the day that the user wants to be notified
+     * @name hours
+     * @type {number}
+     * @description     Represent the hour of the day that the user wants to be notified
     */
-    hours                         : number;
+    hours                           : number;
 
-   /**
-   * @name minutes
-   * @type {number}
-   * @description      Represent the minutes of the day that the user wants to be notified
-   */
-    minutes                       : number;
+    /**
+     * @name minutes
+     * @type {number}
+     * @description     Represent the minutes of the day that the user wants to be notified
+     */
+    minutes                         : number;
 
-  /**
-   * @name notifyTime
-   * @type {any}
-   * @description      Contain an ISO datetime string to set a default time for the <ion-datetime> input field
-   */
-    notifyTime                    : any;
+    /**
+     * @name notifyTime
+     * @type {any}
+     * @description     Contain an ISO datetime string to set a default time for the <ion-datetime> input field
+     */
+    notifyTime: any;
 
+
+    public storage                  : Storage;
+  
    /**
     * @name isEdited
     * @type {Boolean}
     * @public
-    * @description     Flag to be used for checking whether we are adding/editing an entry
+    * @description      Flag to be used for checking whether we are adding/editing an entry
     */
     public isEdited               : boolean = false;
 
@@ -129,7 +131,8 @@ export class AddReminderPage {
      * @public
      * @description     Property to help set the page title
      */
-    public pageTitle              : string;
+    public pageTitle                : string;
+
 
     /**
      * @name baseURI 
@@ -137,7 +140,7 @@ export class AddReminderPage {
      * @private 
      * @description     Remote URI for retrieving data from and sending data to
      */
-    private baseURI              : string  = "http://womanovaapp.com/";
+    private baseURI               : string  = "http://womanovaapp.com/";
 
     /**
      * @name notifyID
@@ -155,48 +158,65 @@ export class AddReminderPage {
      */
     public IDs                  : any;
 
+    /**
+     * @name minDate
+     * @type {any}
+     * @description     Property to manage the minimum date for start date
+     */
+    minStartDate  : any;
 
-   // Initialise module classes
-   constructor(public navCtrl             : NavController,
-               public http                : HttpClient,
-               public NP                  : NavParams,
-               public fb                  : FormBuilder,
-               public toastCtrl           : ToastController,
-               public localNotifications  : LocalNotifications,
-               private storage2           : Storage)
-   {
-       this.storage = storage2;
+    /**
+     * @name minDate
+     * @type {any}
+     * @description     Property to manage the minimum date for end date
+     */
+    minEndDate  : any;
+  
 
-      // Create form builder validation rules
-      this.form = fb.group({
-         "t_name"                   : ["", Validators.required],
-         "t_type"                   : ["", Validators.required],
-         "t_start_date"             : ["", Validators.required],
-         "t_end_date"               : [""],
-         "t_time"                   : ["", Validators.required],
-         "t_repeat"                 : ["", Validators.required],
-         "t_notifyID"               : [""]
-      });
+     // Initialise module classes
+    constructor(public navCtrl              : NavController,
+                 public http                : HttpClient,
+                 public NP                  : NavParams,
+                 public fb                  : FormBuilder,
+                 public toastCtrl           : ToastController,
+                 private storage2           : Storage, 
+                 public localNotifications  : LocalNotifications)
+    {
+        this.storage = storage2;
+        
+        // Create form builder validation rules
+        this.form = fb.group({
+          "t_name"                   : ["", Validators.required],
+          "t_type"                   : ["", Validators.required],
+          "t_start_date"             : ["", Validators.required],
+          "t_end_date"               : [""],
+          "t_time"                   : ["", Validators.required],
+          "t_repeat"                 : ["", Validators.required],
+          "t_notifyID"               : [""]
+        });
 
         this.hours = new Date().getHours();
         this.minutes = new Date().getMinutes();
 
         this.taskTime = moment(new Date()).format(); 
 
-   }
-
-    /**
-     * This function listens for change in the <ion-datetime> input
-     * that we will add to getNotify function
-     * 
-     * @param time      the time selected in the ion-datetime field
-     */
-    timeChange(time){
-    this.hours = time.hour;
-    this.minutes = time.minute;
+        this.minStartDate = new Date().toISOString();
     }
 
-   /**
+
+    /**
+      * This function listens for change in the <ion-datetime> input
+      * that we will add to getNotify function
+      * 
+      * @param time 
+      */
+    timeChange(time){
+        this.hours = time.hour;
+        this.minutes = time.minute;
+    }
+
+  
+    /**
     * Triggered when template view is about to be entered
     * Determine whether we adding or editing a record
     * based on any supplied navigation parameters
@@ -205,36 +225,34 @@ export class AddReminderPage {
     * @method ionViewWillEnter
     * @return {None}
     */
-   ionViewWillEnter() : void
-   {
-      this.resetFields();
-
-      if(this.NP.get("record"))
-      {
-         this.isEdited      = true;
-         this.selectEntry(this.NP.get("record"));
-         this.pageTitle     = 'Edit Reminder';
-      }
-      else
-      {
-         this.isEdited      = false;
-         this.pageTitle     = 'Create Reminder';
-      }
-   }
-
-
-
-   /**
-    * Assign the navigation retrieved data to properties
-    * used as models on the page's HTML form
-    *
-    * @public
-    * @method selectEntry
-    * @param item 		{any} 			Navigation data
-    * @return {None}
-    */
-   selectEntry(item : any) : void
-   {
+    ionViewWillEnter() : void
+    {
+        this.resetFields();
+  
+        if(this.NP.get("record"))
+        {
+           this.isEdited      = true;
+           this.selectEntry(this.NP.get("record"));
+           this.pageTitle     = 'Edit Reminder';
+        }
+        else
+        {
+           this.isEdited      = false;
+           this.pageTitle     = 'Create Reminder';
+        }
+    }
+  
+    /**
+      * Assign the navigation retrieved data to properties
+      * used as models on the page's HTML form
+      *
+      * @public
+      * @method selectEntry
+      * @param item 		{any} 			Navigation data
+      * @return {None}
+      */
+    selectEntry(item : any) : void
+    {
       this.taskName     = item.t_name;
       this.taskType     = item.t_type;
       this.taskSDate    = item.t_start_date;
@@ -243,12 +261,10 @@ export class AddReminderPage {
       this.taskRepeat   = item.t_repeat;
       this.notifyID     = item.t_notifyID;
       this.recordID     = item.t_id;
-      console.log("Reminder Name", this.taskEDate);
-      console.log("notification ID", item.t_notifyID);
-   }
-
+    }
+  
     
-   /**
+     /**
     * Save a new record that has been added to the page's HTML form
     * Use angular's http post method to submit the record data
     *
@@ -264,36 +280,37 @@ export class AddReminderPage {
     */
    createEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
-    this.getDifference();
-    this.storage.get('authToken').then((token) => {
-        let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-            options 	: any		= { "t_token" : token, "key" : "create", "t_name" : name, "t_tyoe" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_notifyID" : this.notifyID.toString() },
-            url       : any   = this.baseURI + "create.php";
-
-      this.http.post(url, JSON.stringify(options))
-      .subscribe((data : any) =>
-      {
-          if(data && data['success']){
-            // If the request was successful notify the user
-            // this.navCtrl.setRoot(ReminderHomePage);
-            this.navCtrl.pop();
-            this.sendNotification(`${name} was successfully added`);
-
-          //---------------Create NOTIFICATION-----------------------------
-          this.scheduleNotification();
-          } 
-      },
-      (error : any) =>
-      {
-        console.log("Error is", error);
-         this.sendNotification('Something went wrong!');
-      });
-    });
-    
-   }
-
-
-   /**
+        this.getDifference();
+        this.storage.get('authToken').then((token) => {
+            let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+                options 	: any		= { "t_token" : token, "key" : "create", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_notifyID" : this.notifyID.toString() },
+                url       : any      	= this.baseURI + "create.php";
+        
+          this.http.post(url, JSON.stringify(options))
+          .subscribe((data : any) =>
+          {
+              if(data && data['success']){
+                // If the request was successful notify the user
+                this.scheduleNotification();
+                this.navCtrl.pop();
+                this.sendNotification(`Congratulations the reminder: ${name} was successfully added`);
+              }
+              else{
+                console.log(data);
+                this.sendNotification(`${name} was not added successfully!`);
+              }
+             
+          },
+          (error : any) =>
+          {
+            console.log("Error is", error);
+             this.sendNotification('Something went wrong!');
+          });
+        });
+    }
+  
+  
+     /**
     * Update an existing record that has been edited in the page's HTML form
     * Use angular's http post method to submit the record data
     * to our remote PHP script
@@ -310,54 +327,53 @@ export class AddReminderPage {
     */
    updateEntry(name : string, type : string, sDate : Date, eDate : Date, time : String, repeat : String) : void
    {
-      let startDate = moment(this.taskSDate, "YYYY-MM-DD"),
-          endDate   = moment(this.taskEDate, "YYYY-MM-DD"),
-          daysDiff  = 0;
+        let startDate = moment(this.taskSDate, "YYYY-MM-DD"),
+            endDate   = moment(this.taskEDate, "YYYY-MM-DD"),
+            daysDiff  = 0;
 
-      console.log("Notify ID", this.notifyID);
+        console.log("Notify ID", this.notifyID);
 
-      this.IDs = this.notifyID.split(',');
+        this.IDs = this.notifyID.split(',');
 
-      console.log("Array od additional ids", this.IDs);
-
-      if(this.taskRepeat.match("day")){
+        console.log("Array od additional ids", this.IDs);
+        
+        if(this.taskRepeat.match("day")){
         daysDiff = endDate.diff(startDate, "days");
-      }
-      else if(this.taskRepeat.match("week")){
+        }
+        else if(this.taskRepeat.match("week")){
         daysDiff = endDate.diff(startDate, "weeks");
-      }
-      else if(this.taskRepeat.match("month")){
+        }
+        else if(this.taskRepeat.match("month")){
         daysDiff = endDate.diff(startDate, "months");
-      }
+        }
 
-      if(daysDiff > this.IDs.length){
-        for(let i =0; i<=daysDiff; i++){
-          this.IDs.push(Math.random().toFixed(10));
-      }
-      }
+        if(daysDiff > this.IDs.length){
+            for(let i =0; i<=daysDiff; i++){
+                this.IDs.push(Math.random().toFixed(10));
+            }
+        }
 
-      let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= { "key" : "update", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_notifyID" : this.IDs.toString(), "t_id" : this.recordID },
-          url       : any   = this.baseURI + "update.php";
-
-      this.http
-      .post(url, JSON.stringify(options))
-      .subscribe(data =>
-      {
-         // If the request was successful notify the user
-        //  this.navCtrl.setRoot(ReminderHomePage);
-        this.navCtrl.pop();
-         this.sendNotification(`${name} was successfully updated`);
-         this.updateNotification();
-      },
-      (error : any) =>
-      {
-         this.sendNotification('Something went wrong!');
-      });
-   }
-
-
-   /**
+        let headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+            options 	: any		= { "key" : "update", "t_name" : name, "t_type" : type, "t_start_date" : sDate, "t_end_date" : eDate, "t_time" : time, "t_repeat" : repeat, "t_notifyID" : this.IDs.toString(), "t_id" : this.recordID },
+            url       : any      	= this.baseURI + "update.php";
+        
+        this.http
+        .post(url, JSON.stringify(options))
+        .subscribe(data =>
+        {
+           // If the request was successful notify the user
+          this.navCtrl.pop();
+          this.sendNotification(`Congratulations the reminder: ${name} was successfully updated`);
+          this.updateNotification();
+        },
+        (error : any) =>
+        {
+           this.sendNotification('Something went wrong!');
+        });
+    }
+  
+  
+     /**
     * Remove an existing record that has been selected in the page's HTML form
     * Use angular's http post method to submit the record data
     * to our remote PHP script
@@ -368,38 +384,38 @@ export class AddReminderPage {
     */
    deleteEntry() : void
    {
-      let name      : string 	= this.form.controls["t_name"].value,
-          headers 	: any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
-          options 	: any		= { "key" : "delete", "t_id" : this.recordID},
-          url       : any      	= this.baseURI + "delete.php";
+      let name        : string 	= this.form.controls["t_name"].value,
+          headers 	  : any		= new HttpHeaders({ 'Content-Type': 'application/json' }),
+          options 	  : any		= { "key" : "delete", "t_id" : this.recordID},
+          url         : any      	= this.baseURI + "delete.php";
 
       this.http
       .post(url, JSON.stringify(options))
       .subscribe(data =>
       {
         this.navCtrl.pop();
-        this.sendNotification(`${name} was successfully deleted`);
+        this.sendNotification(`Congratulations the reminder: ${name} was successfully deleted`);
         this.cancelNotification();
       },
       (error : any) =>
       {
         console.log("Error = ", error);
-        this.sendNotification('Something went wrong!');
+          this.sendNotification('Something went wrong!');
       });
-   }
-
-
-   /**
-    * Handle data submitted from the page's HTML form
-    * Determine whether we are adding a new record or amending an
-    * existing record
-    *
-    * @public
-    * @method saveEntry
-    * @return {None}
-    */
-   saveEntry() : void
-   {
+  }
+  
+  
+    /**
+      * Handle data submitted from the page's HTML form
+      * Determine whether we are adding a new record or amending an
+      * existing record
+      *
+      * @public
+      * @method saveEntry
+      * @return {None}
+      */
+    saveEntry() : void
+    {
       let name          : string    = this.form.controls["t_name"].value,
           type          : string    = this.form.controls["t_type"].value,
           sdate         : Date      = this.form.controls["t_start_date"].value,
@@ -409,55 +425,55 @@ export class AddReminderPage {
 
       if(this.isEdited)
       {
-         this.updateEntry(name, type, sdate, edate, time, repeat);
+        this.updateEntry(name, type, sdate, edate, time, repeat);
       }
       else
       {
-         this.createEntry(name, type, sdate, edate, time, repeat);
+        this.createEntry(name, type, sdate, edate, time, repeat);
       }
-   }
-
-
-   /**
-    * Clear values in the page's HTML form fields
-    *
-    * @public
-    * @method resetFields
-    * @return {None}
-    */
-   resetFields() : void
-   {
+    }
+  
+  
+    /**
+      * Clear values in the page's HTML form fields
+      *
+      * @public
+      * @method resetFields
+      * @return {None}
+      */
+    resetFields() : void
+    {
       this.taskName         = "";
       this.taskType         = "";
       this.taskSDate        = "";
       this.taskEDate        = "";
       this.taskTime         = "";
       this.taskRepeat       = "";
-   }
-
-
-   /**
-    * Manage notifying the user of the outcome of remote operations
-    *
-    * @public
-    * @method sendNotification
-    * @param    message 	    {String} 			Message to be displayed in the notification
-    * @return {None}
-    */
-   sendNotification(message : string)  : void
-   {
-      let notification = this.toastCtrl.create({
-          message       : message,
-          duration      : 3000
-      });
-      notification.present();
-   }
+    }
+  
+  
+    /**
+      * Manage notifying the user of the outcome of remote operations
+      *
+      * @public
+      * @method sendNotification
+      * @param message 	{String} 			Message to be displayed in the notification
+      * @return {None}
+      */
+    sendNotification(message : string)  : void
+    {
+        let notification = this.toastCtrl.create({
+            message       : message,
+            duration      : 3000
+        });
+        notification.present();
+    }
+  
     /** 
     * Manage creating IDs based on the difference between Start and End Dates
     * to use it for creating notification
    */
-  getDifference(){
-
+   getDifference(){
     this.notifyID = [];
     let startDate = moment(this.taskSDate, "YYYY-MM-DD"),
         endDate   = moment(this.taskEDate, "YYYY-MM-DD"),
@@ -501,7 +517,7 @@ export class AddReminderPage {
    let EDate = moment(lastDate);
 
    // check if user included End Date
-   if(this.taskRepeat === ""){
+   if(this.taskEDate === ""){
      let notification = {
          id: this.notifyID[0],
          title: 'Reminder Notification',
@@ -517,21 +533,24 @@ export class AddReminderPage {
    // the user included an End Date
    else {
      while(SDate <= EDate){
-       // create an array of dates from start untill end dates
-         this.arr.push(SDate.toDate());
-
-         if(this.taskRepeat.match("day")){
-             SDate = moment(SDate).add(1, 'days');
-         }
-         else if(this.taskRepeat.match("week")){
-             SDate = moment(SDate).add(1, 'week');
-         }
-         else if(this.taskRepeat.match("month")){
-             SDate = moment(SDate).add(1, 'month');
-         }
-         else{
-             SDate = SDate;
-         }
+      // create an array of dates from start untill end dates
+      let date = SDate.toDate();
+      date.setHours(this.hours);
+      date.setMinutes(this.minutes);
+      this.arr.push(date);
+       
+      if(this.taskRepeat.match("day")){
+          SDate = moment(SDate).add(1, 'days');
+      }
+      else if(this.taskRepeat.match("week")){
+          SDate = moment(SDate).add(1, 'week');
+      }
+      else if(this.taskRepeat.match("month")){
+          SDate = moment(SDate).add(1, 'month');
+      }
+      else{
+          SDate = SDate;
+      }
      }
      console.log("dates array", this.arr);
      // create notification objects
@@ -560,13 +579,8 @@ export class AddReminderPage {
   */
   updateNotification(){
     //cancel any schedualed notifications
-   let x : any;
-   for(x in this.IDs){
-     if(this.localNotifications.isScheduled(x)){
-       this.localNotifications.cancel(x);
-     }
-     console.log("notification canceled", x);
-   }
+    this.localNotifications.cancel(this.IDs);       
+    console.log("Update: notification canceled", this.IDs);
 
    // create new notification with the new start and end dated
    let firstDate = new Date(this.taskSDate);
@@ -595,24 +609,29 @@ export class AddReminderPage {
 
    else {
      while(SDate <= EDate){
-       this.arr.push(SDate.toDate());
+      let date = SDate.toDate();
+      date.setHours(this.hours);
+      date.setMinutes(this.minutes);
+      this.arr.push(date);
 
-       if(this.taskRepeat.match("day")){
-           SDate = moment(SDate).add(1, 'days');
-       }
-       else if(this.taskRepeat.match("week")){
-           SDate = moment(SDate).add(1, 'week');
-       }
-       else if(this.taskRepeat.match("month")){
-           SDate = moment(SDate).add(1, 'month');
-       }
-       else{
-           SDate = SDate;
-       }
+      if(this.taskRepeat.match("day")){
+          SDate = moment(SDate).add(1, 'days');
+      }
+      else if(this.taskRepeat.match("week")){
+          SDate = moment(SDate).add(1, 'week');
+      }
+      else if(this.taskRepeat.match("month")){
+          SDate = moment(SDate).add(1, 'month');
+      }
+      else{
+          SDate = SDate;
+      }
      }
      console.log("dates array", this.arr);
      let i : number = 0;
      for(let day of this.arr){
+      // day.setHours(this.hours);
+      // day.setMinutes(this,this.minutes);
        let notification = {
            id: this.IDs[i],
            title: 'Reminder Notification',
@@ -634,14 +653,8 @@ export class AddReminderPage {
    * 
   */
   cancelNotification(){
-   let x:any;
-   this.IDs = this.notifyID.split(',');
-   for(x in this.IDs){
-     if(this.localNotifications.isScheduled(this.IDs[x])){
-       this.localNotifications.cancel(this.IDs[x]);       
-     }
-   }
-   console.log("notification canceled", this.IDs);
-
+    this.IDs = this.notifyID.split(',');
+    this.localNotifications.cancel(this.IDs);       
+    console.log("Delete: notification canceled", this.IDs);
  }
 }

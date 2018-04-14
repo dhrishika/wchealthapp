@@ -33,6 +33,7 @@
                         <ion-label>Date</ion-label>
                         <ion-datetime displayFormat="DD MMM YYYY" 
                         [(ngModel)]="sympDate" 
+                        [min]="minStartDate"
                         formControlName="s_date"></ion-datetime>
                   </ion-item>
                           
