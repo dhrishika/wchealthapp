@@ -31,7 +31,7 @@ export class MyApp {
       { title: 'Profile', component: "ProfilePage" },
       { title: 'Symptoms Diary', component: "SymptomDiaryHomePage" },
       { title: 'Reminders', component: "RemindersPage" },
-      { title: 'FAQS', component: "FaqsPage" },
+      { title: 'About Us', component: "AboutUsPage" },
       { title: 'Logout', component: "LogoutPage" }
     ];
 
