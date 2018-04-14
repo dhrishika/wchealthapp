@@ -38,6 +38,13 @@ export class RegisterPage {
   public pageTitle: string;
   public recordID: any = null;
 
+  /**
+   * @name minDate
+   * @type {any}
+   * @description     Property to manage the maximum date for date of birth
+   */
+  maxDate  : any;
+
   private baseURI: string = "http://womanovaapp.com/";
 
   constructor(public navCtrl: NavController,
@@ -49,16 +56,20 @@ export class RegisterPage {
     this.form = fb.group({
       "t_email": ["", Validators.required],
       "t_password": ["", Validators.required],
-      "u_name": ["", Validators.compose([Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      "u_dob": ["", Validators.required],
-      "u_weight": ["", Validators.required],
-      "u_height": ["", Validators.required],
+      "u_name": ["", Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+      "u_dob": [""],
+      "u_weight": [""],
+      "u_height": [""],
     });
+
+    this.maxDate = new Date().toISOString();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
+
+
   /**
  * Assign the navigation retrieved data to properties
  * used as models on the page's HTML form
@@ -77,6 +88,8 @@ export class RegisterPage {
     this.userHeight = item.u_height;
     this.recordID = item.id;
   }
+
+
   /**
    * Save a new record that has been added to the page's HTML form
    * Use angular's http post method to submit the record data
@@ -107,6 +120,8 @@ export class RegisterPage {
           this.sendNotification('Something went wrong!');
         });
   }
+
+
   /**
 * Handle data submitted from the page's HTML form
 * Determine whether we are adding a new record or amending an

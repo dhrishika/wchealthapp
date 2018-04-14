@@ -13,9 +13,16 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
+@import "../theme/icons";
 * {
     font-family: 'Gotham-Light';
     font-weight: normal;
     font-style: normal;
 }
+
+// .menu{
+//     background: url(../assets/imgs/menu.jpg) no-repeat center center fixed;
+//     -webkit-background-size: cover;
+//     -moz-background-size: cover;
+//     background-size: cover;
+// }

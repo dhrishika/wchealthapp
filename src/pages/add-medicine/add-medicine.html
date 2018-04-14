@@ -24,13 +24,16 @@
                               <ion-label>Start Date</ion-label>
                               <ion-datetime displayFormat="DD MMM YYYY" 
                               [(ngModel)]="medSDate" 
+                              [min]="minStartDate"
                               formControlName="m_start_date"></ion-datetime>
                         </ion-item>
       
                         <ion-item>
                               <ion-label>End Date</ion-label>
                               <ion-datetime displayFormat="DD MMM YYYY" 
-                              [(ngModel)]="medEDate" 
+                              [(ngModel)]="medEDate"
+                              placeholder="(Optional)"
+                              [min]="minStartDate"
                               formControlName="m_end_date"></ion-datetime>
                         </ion-item>
                                 
