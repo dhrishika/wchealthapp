@@ -1,3 +1,19 @@
 page-reg {
 
+    .background{ 
+        background: url(../assets/imgs/Welcome.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: 100%;
+
+    }
+
+    .scroll-content{
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
 }

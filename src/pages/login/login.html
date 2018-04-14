@@ -1,13 +1,7 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content padding>
+
+<ion-content class="background" padding>
   <div>
 
 
@@ -23,46 +17,47 @@
        <form [formGroup]="form" (ngSubmit)="login()">
 
           <ion-list>
-             <ion-item-group>
-                <ion-item-divider color="light">Email</ion-item-divider>
+              
+            
+                <ion-item-divider>Sign in your account</ion-item-divider>
                 <ion-item>
+                    <ion-label floating> Your email</ion-label>
+                  <ion-icon name="person" item-left primary small></ion-icon>
                    <ion-input
                       type="text"
-                      placeholder="Enter your email..."
                       formControlName="t_email"
                       [(ngModel)]="userEmail"></ion-input>
                 </ion-item>
-             </ion-item-group>
 
-             <ion-item-group>
-                <ion-item-divider color="light">Password</ion-item-divider>
                 <ion-item>
+                    <ion-label floating> Your password</ion-label>
+                  <ion-icon name="lock" item-left primary small></ion-icon>
+                  
                    <ion-input
                       type="password"
-                      placeholder="Enter your password..."
                       formControlName="t_password"
                       rows="6"
                       [(ngModel)]="userPassword"></ion-input>
                 </ion-item>
-             </ion-item-group>
 
-             <ion-item>
+              </ion-list>
+
                 <button
-                   ion-button
-                   color="primary"
+                class="login"
+                   ion-button small
+                   color="ourpink"
                    text-center
-                   block
+                   round
+                   align-center
                    [disabled]="!form.valid">Login</button>
-             </ion-item>
 
-             <ion-item>
              <button
-             ion-button
+             ion-button small
+             class="login"
              text-center
              clear
-             (click)="goRegister()">Don't have an account?</button>
-            </ion-item>
-          </ion-list>
+             (click)="goRegister()">You don't have an account?</button>
+         
 
        </form>
     </div>

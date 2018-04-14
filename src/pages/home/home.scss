@@ -1,11 +1,18 @@
 page-home {
-    #cat{
-        display: flex;
-        flex-direction: column;
-    }
-    #cat button{
-        flex: 4;
+
+    .background{ 
+        background: url(../assets/imgs/Home.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+
     }
 
+    .scroll-content{
+        align-content: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
     
 }
