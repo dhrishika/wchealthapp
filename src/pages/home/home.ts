@@ -102,7 +102,7 @@ export class HomePage {
     this.navCtrl.push('ReproductionPage');
   }
 
-  faq() {
+  faqs() {
     this.navCtrl.push('FaqsPage');
   }
   sendNotification(message: string): void {

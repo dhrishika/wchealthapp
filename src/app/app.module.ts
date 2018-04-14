@@ -1,7 +1,6 @@
-import { LogoutPage } from './../pages/logout/logout';
+import { ReminderHomePageModule } from './../pages/reminder-home/reminder-home.module';
+import { HomeModule } from './../pages/home/home.module';
 import { RegPageModule } from './../pages/reg/reg.module';
-import { FaqsPage } from './../pages/faqs/faqs';
-import { PostPage } from './../pages/post/post';
 import { SymptomDiaryHomePageModule } from '../pages/symptom-diary-home/symptom-diary-home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -10,17 +9,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { IonicStorageModule} from '@ionic/storage';
-import { RegPage } from '../pages/reg/reg';
-import { SymptomDiaryHomePage } from '../pages/symptom-diary-home/symptom-diary-home';
-import { ProfilePage } from '../pages/profile/profile';
-import { RemindersPage } from '../pages/reminders/reminders';
 import { WordpressService } from '../services/wordpress.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpModule } from '@angular/http';
+
 
 
 @NgModule({
@@ -30,7 +25,7 @@ import { HttpModule } from '@angular/http';
     // // RegPage,
     // // SymptomDiaryHomePage,
     // ProfilePage,
-    // RemindersPage,
+    //RemindersPage,
     // PostPage,
     // FaqsPage,
     // LogoutPage
@@ -40,8 +35,11 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    // SymptomDiaryHomePageModule,
+    SymptomDiaryHomePageModule,
+    ReminderHomePageModule,
     RegPageModule,
+    HomeModule,
+
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -52,7 +50,7 @@ import { HttpModule } from '@angular/http';
     // RegPage,
     // SymptomDiaryHomePage,
     // ProfilePage,
-    // RemindersPage,
+    //ReminderHomePage,
     // PostPage,
     // FaqsPage,
     // LogoutPage
