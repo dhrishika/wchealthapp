@@ -35,4 +35,7 @@ export class FemaleBodyPage {
 
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

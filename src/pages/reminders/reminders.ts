@@ -24,4 +24,7 @@ export class RemindersPage {
     this.navCtrl.push('MedicineHomePage')
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }
