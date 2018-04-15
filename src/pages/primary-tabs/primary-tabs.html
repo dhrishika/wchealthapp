@@ -1,7 +1,5 @@
-<ion-tabs>
-    
-    
-    <ion-tab [root]="t2Root" tabTitle="Reminders" tabIcon="notifications"></ion-tab>
-    <ion-tab [root]="t1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-    <ion-tab [root]="t3Root" tabTitle="Symptoms Diary" tabIcon="clipboard"></ion-tab>
+<ion-tabs [selectedIndex]="mySelectedIndex" name="MyApp">
+    <ion-tab *ngFor="let tab of tabs" [root]="tab.root" [tabTitle]="tab.title" [tabIcon]="tab.icon"></ion-tab>
+    <!-- <ion-tab [root]="t2Root" tabTitle="Reminders" tabIcon="notifications"></ion-tab>
+    <ion-tab [root]="t3Root" tabTitle="Symptoms Diary" tabIcon="clipboard"></ion-tab> -->
 </ion-tabs>

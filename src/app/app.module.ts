@@ -15,21 +15,14 @@ import { IonicStorageModule} from '@ionic/storage';
 import { WordpressService } from '../services/wordpress.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpModule } from '@angular/http';
+import { PrimaryTabsPage } from '../pages/primary-tabs/primary-tabs';
 
 
 
 @NgModule({
   declarations: [
     MyApp,
-    // HomePage,
-    // // RegPage,
-    // // SymptomDiaryHomePage,
-    // ProfilePage,
-    //RemindersPage,
-    // PostPage,
-    // FaqsPage,
-    // LogoutPage
-    
+    PrimaryTabsPage    
   ],
   imports: [
     BrowserModule,
@@ -46,14 +39,7 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    // HomePage,
-    // RegPage,
-    // SymptomDiaryHomePage,
-    // ProfilePage,
-    //ReminderHomePage,
-    // PostPage,
-    // FaqsPage,
-    // LogoutPage
+    PrimaryTabsPage,
   ],
   providers: [
     StatusBar,

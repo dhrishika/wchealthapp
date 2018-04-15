@@ -1,25 +1,33 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { NavParams, MenuController } from 'ionic-angular';
 
-/**
- * Generated class for the PrimaryTabsPage tabs.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
-  selector: 'page-primary-tabs',
   templateUrl: 'primary-tabs.html'
 })
 export class PrimaryTabsPage {
 
-  t1Root = 'HomePage'
-  t2Root = 'ReminderHomePage'
-  t3Root = 'SymptomDiaryHomePage'
+  tabs: any;
+  t2Root: any = 'RemindersPage';
+  t1Root: any = 'HomePage';
+  t3Root: any = 'SymptomDiaryHomePage';
+  mySelectedIndex: number;
 
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navParams: NavParams, public menu: MenuController) {
+
+    this.tabs = [
+      {title: "Home", root: "HomePage", icon: "home"},
+      {title: "Symptom Diary", root: "SymptomDiaryHomePage", icon: "clipboard"},
+      {title: "Reminders", root: "RemindersPage", icon: "notifications"}
+    ];
+
+    // this.mySelectedIndex = navParams.data.tabIndex || 0;
+    let getComponentFromNavPArams = navParams.get('componentFromNavParams');
+    if (getComponentFromNavPArams != undefined) {
+      this.tabs[0].root = getComponentFromNavPArams; //override first tab which set actual page
+    } else {
+      this.tabs[0].root = "HomePage"; // if no set, then home page
+    }
+  }
 
 }
