@@ -1,3 +1,14 @@
 page-view-reminder {
 
+    .content{
+        background: url(../assets/imgs/viewreminder.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
 }
