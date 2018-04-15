@@ -26,8 +26,8 @@ export class MyApp {
   // List of pages that can be navigated to from the left menu
   pages: PageInterface[] = [
     { title: 'Profile', name: 'ProfilePage', component: "ProfilePage" },
-    { title: 'Symptoms Diary', name: 'PrimaryTabsPage', component: PrimaryTabsPage, tabComponent: "SymptomDiaryHomePage", index: 1 },
-    { title: 'Reminders', name: 'PrimaryTabsPage', component: PrimaryTabsPage, tabComponent: "RemindersPage", index: 2 },
+    { title: 'Symptoms Diary', name: 'SymptomDiaryHomePage', component: 'SymptomDiaryHomePage', tabComponent: "SymptomDiaryHomePage" },
+    { title: 'Reminders', name: 'RemindersPage', component: 'RemindersPage', tabComponent: "RemindersPage"},
     { title: 'About Us', name: 'AboutUsPage', component: "AboutUsPage"},
     { title: 'Logout', name: 'LogoutPage', component: "LogoutPage"}
   ];
