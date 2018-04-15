@@ -102,5 +102,7 @@ export class FibroidsPage {
     this.navCtrl.push("HomePage");
   }
 
-
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

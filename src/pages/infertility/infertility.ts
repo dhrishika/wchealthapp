@@ -102,5 +102,7 @@ export class InfertilityPage {
     this.navCtrl.push("HomePage");
   }
 
-
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

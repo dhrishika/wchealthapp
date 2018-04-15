@@ -1,7 +1,7 @@
 page-home {
 
     .background{ 
-        background: url(../assets/imgs/Home.jpg) no-repeat center center fixed;
+        background: url(../assets/imgs/Home1.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;
@@ -17,17 +17,37 @@ page-home {
     
     .fbody{
         margin-top: 10%;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .health{
         margin-top: 10%;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .rep{
         margin-top: 10%;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .faq{
         margin-top: 10%;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #cat{
+        display: flex;
+        flex-direction: column;
+    }
+    #cat button{
+        flex: 4;
     }
 }

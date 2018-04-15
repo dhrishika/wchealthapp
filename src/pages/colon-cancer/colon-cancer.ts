@@ -102,4 +102,7 @@ export class ColonCancerPage {
     this.navCtrl.push("HomePage");
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

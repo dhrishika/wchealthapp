@@ -82,6 +82,10 @@ export class HomePage {
     this.navCtrl.push('LoginPage');
   }
 
+  goHome() {
+    this.navCtrl.setRoot('HomePage');
+  }
+
   /**
    * Allow navigation to the Login Page for validating user credentials
    *

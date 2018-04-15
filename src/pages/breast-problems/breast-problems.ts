@@ -100,4 +100,8 @@ export class BreastProblemsPage {
   goToLogin() {
     this.navCtrl.push("HomePage");
   }
+
+  goHome() {
+    this.navCtrl.setRoot('HomePage');
+  }
 }
