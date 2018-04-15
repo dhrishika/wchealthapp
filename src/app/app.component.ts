@@ -16,21 +16,7 @@ export class MyApp {
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
 
-<<<<<<< HEAD
-  // List of pages that can be navigated to from the left menu
-  pages: PageInterface[] = [
-    { title: 'Profile', name: 'ProfilePage', component: "ProfilePage" },
-    { title: 'Symptoms Diary', name: 'PrimaryTabsPage', component: 'SymptomDiaryHomePage', tabComponent: "SymptomDiaryHomePage" },
-    { title: 'Reminders', name: 'PrimaryTabsPage', component: 'RemindersPage', tabComponent: "RemindersPage"},
-    { title: 'About Us', name: 'AboutUsPage', component: "AboutUsPage"},
-    { title: 'Logout', name: 'LogoutPage', component: "LogoutPage"}
-  ];
-
-
-  rootPage: any = PrimaryTabsPage;
-=======
   rootPage: any = "HomePage";
->>>>>>> 0b1d8e0a81a85f2afa3d12d930f91abc3d0d18da
   pages: Array<{title: string, component: any}>;
 
 

@@ -16,24 +16,12 @@ import { IonicStorageModule} from '@ionic/storage';
 import { WordpressService } from '../services/wordpress.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpModule } from '@angular/http';
-<<<<<<< HEAD
-import { PrimaryTabsPage } from '../pages/primary-tabs/primary-tabs';
-import { ReminderHomePage } from '../pages/reminder-home/reminder-home';
-=======
->>>>>>> 0b1d8e0a81a85f2afa3d12d930f91abc3d0d18da
 
 
 
 @NgModule({
   declarations: [
     MyApp,
-<<<<<<< HEAD
-    PrimaryTabsPage,
-    // ReminderHomePage,
-    // SymptomDiaryHomePage
-        
-=======
->>>>>>> 0b1d8e0a81a85f2afa3d12d930f91abc3d0d18da
   ],
   imports: [
     BrowserModule,
@@ -50,12 +38,6 @@ import { ReminderHomePage } from '../pages/reminder-home/reminder-home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-<<<<<<< HEAD
-    PrimaryTabsPage,
-    ReminderHomePage,
-    SymptomDiaryHomePage
-=======
->>>>>>> 0b1d8e0a81a85f2afa3d12d930f91abc3d0d18da
   ],
   providers: [
     StatusBar,
