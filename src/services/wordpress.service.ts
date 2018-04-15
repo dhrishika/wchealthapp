@@ -304,6 +304,17 @@ export class WordpressService {
     .map(res => res.json());
   }
 
+  getRecentPostsFaq(categoryId:number, page:number = 4){
+    //if we want to query posts by category
+    let category_url = categoryId? ("&categories=" + categoryId): "";
+
+    return this.http.get(
+      Config.WORDPRESS_REST_API_URL
+      + 'posts?categories=' + page
+      + category_url)
+    .map(res => res.json());
+  }
+
   getRecentPostsHealthy(categoryId:number, page:number = 14){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";
