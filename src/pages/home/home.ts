@@ -63,7 +63,7 @@ export class HomePage {
   }
 
   ionViewCanEnter(){
-    console.log("GONNA LOAD LIT!!!!");
+    console.log("Page will load");
     this.presentLoadingDefault();
     this.checkLogin();
   }
