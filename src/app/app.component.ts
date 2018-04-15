@@ -1,3 +1,4 @@
+import { HomePage } from './../pages/home/home';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,7 +34,7 @@ export class MyApp {
   ];
 
 
-  rootPage: any = PrimaryTabsPage;
+  rootPage: any = HomePage;
   // pages: Array<{title: string, component: any}>;
 
 
