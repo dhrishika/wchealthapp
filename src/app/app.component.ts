@@ -32,12 +32,6 @@ export class MyApp {
     { title: 'Logout', name: 'LogoutPage', component: "LogoutPage"}
   ];
 
-  // loggedInPages: PageInterface[] =[
-  //   { title: 'Profile', name: 'ProfilePage', component: "ProfilePage" },
-  //   { title: 'About Us', name: 'AboutUsPage', component: "AboutUsPage"},
-  //   { title: 'Logout', name: 'LogoutPage', component: "LogoutPage"}
-  // ];
-
 
   rootPage: any = PrimaryTabsPage;
   // pages: Array<{title: string, component: any}>;
@@ -76,27 +70,27 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     // this.nav.push(page.component);
-    this.nav.setRoot(PrimaryTabsPage, {componentFromNavParams: page.component});
-    // let params = {};
+    this.nav.setRoot(this.rootPage, {componentFromNavParams: page.component});
+    let params = {};
 
-    // // the nav component was found using @ViewChild(Nav)
-    // // setRoot on the nav to remove previous pages and only have this page
-    // // we wouldn't want the back button to show in this scenario
-    // if (page.index) {
-    //   params = { tabIndex: page.index };
-    // }
+    // the nav component was found using @ViewChild(Nav)
+    // setRoot on the nav to remove previous pages and only have this page
+    // we wouldn't want the back button to show in this scenario
+    if (page.index) {
+      params = { tabIndex: page.index };
+    }
 
-    // // If we are already on tabs just change the selected tab
-    // // don't setRoot again, this maintains the history stack of the
-    // // tabs even if changing them from the menu
-    // if (this.nav.getActiveChildNavs().length && page.index != undefined) {
-    //   this.nav.getActiveChildNavs()[1].select(page.index);
-    // } else {
-    //   // Set the root of the nav with params if it's a tab index
-    //   this.nav.setRoot(page.name, params).catch((err: any) => {
-    //     console.log(`Didn't set nav root: ${err}`);
-    //   });
-    // }
+    // If we are already on tabs just change the selected tab
+    // don't setRoot again, this maintains the history stack of the
+    // tabs even if changing them from the menu
+    if (this.nav.getActiveChildNavs().length && page.index != undefined) {
+      this.nav.getActiveChildNavs()[0].select(page.index);
+    } else {
+      // Set the root of the nav with params if it's a tab index
+      this.nav.setRoot(page.name, params).catch((err: any) => {
+        console.log(`Didn't set nav root: ${err}`);
+      });
+    }
   }
 
   enableMenu(loggedIn: boolean) {

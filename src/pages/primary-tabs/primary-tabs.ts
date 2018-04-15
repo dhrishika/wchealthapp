@@ -21,13 +21,13 @@ export class PrimaryTabsPage {
       {title: "Reminders", root: "RemindersPage", icon: "notifications"}
     ];
 
-    this.mySelectedIndex = navParams.data.tabIndex || 0;
-    // let getComponentFromNavPArams = navParams.get('componentFromNavParams');
-    // if (getComponentFromNavPArams != undefined) {
-    //   this.tabs[0].root = getComponentFromNavPArams; //override first tab which set actual page
-    // } else {
-    //   this.tabs[0].root = "HomePage"; // if no set, then home page
-    // }
+    // this.mySelectedIndex = navParams.data.tabIndex || 0;
+    let getComponentFromNavPArams = navParams.get('componentFromNavParams');
+    if (getComponentFromNavPArams != undefined) {
+      this.tabs[0].root = getComponentFromNavPArams; //override first tab which set actual page
+    } else {
+      this.tabs[0].root = "HomePage"; // if no set, then home page
+    }
   }
 
 }
