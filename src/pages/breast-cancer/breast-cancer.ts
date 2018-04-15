@@ -35,60 +35,70 @@ export class BreastCancerPage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public wordpressService: WordpressService
-    ) {}
+  ) { }
 
   ionViewWillEnter() {
-    
+
 
     //if we are browsing a category
     this.categoryId = this.navParams.get('id');
     this.categoryTitle = this.navParams.get('title');
 
-    if(!(this.posts.length > 0)){
+    if (!(this.posts.length > 0)) {
       let loading = this.loadingCtrl.create();
       loading.present();
 
       this.wordpressService.getRecentPostsBC(this.categoryId)
-      .subscribe(data => {
-        for(let post of data){
-          post.excerpt.rendered = post.excerpt.rendered.split('<a')[0] + "</p>";
-          this.posts.push(post);
-        }
-        loading.dismiss();
-      });
+        .subscribe(data => {
+          for (let post of data) {
+            post.excerpt.rendered = post.excerpt.rendered.split('<a')[0] + "</p>";
+            this.posts.push(post);
+          }
+          loading.dismiss();
+        });
     }
   }
 
   postTapped(event, post) {
-		this.navCtrl.push("PostPage", {
-		  item: post
-		});
+    this.navCtrl.push("PostPage", {
+      item: post
+    });
   }
 
   doInfinite(infiniteScroll) {
-    let page = (Math.ceil(this.posts.length/10)) + 1;
+    let page = (Math.ceil(this.posts.length / 10)) + 1;
     let loading = true;
 
     this.wordpressService.getRecentPostsBC(this.categoryId, page)
-    .subscribe(data => {
-      for(let post of data){
-        if(!loading){
-          infiniteScroll.complete();
+      .subscribe(data => {
+        for (let post of data) {
+          if (!loading) {
+            infiniteScroll.complete();
+          }
+          post.excerpt.rendered = post.excerpt.rendered.split('<a')[0] + "</p>";
+          this.posts.push(post);
+          loading = false;
         }
-        post.excerpt.rendered = post.excerpt.rendered.split('<a')[0] + "</p>";
-        this.posts.push(post);
-        loading = false;
-      }
-    }, err => {
-      this.morePagesAvailable = false;
-    })
+      }, err => {
+        this.morePagesAvailable = false;
+      })
   }
 
-  logOut(){
-    
+  /**
+    * Allow navigation to the QuizPage for this category
+    * (We supply the actual quiz category as this method's parameter,
+    * to the QuizPage
+    *
+    * @public
+    * @method quiz
+    * @param param 		{any} 			Navigation data to send to the next page
+    * @return {None}
+    */
+  quiz(param: any): void {
+    this.navCtrl.push('QuizPage', param);
   }
 
-  goToLogin(){
+  goToLogin() {
     this.navCtrl.push("HomePage");
   }
   

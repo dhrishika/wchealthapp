@@ -17,8 +17,8 @@ export class PrimaryTabsPage {
 
     this.tabs = [
       {title: "Home", root: "HomePage", icon: "home"},
-      {title: "Symptom Diary", root: "SymptomDiaryHomePage", icon: "clipboard"},
-      {title: "Reminders", root: "RemindersPage", icon: "notifications"}
+      {title: "Symptom Diary", Component: "SymptomDiaryHomePage", icon: "clipboard"},
+      {title: "Reminders", Component: "RemindersPage", icon: "notifications"}
     ];
 
     // this.mySelectedIndex = navParams.data.tabIndex || 0;

@@ -1,3 +1,4 @@
+import { SymptomDiaryHomePage } from './../pages/symptom-diary-home/symptom-diary-home';
 import { ReminderHomePageModule } from './../pages/reminder-home/reminder-home.module';
 import { HomeModule } from './../pages/home/home.module';
 import { RegPageModule } from './../pages/reg/reg.module';

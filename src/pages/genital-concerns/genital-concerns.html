@@ -2,11 +2,14 @@
     <ion-navbar color="mylightpink">
       <ion-title *ngIf="!categoryTitle">Genital Concerns</ion-title>
       <ion-title *ngIf="categoryTitle">{{categoryTitle}} posts</ion-title>
-      <ion-buttons *ngIf="loggedUser" end>
-        <button ion-button icon-only (click)="logOut()">
-          <ion-icon class="toolbar-icon" name="log-out"></ion-icon>
-        </button>
-      </ion-buttons>
+      <ion-buttons end>
+        <button 
+        ion-button 
+        icon-only
+        (click)="quiz({ cat: 'GenitalConcerns' })">
+        <ion-icon name="trophy"></ion-icon>
+      </button>
+    </ion-buttons>
       
     </ion-navbar>
   </ion-header>
