@@ -91,5 +91,9 @@ export class BreastCancerPage {
   goToLogin(){
     this.navCtrl.push("HomePage");
   }
+  
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 
 }

@@ -124,14 +124,4 @@ export class LoginPage {
    goRegister(){
      this.navCtrl.push("RegisterPage");
    }
-
-   ionViewDidEnter() {
-    //to disable menu, or
-    this.menu.enable(false);
-  }
-
-  ionViewWillLeave() {
-    // to enable menu.
-    this.menu.enable(true);
-  }
 }

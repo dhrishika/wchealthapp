@@ -22,4 +22,8 @@ export class AboutUsPage {
     console.log('ionViewDidLoad AboutUsPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
+
 }

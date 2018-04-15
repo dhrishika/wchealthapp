@@ -34,4 +34,7 @@ export class InfectionsPage {
     this.navCtrl.push('UtiPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

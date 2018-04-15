@@ -34,4 +34,7 @@ export class CancerPreventionPage {
     this.navCtrl.push('CervicalCancerPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }
