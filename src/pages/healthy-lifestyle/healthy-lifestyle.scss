@@ -1,4 +1,13 @@
 page-healthy-lifestyle {
+    .content{
+        background: url(../assets/imgs/health.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
+    .button-light{
+        margin-top: 10%;
+    }
     #cat{
         display: flex;
         flex-direction: column;

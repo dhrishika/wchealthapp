@@ -1,7 +1,7 @@
 page-female-body {
 
     .content{
-        background: url(../assets/imgs/background.jpg) no-repeat center center fixed;
+        background: url(../assets/imgs/subcategories.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;
@@ -13,5 +13,9 @@ page-female-body {
     }
     #cat button{
         flex: 4;
+    }
+
+    .button-light{
+        margin-top: 10%;
     }
 }
