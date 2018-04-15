@@ -1,9 +1,21 @@
 page-health-wellness {
+
+    .content{
+        background: url(../assets/imgs/health.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
+
     #cat{
         display: flex;
         flex-direction: column;
     }
     #cat button{
         flex: 4;
+    }
+
+    .button-light{
+        margin-top: 10%;
     }
 }

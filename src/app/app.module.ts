@@ -22,7 +22,7 @@ import { PrimaryTabsPage } from '../pages/primary-tabs/primary-tabs';
 @NgModule({
   declarations: [
     MyApp,
-    PrimaryTabsPage    
+    PrimaryTabsPage,    
   ],
   imports: [
     BrowserModule,

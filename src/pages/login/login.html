@@ -1,8 +1,11 @@
-<ion-content padding>
+
+
+
+<ion-content class="background" padding>
   <div>
 
 
-    <div *ngIf="hideForm">
+    <!-- <div *ngIf="hideForm">
        <ion-item class="post-entry-message" text-wrap>
           <h2>Success!</h2>
           <p>You have logged in!</p>
@@ -10,7 +13,7 @@
     </div>
 
 
-    <div *ngIf="!hideForm">
+    <div *ngIf="!hideForm"> -->
        <form [formGroup]="form" (ngSubmit)="login()">
 
           <ion-list>
@@ -58,5 +61,4 @@
 
        </form>
     </div>
- </div>
 </ion-content>
