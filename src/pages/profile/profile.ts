@@ -19,7 +19,13 @@ export class ProfilePage {
       */
      public items : Array<any> = [];
      public storage: Storage;
-     public item: any = [];
+
+     /**
+      * @name item
+      * @type {any}
+      * @description    Used to store the name returned from PHP
+      */
+     public item: any;
   
   
      constructor(public navCtrl: NavController,
@@ -60,7 +66,7 @@ export class ProfilePage {
           .subscribe((data: any) => {
             console.dir(data);
             this.items = data;
-            this.item = data;
+            this.item = this.items[0].u_name;
           },
             (error: any) => {
               console.dir(error);
@@ -83,5 +89,7 @@ export class ProfilePage {
       this.navCtrl.push('EditProfilePage', param);
     }
 
-
+    goHome(): void {
+      this.navCtrl.setRoot('HomePage');
+    }
   }

@@ -92,4 +92,7 @@ export class MensurualPainPage {
     this.navCtrl.push("HomePage");
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

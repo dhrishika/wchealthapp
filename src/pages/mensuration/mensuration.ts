@@ -34,4 +34,7 @@ export class MensurationPage {
     this.navCtrl.push('OthersPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

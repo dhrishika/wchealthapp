@@ -93,4 +93,8 @@ export class SymptomDiaryHomePage {
   {
      this.navCtrl.push('ViewSymptomPage', param);
   }
+
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

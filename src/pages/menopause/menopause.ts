@@ -93,5 +93,7 @@ export class MenopausePage {
     this.navCtrl.push("HomePage");
   }
 
-
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

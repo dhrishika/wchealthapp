@@ -92,4 +92,7 @@ export class PelvicFloorProblemsPage {
     this.navCtrl.push('HomePage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

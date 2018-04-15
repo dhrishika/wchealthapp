@@ -42,4 +42,7 @@ export class ReproductionPage {
     this.navCtrl.push('InfectionsPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

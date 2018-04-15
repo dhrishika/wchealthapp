@@ -335,7 +335,7 @@ export class AddReminderPage {
 
         this.IDs = this.notifyID.split(',');
 
-        console.log("Array od additional ids", this.IDs);
+        console.log("Array of additional ids", this.IDs);
         
         if(this.taskRepeat.match("day")){
         daysDiff = endDate.diff(startDate, "days");
@@ -640,10 +640,10 @@ export class AddReminderPage {
          };
          i = i + 1;
          this.notifications.push(notification);
-           
+         this.localNotifications.schedule(notification);
      }
      console.log("Notifications to be updated", this.notifications);
-     this.localNotifications.schedule(this.notifications);
+    //  this.localNotifications.schedule(this.notifications);
    }
   }
 
