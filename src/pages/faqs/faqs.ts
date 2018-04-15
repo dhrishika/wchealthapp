@@ -15,4 +15,7 @@ export class FaqsPage {
     console.log('ionViewDidLoad FaqsPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

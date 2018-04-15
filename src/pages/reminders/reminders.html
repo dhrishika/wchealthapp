@@ -3,6 +3,7 @@
         <button ion-button menuToggle>
         <ion-icon name="list"></ion-icon>
         </button>
+        <title>Reminders</title>
     </ion-navbar>
 </ion-header>
 
@@ -13,7 +14,10 @@
 
       <button class="button2" ion-button outline color="button" (click)="goMed()" >Medicine Reminder</button>
     </div>
-<!--     <button class="button1" ion-button outline color="button" navPush="ReminderHomePage" >Task Reminder</button>
-
-      <button class="button2" ion-button outline color="button" navPush="MedicineHomePage" >Medicine Reminder</button> -->
 </ion-content>
+
+<ion-footer>
+        <button ion-button full (click)="goHome()">
+            <ion-icon name="home"></ion-icon>
+        </button>
+    </ion-footer>

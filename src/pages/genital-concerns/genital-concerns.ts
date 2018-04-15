@@ -92,4 +92,8 @@ export class GenitalConcernsPage {
     this.navCtrl.push("HomePage");
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
+
 }

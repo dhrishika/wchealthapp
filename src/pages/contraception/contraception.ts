@@ -34,4 +34,7 @@ export class ContraceptionPage {
     this.navCtrl.push('PermanentSterilizationPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

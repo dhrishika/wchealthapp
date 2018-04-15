@@ -93,5 +93,8 @@ export class HormonalContraceptionPage {
     this.navCtrl.push("HomePage");
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 
 }

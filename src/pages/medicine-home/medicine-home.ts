@@ -98,5 +98,8 @@ export class MedicineHomePage {
      {
         this.navCtrl.push('ViewMedicinePage', param);
      }
-  
+
+     goHome(): void {
+      this.navCtrl.setRoot('HomePage');
+    }
   }

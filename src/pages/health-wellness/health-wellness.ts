@@ -34,4 +34,7 @@ export class HealthWellnessPage {
     this.navCtrl.push('HealthyLifestylePage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }
