@@ -1,11 +1,12 @@
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage} from '@ionic/storage';
 import * as moment from 'moment';
 
+declare var cordova;
 
 @IonicPage()
 @Component({
@@ -182,7 +183,8 @@ export class AddMedicinePage {
                  public fb                  : FormBuilder,
                  public toastCtrl           : ToastController,
                  private storage2           : Storage, 
-                 public localNotifications  : LocalNotifications)
+                 public localNotifications  : LocalNotifications,
+                 public platform: Platform)
     {
         this.storage = storage2;
         
@@ -517,8 +519,8 @@ export class AddMedicinePage {
    lastDate.setMinutes(this.minutes);
 
    // convert dates to moments object
-   let SDate = moment(firstDate);
-   let EDate = moment(lastDate);
+   let  SDate = moment(firstDate),
+        LDate = moment(lastDate);
 
    // check if user included End Date
    if(this.medEDate === ""){
@@ -536,44 +538,38 @@ export class AddMedicinePage {
 
    // the user included an End Date
    else {
-     while(SDate <= EDate){
-       // create an array of dates from start untill end dates
-       let date = SDate.toDate();
-       date.setHours(this.hours);
-       date.setMinutes(this.minutes);
-       this.arr.push(date);
+       while(SDate <= LDate){
+            let date = SDate.toDate();
+            date.setHours(this.hours);
+            date.setMinutes(this.minutes);
+            this.arr.push(date);
+           if(this.medRepeat.match("day")){
+               SDate = moment(SDate).add(1, 'days');
+            }
+            else if(this.medRepeat.match("week")){
+                SDate = moment(SDate).add(1, 'week');
+            }
+            else if(this.medRepeat.match("month")){
+                SDate = moment(SDate).add(1, 'month');
+            }
+            // else{
+            //     SDate = SDate;
+            // }
+       }
+       let i = 0;
+       for(let day of this.arr){
+        let notification = {
+            id: this.notifyID[i],
+            text: `You have a ${this.medName} medicine reminder`,
+            at: day
+        };
+        i++;
+        this.notifications.push(notification);
+       }
+       console.log("Notifications to be schedualed", this.notifications);
 
-        if(this.medRepeat.match("day")){
-            SDate = moment(SDate).add(1, 'days');
-        }
-        else if(this.medRepeat.match("week")){
-            SDate = moment(SDate).add(1, 'week');
-        }
-        else if(this.medRepeat.match("month")){
-            SDate = moment(SDate).add(1, 'month');
-        }
-        else{
-            SDate = SDate;
-        }
-     }
-     console.log("dates array", this.arr);
-     // create notification objects
-     let i : number = 0;
-     for(let day of this.arr){
-         // set the hours & minutes for each date in the array
-         let notification = {
-             id: this.notifyID[i],
-             title: 'Reminder Notification',
-             text: `Do not forget your ${this.medName}`,
-             at: day
-           };
-           i = i + 1;
-           this.notifications.push(notification);
-           
-     }
-     console.log("Notifications to be schedualed", this.notifications);
-     // schedule the array of notifications
-     this.localNotifications.schedule(this.notifications);
+       
+       this.localNotifications.schedule(this.notifications);
    }
   }
 
@@ -583,71 +579,71 @@ export class AddMedicinePage {
    * based on the updated Start and End Dates
   */
   updateNotification(){
-    //cancel any schedualed notifications
-    this.localNotifications.cancel(this.IDs);
-    console.log("Update--- ", this.IDs);
+//     //cancel any schedualed notifications
+//     this.localNotifications.cancel(this.IDs);
+//     console.log("Update--- ", this.IDs);
     
-   // create new notification with the new start and end dated
-   let firstDate = new Date(this.medSDate);
-   firstDate.setHours(this.hours);
-   firstDate.setMinutes(this.minutes);
+//    // create new notification with the new start and end dated
+//    let firstDate = new Date(this.medSDate);
+//    firstDate.setHours(this.hours);
+//    firstDate.setMinutes(this.minutes);
 
-   let lastDate = new Date(this.medEDate);
-   lastDate.setHours(this.hours);
-   lastDate.setMinutes(this.minutes);
+//    let lastDate = new Date(this.medEDate);
+//    lastDate.setHours(this.hours);
+//    lastDate.setMinutes(this.minutes);
 
-   let SDate = moment(firstDate);
-   let EDate = moment(lastDate);
+//    let SDate = moment(firstDate);
+//    let EDate = moment(lastDate);
 
-   if(this.medEDate == "0000-00-00"){
-     let notification = {
-         id: this.IDs[0],
-         title: 'Reminder Notification',
-         text: `Do not forget your ${this.medName}`,
-         at: firstDate,
-         every: this.medRepeat
-       };
+//    if(this.medEDate == "0000-00-00"){
+//      let notification = {
+//          id: this.IDs[0],
+//          title: 'Reminder Notification',
+//          text: `Do not forget your ${this.medName}`,
+//          at: firstDate,
+//          every: this.medRepeat
+//        };
 
-       this.localNotifications.schedule(notification);
-       console.log("Single Notification to be updated", notification);
-   }
+//        this.localNotifications.schedule(notification);
+//        console.log("Single Notification to be updated", notification);
+//    }
 
-   else {
-     while(SDate <= EDate){
-        let date = SDate.toDate();
-        date.setHours(this.hours);
-        date.setMinutes(this.minutes);
-        this.arr.push(date);
+//    else {
+//      while(SDate <= EDate){
+//         let date = SDate.toDate();
+//         date.setHours(this.hours);
+//         date.setMinutes(this.minutes);
+//         this.arr.push(date);
 
-       if(this.medRepeat.match("day")){
-           SDate = moment(SDate).add(1, 'days');
-       }
-       else if(this.medRepeat.match("week")){
-           SDate = moment(SDate).add(1, 'week');
-       }
-       else if(this.medRepeat.match("month")){
-           SDate = moment(SDate).add(1, 'month');
-       }
-       else{
-           SDate = SDate;
-       }
-     }
-     console.log("dates array", this.arr);
-     let i : number = 0;
-     for(let day of this.arr){
-        let notification = {
-           id: this.IDs[i],
-           title: 'Reminder Notification',
-           text: `Do not forget your ${this.medName}`,
-           at: day
-         };
-         i = i + 1;
-         this.notifications.push(notification);
+//        if(this.medRepeat.match("day")){
+//            SDate = moment(SDate).add(1, 'days');
+//        }
+//        else if(this.medRepeat.match("week")){
+//            SDate = moment(SDate).add(1, 'week');
+//        }
+//        else if(this.medRepeat.match("month")){
+//            SDate = moment(SDate).add(1, 'month');
+//        }
+//        else{
+//            SDate = SDate;
+//        }
+//      }
+//      console.log("dates array", this.arr);
+//      let i : number = 0;
+//      for(let day of this.arr){
+//         let notification = {
+//            id: this.IDs[i],
+//            title: 'Reminder Notification',
+//            text: `Do not forget your ${this.medName}`,
+//            at: day
+//          };
+//          i = i + 1;
+//          this.notifications.push(notification);
            
-     }
-     console.log("Notifications to be updated", this.notifications);
-     this.localNotifications.schedule(this.notifications);
-   }
+//      }
+//      console.log("Notifications to be updated", this.notifications);
+//      this.localNotifications.schedule(this.notifications);
+//    }
   }
 
 
@@ -656,9 +652,9 @@ export class AddMedicinePage {
    * 
   */
   cancelNotification(){
-   this.IDs = this.notifyID.split(',');
-   this.localNotifications.cancel(this.IDs);       
-   console.log("Delete: notification canceled", this.IDs);
+//    this.IDs = this.notifyID.split(',');
+//    this.localNotifications.cancel(this.IDs);       
+//    console.log("Delete: notification canceled", this.IDs);
 
  }
 }
