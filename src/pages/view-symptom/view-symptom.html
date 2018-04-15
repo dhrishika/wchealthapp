@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="mylightpink">
+  <ion-navbar color="ourpink">
         <ion-buttons end>
             <button (click)="viewEntry({ record: items })" ion-button>
                 Edit
@@ -15,49 +15,51 @@
 
       <ion-card>
 
-          <ion-card-header>
-            Symptom Name
-          </ion-card-header>
+          <!-- <ion-card-header>
+            Symptom
+          </ion-card-header> -->
+
+          <ion-card-content class="bold">
+                {{ sympDate }}
+            </ion-card-content>
         
           <ion-card-content>
               {{ sympName }} 
           </ion-card-content>
 
-          <ion-card-header>
+          <!-- <ion-card-header>
               Description
-            </ion-card-header>
+            </ion-card-header> -->
           
             <ion-card-content>
                 {{ sympDesc }} 
             </ion-card-content>
 
-            <ion-card-header>
+            <!-- <ion-card-header>
             Symptom Type
-            </ion-card-header>
+            </ion-card-header> -->
         
             <ion-card-content>
                 {{ sympType }} 
             </ion-card-content>
 
-            <ion-card-header>
+            <!-- <ion-card-header>
             Mood
-            </ion-card-header>
+            </ion-card-header> -->
         
             <ion-card-content>
                 {{ sympMood }}
             </ion-card-content>
 
-            <ion-card-header>
+            <!-- <ion-card-header>
                 Date
               </ion-card-header>
-            
-              <ion-card-content>
-                  {{ sympDate }}
-              </ion-card-content>
+             -->
               
-              <ion-card-header>
+              
+              <!-- <ion-card-header>
                 Time
-              </ion-card-header>
+              </ion-card-header> -->
             
               <ion-card-content>
                   {{ sympTime }}
