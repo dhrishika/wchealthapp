@@ -19,7 +19,13 @@ page-login {
     .login{
         margin-left: auto;
         margin-right: auto;
-        align-items: center;
     }
 
+    #cat{
+        display: flex;
+        flex-direction: column;
+    }
+    #cat button{
+        flex: 4;
+    }
 }
