@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class QuizPage {
   public scores = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public http   : HttpClient,
-    private storage2: Storage) {
+    private storage2: Storage, private alertCtrl: AlertController) {
     this.storage = storage2;
   }
 
@@ -40,6 +41,7 @@ export class QuizPage {
                   console.dir(data);
                   this.items = data['quizzes'];
                   this.item = data['quizzes'];
+                  
                 }
                 else{
                   console.dir(data);
@@ -61,12 +63,33 @@ export class QuizPage {
       // var result = document.getElementsByClassName("quizzes");
       // console.log(result);
       var total_score = 0;
+      var total_qs = this.items.length;
       for(var key in this.scores) {
         var value = this.scores[key];
         total_score += value;
         // do something with "key" and "value" variables
       }
       console.log(total_score);
+
+      this.storage.get('authToken').then((token) => {
+        this.http
+          .get('http://womanovaapp.com/quiz_update.php?t_token='+ token + '&total_score=' + total_score + '&total_qs=' + total_qs + '&ts=' + Date.now())
+          .subscribe((data: any) => {
+            if(data && data['success']){
+              console.dir(data);
+              this.presentAlert(total_score, total_qs);
+            }
+            else{
+              console.dir(data);
+            }
+
+          },
+            (error: any) => {
+              console.dir(error);
+            });
+      });
+
+
     }
 
     mcqAnswer(idx, ans){
@@ -77,5 +100,24 @@ export class QuizPage {
       else{
         this.scores[idx] = 0;
       }
+    }
+    presentAlert(total_score, total_qs) {
+      if(total_qs > 0 && total_score/total_qs > 0.5){
+        let alert = this.alertCtrl.create({
+          title: 'Good job!',
+          subTitle: 'You got ' + total_score.toString() + " out of " + total_qs.toString() + " questions correct!",
+          buttons: ['Dismiss']
+        });
+        alert.present();
+      }
+      else{
+        let alert = this.alertCtrl.create({
+          title: 'Better luck next time!',
+          subTitle: 'You got ' + total_score.toString() + " out of " + total_qs.toString() + " questions correct!",
+          buttons: ['Dismiss']
+        });
+        alert.present();
+      }
+      
     }
 }

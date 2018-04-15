@@ -1,3 +1,4 @@
+import { SymptomDiaryHomePage } from './../pages/symptom-diary-home/symptom-diary-home';
 import { ReminderHomePageModule } from './../pages/reminder-home/reminder-home.module';
 import { HomeModule } from './../pages/home/home.module';
 import { RegPageModule } from './../pages/reg/reg.module';
@@ -16,13 +17,17 @@ import { WordpressService } from '../services/wordpress.service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HttpModule } from '@angular/http';
 import { PrimaryTabsPage } from '../pages/primary-tabs/primary-tabs';
+import { ReminderHomePage } from '../pages/reminder-home/reminder-home';
 
 
 
 @NgModule({
   declarations: [
     MyApp,
-    PrimaryTabsPage,    
+    PrimaryTabsPage,
+    // ReminderHomePage,
+    // SymptomDiaryHomePage
+        
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,8 @@ import { PrimaryTabsPage } from '../pages/primary-tabs/primary-tabs';
   entryComponents: [
     MyApp,
     PrimaryTabsPage,
+    ReminderHomePage,
+    SymptomDiaryHomePage
   ],
   providers: [
     StatusBar,
