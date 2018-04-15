@@ -22,6 +22,8 @@ export class HomePage {
     this.storage = storage2;
     // this.checkLogin();
   }
+
+
   presentLoadingDefault() {
     let loading = this.loadingCtrl.create({
       // showBackdrop: false,
@@ -35,6 +37,8 @@ export class HomePage {
       loading.dismiss();
     }, 3000);
   }
+
+  
   checkLogin(): void {
     this.storage.get('authToken').then((token) => {
       let headers: any = new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -45,7 +49,6 @@ export class HomePage {
         .subscribe((data: any) => {
           if (data && data['success']) {
             // If the request was successful notify the user
-            // this.navCtrl.setRoot(ReminderHomePage);
             
           }
           else {

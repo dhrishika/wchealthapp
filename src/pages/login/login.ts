@@ -1,6 +1,5 @@
-import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage} from '@ionic/storage';
@@ -27,19 +26,6 @@ export class LoginPage {
 
    public storage : Storage;
 
-
-
-   /**
-    * @name isEdited
-    * @type {Boolean}
-    * @public
-    * @description     Flag to be used for checking whether we are adding/editing an entry
-    */
-   public isEdited               : boolean = false;
-   public hideForm               : boolean = false;
-   public pageTitle              : string;
-   public recordID               : any      = null;
-
    private baseURI               : string  = "http://womanovaapp.com/";
 
 
@@ -48,7 +34,8 @@ export class LoginPage {
               public NP         : NavParams,
               public fb         : FormBuilder,
               public toastCtrl  : ToastController,
-              private storage2: Storage) 
+              private storage2: Storage, 
+              public menu: MenuController) 
   {
       // Create form builder validation rules
       this.form = fb.group({
@@ -56,26 +43,13 @@ export class LoginPage {
         "t_password"           : ["", Validators.required],
      });
      this.storage = storage2;
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-     /**
-    * Assign the navigation retrieved data to properties
-    * used as models on the page's HTML form
-    *
-    * @public
-    * @method selectEntry
-    * @param item 		{any} 			Navigation data
-    * @return {None}
-    */
-   selectEntry(item : any) : void
-   {
-      this.userEmail    = item.t_email;
-      this.userPassword = item.t_password;
-      this.recordID     = item.id;
-   }
+
 
    /**
     * Validate the login details that have been added to the page's HTML form with the database user table
@@ -127,7 +101,6 @@ export class LoginPage {
       let email          : string = this.form.controls["t_email"].value,
           password   : string    = this.form.controls["t_password"].value;
 
-
          this.tryLogin(email, password);
    }
 
@@ -151,4 +124,14 @@ export class LoginPage {
    goRegister(){
      this.navCtrl.push("RegisterPage");
    }
+
+   ionViewDidEnter() {
+    //to disable menu, or
+    this.menu.enable(false);
+  }
+
+  ionViewWillLeave() {
+    // to enable menu.
+    this.menu.enable(true);
+  }
 }
