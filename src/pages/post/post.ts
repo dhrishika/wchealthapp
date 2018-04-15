@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { WordpressService } from '../../services/wordpress.service';
 import { Observable } from 'rxjs/Observable';
-import { YourBodyPage } from '../your-body/your-body';
 
 /**
  * Generated class for the PostPage page.

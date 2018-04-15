@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { WordpressService } from '../../services/wordpress.service';
-import { PostPage } from '../post/post';
-import { HomePage } from '../home/home';
 
 /**
  * Generated class for the FibroidsPage page.

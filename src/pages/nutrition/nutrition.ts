@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { WordpressService } from '../../services/wordpress.service';
-import { PostPage } from '../post/post';
 
 /**
  * Generated class for the NutritionPage page.
