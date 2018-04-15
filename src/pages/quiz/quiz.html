@@ -11,7 +11,7 @@
 
   <ion-list [ngClass]="'quizzes'" radio-group *ngFor="let item of items; let i=index">
     <ion-list-header>
-      <h1>{{ item.question }}</h1>
+      <h2>{{ item.question }}</h2>
     </ion-list-header>
 
     <ion-item *ngIf="item.ans_1!=''">

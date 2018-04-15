@@ -38,4 +38,8 @@ export class ReproductiveProblemsPage {
     this.navCtrl.push('InfertilityPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
+
 }

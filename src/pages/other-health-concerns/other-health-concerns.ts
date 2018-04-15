@@ -42,4 +42,7 @@ export class OtherHealthConcernsPage {
     this.navCtrl.push('ObesityPage');
   }
 
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

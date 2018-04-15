@@ -1,7 +1,13 @@
 <ion-header>
-
-  <ion-navbar color="mylightpink">
-    <ion-title>Frequent Health Questions</ion-title>
+  <ion-navbar color="primary">
+    <ion-title *ngIf="!categoryTitle">Recent posts</ion-title>
+    <ion-title *ngIf="categoryTitle">{{categoryTitle}} posts</ion-title>
+    <ion-buttons *ngIf="loggedUser" end>
+      <button ion-button icon-only (click)="logOut()">
+        <ion-icon class="toolbar-icon" name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+    
   </ion-navbar>
 </ion-header>
 
@@ -24,6 +30,7 @@
        </ion-col>
      </ion-row>
   </ion-card>
+
 
 </ion-content>
 <ion-footer>

@@ -117,7 +117,11 @@ export class AddMedicinePage {
      */
     notifyTime: any;
 
-
+    /**
+     * @name storage
+     * @type {Storage}
+     * @description     Represent the token stored with the user account
+     */
     public storage                  : Storage;
   
    /**
@@ -167,13 +171,6 @@ export class AddMedicinePage {
      * @description     Property to manage the minimum date for start date
      */
     minStartDate  : any;
-
-    /**
-     * @name minDate
-     * @type {any}
-     * @description     Property to manage the minimum date for end date
-     */
-    minEndDate  : any;
   
 
      // Initialise module classes
@@ -205,7 +202,6 @@ export class AddMedicinePage {
         this.medTime = moment(new Date()).format(); 
 
         this.minStartDate = new Date().toISOString();
-        // this.minEndDate = new Date(this.medSDate);
     }
 
 
@@ -269,7 +265,7 @@ export class AddMedicinePage {
     }
   
     
-     /**
+    /**
     * Save a new record that has been added to the page's HTML form
     * Use angular's http post method to submit the record data
     *
@@ -329,7 +325,7 @@ export class AddMedicinePage {
       * @param time 			{String} 			Time value from form field
       * @param repeat 	        {String} 			Repeat value from form field
       * @return {None}
-        */
+    */
     updateEntry(name : string, np : number, sDate : Date, eDate : Date, time : String, repeat : String) : void
     {
         let startDate = moment(this.medSDate, "YYYY-MM-DD"),
@@ -457,7 +453,6 @@ export class AddMedicinePage {
         this.medRepeat          = "";
     }
   
-  
     /**
       * Manage notifying the user of the outcome of remote operations
       *
@@ -543,8 +538,9 @@ export class AddMedicinePage {
             date.setHours(this.hours);
             date.setMinutes(this.minutes);
             this.arr.push(date);
+
            if(this.medRepeat.match("day")){
-               SDate = moment(SDate).add(1, 'days');
+               SDate = moment(SDate).add(1, 'day');
             }
             else if(this.medRepeat.match("week")){
                 SDate = moment(SDate).add(1, 'week');
@@ -552,24 +548,26 @@ export class AddMedicinePage {
             else if(this.medRepeat.match("month")){
                 SDate = moment(SDate).add(1, 'month');
             }
-            // else{
-            //     SDate = SDate;
-            // }
+            else{
+                SDate = SDate;
+            }
        }
        let i = 0;
        for(let day of this.arr){
         let notification = {
             id: this.notifyID[i],
+            title: 'Reminder Notification',
             text: `You have a ${this.medName} medicine reminder`,
             at: day
         };
         i++;
         this.notifications.push(notification);
+        this.localNotifications.schedule(notification);
        }
        console.log("Notifications to be schedualed", this.notifications);
 
        
-       this.localNotifications.schedule(this.notifications);
+    //    this.localNotifications.schedule(this.notifications);
    }
   }
 

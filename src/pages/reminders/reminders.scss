@@ -7,4 +7,11 @@ page-reminders {
         flex: 4;
     }
 
+    .content{
+        background: url(../assets/imgs/reminder.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
+
 }

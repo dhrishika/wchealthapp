@@ -18,13 +18,53 @@ export class RegisterPage {
  */
   public form: FormGroup;
 
+  /**
+    * @name userEmail
+    * @type {Any}
+    * @public
+    * @description      Model for managing the User Email field
+    */
   public userEmail: any;
-  public userPassword: any;
-  public userName: any;
-  public userDOB: any;
-  public userWeight: any;
-  public userHeight: any;
 
+  /**
+  * @name userPassword
+  * @type {Any}
+  * @public
+  * @description      Model for managing the User Password field
+  */
+  public userPassword: any;
+
+  /**
+  * @name userName
+  * @type {Any}
+  * @public
+  * @description      Model for managing the User Name field
+  */
+  public userName: any;
+
+  /**
+  * @name userDOB
+  * @type {Any}
+  * @public
+  * @description      Model for managing the User Date of Birth field
+  */
+  public userDOB: any;
+
+  /**
+  * @name userWeight
+  * @type {Any}
+  * @public
+  * @description      Model for managing the User Weight field
+  */
+  public userWeight: any;
+
+  /**
+  * @name userHeight
+  * @type {Any}
+  * @public
+  * @description      Model for managing the User Height field
+  */
+  public userHeight: any;
 
 
   /**
@@ -34,16 +74,7 @@ export class RegisterPage {
    * @description     Flag to be used for checking whether we are adding/editing an entry
    */
   public isEdited: boolean = false;
-  public hideForm: boolean = false;
-  public pageTitle: string;
-  public recordID: any = null;
 
-  /**
-   * @name minDate
-   * @type {any}
-   * @description     Property to manage the maximum date for date of birth
-   */
-  maxDate  : any;
 
   private baseURI: string = "http://womanovaapp.com/";
 
@@ -62,7 +93,6 @@ export class RegisterPage {
       "u_height": ["",Validators.compose([Validators.pattern('\d{2,3}\.\d{,3}')])],
     });
 
-    this.maxDate = new Date().toISOString();
   }
 
   ionViewDidLoad() {
@@ -71,33 +101,17 @@ export class RegisterPage {
 
 
   /**
- * Assign the navigation retrieved data to properties
- * used as models on the page's HTML form
- *
- * @public
- * @method selectEntry
- * @param item 		{any} 			Navigation data
- * @return {None}
- */
-  selectEntry(item: any): void {
-    this.userEmail = item.t_email;
-    this.userPassword = item.t_password;
-    this.userName = item.u_name;
-    this.userDOB = item.u_dob;
-    this.userWeight = item.u_weight;
-    this.userHeight = item.u_height;
-    this.recordID = item.id;
-  }
-
-
-  /**
-   * Save a new record that has been added to the page's HTML form
+   * Save a new user that has been added to the page's HTML form
    * Use angular's http post method to submit the record data
    *
    * @public
    * @method createEntry
-   * @param name 			{String} 			Name value from form field
-   * @param description 	{String} 			Description value from form field
+   * @param email 			{String} 			Email value from form field
+   * @param password 	  {String} 			Password value from form field
+   * @param name 			  {String} 			Name value from form field
+   * @param dob 			  {Date} 			  Date of Birth value from form field
+   * @param weight 			{Number} 			Weight value from form field
+   * @param height 			{Number} 			Height value from form field
    * @return {None}
    */
   tryRegister(email: String, password: String, name: String, dob: Date, weight: Number, height: Number): void {
@@ -123,14 +137,12 @@ export class RegisterPage {
 
 
   /**
-* Handle data submitted from the page's HTML form
-* Determine whether we are adding a new record or amending an
-* existing record
-*
-* @public
-* @method register
-* @return {None}
-*/
+  * Handle data submitted from the page's HTML form
+  *
+  * @public
+  * @method register
+  * @return {None}
+  */
   register(): void {
     let email: string = this.form.controls["t_email"].value,
       password: string = this.form.controls["t_password"].value,

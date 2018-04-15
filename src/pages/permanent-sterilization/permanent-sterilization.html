@@ -2,11 +2,14 @@
     <ion-navbar color="y">
       <ion-title *ngIf="!categoryTitle">Permanent Sterilization</ion-title>
       <ion-title *ngIf="categoryTitle">{{categoryTitle}} posts</ion-title>
-      <ion-buttons *ngIf="loggedUser" end>
-        <button ion-button icon-only (click)="logOut()">
-          <ion-icon class="toolbar-icon" name="log-out"></ion-icon>
-        </button>
-      </ion-buttons>
+      <ion-buttons end>
+        <button 
+        ion-button 
+        icon-only
+        (click)="quiz({ cat: 'PermanentSterilization' })">
+        <ion-icon name="trophy"></ion-icon>
+      </button>
+    </ion-buttons>
       
     </ion-navbar>
   </ion-header>
@@ -32,4 +35,8 @@
     </ion-card>
   
   </ion-content>
-  
+  <ion-footer>
+      <button ion-button full color="ourwhite" (click)="goHome()">
+          <ion-icon name="home-outline" style="font-size: 35px;"></ion-icon>
+      </button>
+    </ion-footer>

@@ -84,13 +84,25 @@ export class VaginitisPage {
     })
   }
 
-  logOut(){
-    
+  /**
+    * Allow navigation to the QuizPage for this category
+    * (We supply the actual quiz category as this method's parameter,
+    * to the QuizPage
+    *
+    * @public
+    * @method quiz
+    * @param param 		{any} 			Navigation data to send to the next page
+    * @return {None}
+    */
+   quiz(param: any): void {
+    this.navCtrl.push('QuizPage', param);
   }
 
   goToLogin(){
     this.navCtrl.push('HomePage');
   }
 
-
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }

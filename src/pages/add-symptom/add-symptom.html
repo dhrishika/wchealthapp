@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="mylightpink">
      <ion-title>{{ pageTitle }}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -37,14 +37,6 @@
                         formControlName="s_date"></ion-datetime>
                   </ion-item>
                           
-                  <ion-item>
-                        <ion-label>Time</ion-label>
-                        <ion-datetime displayFormat="hh:mm A" 
-                        [(ngModel)]="sympTime"
-                        placeholder="(Optional)"
-                        formControlName="s_time"
-                        ></ion-datetime>
-                  </ion-item>
 
                   <ion-item>
                         <ion-label>Type</ion-label>
@@ -73,11 +65,22 @@
               </ion-item>
 
               <ion-item>
+                        <ion-label>Time</ion-label>
+                        <ion-datetime displayFormat="hh:mm A" 
+                        [(ngModel)]="sympTime"
+                        placeholder="(Optional)"
+                        formControlName="s_time"
+                        ></ion-datetime>
+                  </ion-item>
+
+              <ion-item>
                  <button
                     ion-button
-                    color="primary"
+                    color="ourblue"
                     text-center
                     block
+                    round
+                    class="mybutton"
                     [disabled]="!form.valid">Save Entry</button>
               </ion-item>
 
@@ -88,6 +91,8 @@
                      color="danger"
                      text-center
                      block
+                     round
+                     class="mybutton"
                      (click)="deleteEntry()">Remove this Entry?</button>
                </ion-item>
 

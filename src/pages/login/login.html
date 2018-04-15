@@ -2,18 +2,8 @@
 
 
 <ion-content class="background" padding>
-  <div>
+  <div id="cat">
 
-
-    <!-- <div *ngIf="hideForm">
-       <ion-item class="post-entry-message" text-wrap>
-          <h2>Success!</h2>
-          <p>You have logged in!</p>
-       </ion-item>
-    </div>
-
-
-    <div *ngIf="!hideForm"> -->
        <form [formGroup]="form" (ngSubmit)="login()">
 
           <ion-list>
@@ -43,7 +33,7 @@
               </ion-list>
 
                 <button
-                class="login"
+                  class="login"
                    ion-button small
                    color="ourpink"
                    text-center
@@ -53,7 +43,6 @@
 
              <button
              ion-button small
-             class="login"
              text-center
              clear
              (click)="goRegister()">You don't have an account?</button>

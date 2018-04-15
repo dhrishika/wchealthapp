@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="ourpink">
         <ion-buttons end>
             <button (click)="viewEntry({ record: items })" ion-button>
             Edit
@@ -15,20 +15,28 @@
 
     <ion-card>
 
-      <ion-card-header>
+      <!-- <ion-card-header>
       Reminder Name
-      </ion-card-header>
+      </ion-card-header> -->
 
-      <ion-card-content>
+      <ion-card-content class="bold">
       {{ taskName }} 
       </ion-card-content>
 
-      <ion-card-header>
+      <!-- <ion-card-header>
         Type
-      </ion-card-header>
+      </ion-card-header> -->
   
       <ion-card-content>
       {{ taskType }} 
+      </ion-card-content>
+
+      <ion-card-content>
+          {{ taskTime }}
+      </ion-card-content>
+
+      <ion-card-content>
+          {{ taskRepeat }}
       </ion-card-content>
 
       <ion-card-header>
@@ -47,20 +55,16 @@
       {{ taskEDate }}
       </ion-card-content>
 
-      <ion-card-header>
+      <!-- <ion-card-header>
       Time
-      </ion-card-header>
+      </ion-card-header> -->
 
-      <ion-card-content>
-      {{ taskTime }}
-      </ion-card-content>
+      
 
-      <ion-card-header>
+      <!-- <ion-card-header>
       Repeat
-      </ion-card-header>
+      </ion-card-header> -->
 
-      <ion-card-content>
-      {{ taskRepeat }}
-      </ion-card-content>
+      
     </ion-card>
   </ion-content>

@@ -94,8 +94,12 @@ export class ViewReminderPage {
      */
     ionViewWillEnter() : void
     {
-       this.selectEntry(this.NP.get("record"));
-       this.items = this.NP.get("record");
+      if(this.NP.get("record")){
+        this.selectEntry(this.NP.get("record"));
+        this.items = this.NP.get("record");
+      }
+      console.log("Nothing selected");
+      
     }
   
 

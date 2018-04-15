@@ -98,4 +98,8 @@ export class ReminderHomePage {
   viewEntry(param: any): void {
     this.navCtrl.push('ViewReminderPage', param);
   }
+
+  goHome(): void {
+    this.navCtrl.setRoot('HomePage');
+  }
 }
