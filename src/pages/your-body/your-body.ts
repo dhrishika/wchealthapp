@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { WordpressService } from '../../services/wordpress.service';
-import { PostPage } from '../post/post';
-import { HomePage } from '../home/home';
 import { Storage} from '@ionic/storage';
 import { HttpClient} from '@angular/common/http';
 
