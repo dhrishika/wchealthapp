@@ -19,6 +19,7 @@ export class ProfilePage {
       */
      public items : Array<any> = [];
      public storage: Storage;
+     public item: any = [];
   
   
      constructor(public navCtrl: NavController,
@@ -59,6 +60,7 @@ export class ProfilePage {
           .subscribe((data: any) => {
             console.dir(data);
             this.items = data;
+            this.item = data;
           },
             (error: any) => {
               console.dir(error);
@@ -66,7 +68,6 @@ export class ProfilePage {
       });
      }
 
-  
 
     /**
      * Allow navigation to the EditProfile for amending an existing entry

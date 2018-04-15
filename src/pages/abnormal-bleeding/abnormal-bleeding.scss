@@ -1,6 +1,9 @@
 page-abnormal-bleeding {
     .content{
-        background-color: #f4f4f7;
+        background: url(../assets/imgs/background.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
     }
     
     .toolbar-icon {

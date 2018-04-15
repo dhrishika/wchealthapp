@@ -71,6 +71,14 @@ export class AddMedicinePage {
     */
     public medRepeat                : any;
 
+    /**
+     * @name itemID 
+     * @type {any} 
+     * @public
+     * @description     Property to store the recordID for when an existing entry is being edited
+     */
+    public itemID                   : any      = null;
+
 
     /**
       * @name arr
@@ -126,16 +134,7 @@ export class AddMedicinePage {
      * @description     Property to help set the page title
      */
     public pageTitle                : string;
-     
-    /**
-     * @name itemID 
-     * @type {any} 
-     * @public
-     * @description     Property to store the recordID for when an existing entry is being edited
-     */
-    public itemID                   : any      = null;
-  
-     
+
 
     /**
      * @name baseURI 
@@ -160,6 +159,20 @@ export class AddMedicinePage {
      * @description     Property to update the notification IDs for when an existing entry is being edited    
      */
     public IDs                  : any;
+
+    /**
+     * @name minDate
+     * @type {any}
+     * @description     Property to manage the minimum date for start date
+     */
+    minStartDate  : any;
+
+    /**
+     * @name minDate
+     * @type {any}
+     * @description     Property to manage the minimum date for end date
+     */
+    minEndDate  : any;
   
 
      // Initialise module classes
@@ -189,6 +202,8 @@ export class AddMedicinePage {
 
         this.medTime = moment(new Date()).format(); 
 
+        this.minStartDate = new Date().toISOString();
+        // this.minEndDate = new Date(this.medSDate);
     }
 
 
@@ -202,6 +217,7 @@ export class AddMedicinePage {
         this.hours = time.hour;
         this.minutes = time.minute;
     }
+
   
     /**
     * Triggered when template view is about to be entered
@@ -279,9 +295,9 @@ export class AddMedicinePage {
               if(data && data['success']){
                 // If the request was successful notify the user
                 // this.navCtrl.setRoot(ReminderHomePage);
+                this.scheduleNotification();
                 this.navCtrl.pop();
                 this.sendNotification(`Congratulations the medicine: ${name} was successfully added`);
-                this.scheduleNotification();
               }
               else{
                 console.log(data);
@@ -349,10 +365,9 @@ export class AddMedicinePage {
         .subscribe(data =>
         {
            // If the request was successful notify the user
-        //    this.navCtrl.setRoot(MedicineHomePage);
-        this.navCtrl.pop();
-           this.sendNotification(`Congratulations the medicine: ${name} was successfully updated`);
-           this.updateNotification();
+            this.navCtrl.pop();
+            this.sendNotification(`Congratulations the medicine: ${name} was successfully updated`);
+            this.updateNotification();
         },
         (error : any) =>
         {
@@ -523,25 +538,29 @@ export class AddMedicinePage {
    else {
      while(SDate <= EDate){
        // create an array of dates from start untill end dates
-         this.arr.push(SDate.toDate());
+       let date = SDate.toDate();
+       date.setHours(this.hours);
+       date.setMinutes(this.minutes);
+       this.arr.push(date);
 
-         if(this.medRepeat.match("day")){
-             SDate = moment(SDate).add(1, 'days');
-         }
-         else if(this.medRepeat.match("week")){
-             SDate = moment(SDate).add(1, 'week');
-         }
-         else if(this.medRepeat.match("month")){
-             SDate = moment(SDate).add(1, 'month');
-         }
-         else{
-             SDate = SDate;
-         }
+        if(this.medRepeat.match("day")){
+            SDate = moment(SDate).add(1, 'days');
+        }
+        else if(this.medRepeat.match("week")){
+            SDate = moment(SDate).add(1, 'week');
+        }
+        else if(this.medRepeat.match("month")){
+            SDate = moment(SDate).add(1, 'month');
+        }
+        else{
+            SDate = SDate;
+        }
      }
      console.log("dates array", this.arr);
      // create notification objects
      let i : number = 0;
      for(let day of this.arr){
+         // set the hours & minutes for each date in the array
          let notification = {
              id: this.notifyID[i],
              title: 'Reminder Notification',
@@ -565,14 +584,9 @@ export class AddMedicinePage {
   */
   updateNotification(){
     //cancel any schedualed notifications
-   let x : any;
-   for(x in this.IDs){
-     if(this.localNotifications.isScheduled(x)){
-       this.localNotifications.cancel(x);
-     }
-     console.log("notification canceled", x);
-   }
-
+    this.localNotifications.cancel(this.IDs);
+    console.log("Update--- ", this.IDs);
+    
    // create new notification with the new start and end dated
    let firstDate = new Date(this.medSDate);
    firstDate.setHours(this.hours);
@@ -600,7 +614,10 @@ export class AddMedicinePage {
 
    else {
      while(SDate <= EDate){
-       this.arr.push(SDate.toDate());
+        let date = SDate.toDate();
+        date.setHours(this.hours);
+        date.setMinutes(this.minutes);
+        this.arr.push(date);
 
        if(this.medRepeat.match("day")){
            SDate = moment(SDate).add(1, 'days');
@@ -618,7 +635,7 @@ export class AddMedicinePage {
      console.log("dates array", this.arr);
      let i : number = 0;
      for(let day of this.arr){
-       let notification = {
+        let notification = {
            id: this.IDs[i],
            title: 'Reminder Notification',
            text: `Do not forget your ${this.medName}`,
@@ -639,14 +656,9 @@ export class AddMedicinePage {
    * 
   */
   cancelNotification(){
-   let x:any;
    this.IDs = this.notifyID.split(',');
-   for(x in this.IDs){
-     if(this.localNotifications.isScheduled(this.IDs[x])){
-       this.localNotifications.cancel(this.IDs[x]);       
-     }
-   }
-   console.log("notification canceled", this.IDs);
+   this.localNotifications.cancel(this.IDs);       
+   console.log("Delete: notification canceled", this.IDs);
 
  }
 }

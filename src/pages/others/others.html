@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar color="primary">
+    <ion-navbar color="y">
       <ion-title *ngIf="!categoryTitle">Others</ion-title>
       <ion-title *ngIf="categoryTitle">{{categoryTitle}} posts</ion-title>
       <ion-buttons *ngIf="loggedUser" end>
@@ -24,7 +24,7 @@
            </button>
          </ion-col>
          <ion-col text-right>
-           <button ion-button small color="primary" (click)="postTapped($event, post)" icon-start>
+           <button ion-button small outline round color="ourpink" (click)="postTapped($event, post)" icon-start>
               Read More
            </button>
          </ion-col>

@@ -1,12 +1,15 @@
 <ion-header>
-    <ion-navbar color="primary">
+    <ion-navbar color="y">
       <ion-title *ngIf="!categoryTitle">Abnormal Bleeding</ion-title>
       <ion-title *ngIf="categoryTitle">{{categoryTitle}} posts</ion-title>
-      <ion-buttons *ngIf="loggedUser" end>
-        <button ion-button icon-only (click)="logOut()">
-          <ion-icon class="toolbar-icon" name="log-out"></ion-icon>
-        </button>
-      </ion-buttons>
+      <ion-buttons end>
+        <button 
+        ion-button 
+        icon-only
+        (click)="quiz({ cat: 'AbnormalBleeding' })">
+        <ion-icon name="trophy"></ion-icon>
+      </button>
+    </ion-buttons>
       
     </ion-navbar>
   </ion-header>
@@ -24,7 +27,7 @@
            </button>
          </ion-col>
          <ion-col text-right>
-           <button ion-button small color="primary" (click)="postTapped($event, post)" icon-start>
+           <button ion-button small outline round color="ourpink" (click)="postTapped($event, post)" icon-start>
               Read More
            </button>
          </ion-col>
