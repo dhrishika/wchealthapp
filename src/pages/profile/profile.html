@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar transparent>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button (click)="viewEntry({ record: items[0] })" ion-button>
         Edit
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     <!-- <ion-title>
         {{ item }} 
       </ion-title> -->
@@ -13,9 +13,9 @@
 
 <ion-content no-border>
 
-  <ion-item *ngFor="let item of items">
+  <!-- <ion-item *ngFor="let item of items"> -->
 
-    <ion-card class="margin-page">
+    <ion-card class="margin-page" *ngFor="let item of items">
 
       <ion-card-content class="bold">
         {{ item.u_name }}
@@ -81,14 +81,19 @@
         </ion-row>
       </ion-grid>
 
-
-
-      
-      
-      
-
       </ion-card>
-  </ion-item>
+  <!-- </ion-item> -->
+  <button
+   ion-button 
+   small
+   class="edit"
+   color="ourpink"
+   text-center
+   round
+   (click)="viewEntry({ record: items[0] })">
+    Edit
+  </button>
+
 </ion-content>
 <ion-footer>
   <button ion-button full color="ourwhite" (click)="goHome()">
