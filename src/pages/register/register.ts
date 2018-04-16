@@ -85,12 +85,27 @@ export class RegisterPage {
     public toastCtrl: ToastController) {
     // Create form builder validation rules
     this.form = fb.group({
-      "t_email": ["", Validators.compose([Validators.required, Validators.pattern('.+\@.+\..+')])],
-      "t_password": ["", Validators.compose([Validators.required,, Validators.minLength(8)])],
+      "t_email": ['', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])],
+      "t_password": ['', Validators.compose([
+        Validators.minLength(5),
+        Validators.required,
+        Validators.pattern('((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})')
+
+      //  (?=.*\d)		#   must contains one digit from 0-9
+      //(?=.*[a-z])		#   must contains one lowercase characters
+      //(?=.*[A-Z])		#   must contains one uppercase characters
+      //(?=.*[@#$%])		#   must contains one special symbols in the list "@#$%"
+      //   .		#     match anything with previous condition checking
+      //{6,20}	#        length at least 6 characters and maximum of 20	
+
+      ])],
       "u_name": ["", Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       "u_dob": [""],
-      "u_weight": ["",Validators.compose([Validators.pattern('\d{2,3}\.\d{,2}')])],
-      "u_height": ["",Validators.compose([Validators.pattern('\d{2,3}\.\d{,3}')])],
+      "u_weight": [""],
+      "u_height": [""],
     });
 
   }
@@ -170,5 +185,7 @@ export class RegisterPage {
     });
     notification.present();
   }
+
+  
 
 }
