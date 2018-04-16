@@ -85,8 +85,8 @@ export class RegisterPage {
     public toastCtrl: ToastController) {
     // Create form builder validation rules
     this.form = fb.group({
-      "t_email": ["", Validators.compose([Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$'), Validators.required])],
-      "t_password": ["", Validators.required],
+      "t_email": ["", Validators.compose([Validators.required, Validators.pattern('.+\@.+\..+')])],
+      "t_password": ["", Validators.compose([Validators.required,, Validators.minLength(8)])],
       "u_name": ["", Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       "u_dob": [""],
       "u_weight": ["",Validators.compose([Validators.pattern('\d{2,3}\.\d{,2}')])],

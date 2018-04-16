@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { PostPage } from '../post/post';
 import { WordpressService } from '../../services/wordpress.service';
 
 /**
@@ -48,7 +46,7 @@ export class GenitalConcernsPage {
       let loading = this.loadingCtrl.create();
       loading.present();
 
-      this.wordpressService.getRecentPostsGeneConc(this.categoryId)
+      this.wordpressService.getRecentPostsGenConc(this.categoryId)
       .subscribe(data => {
         for(let post of data){
           post.excerpt.rendered = post.excerpt.rendered.split('<a')[0] + "</p>";
@@ -69,7 +67,7 @@ export class GenitalConcernsPage {
     let page = (Math.ceil(this.posts.length/10)) + 1;
     let loading = true;
 
-    this.wordpressService.getRecentPostsGeneConc(this.categoryId, page)
+    this.wordpressService.getRecentPostsGenConc(this.categoryId, page)
     .subscribe(data => {
       for(let post of data){
         if(!loading){

@@ -564,23 +564,22 @@ export class AddReminderPage {
            };
            i = i + 1;
            this.notifications.push(notification);
+           this.localNotifications.schedule(notification);
+           console.log("this is a notification to be stored", notification);
            
      }
-     console.log("Notifications to be schedualed", this.notifications);
-     // schedule the array of notifications
-     this.localNotifications.schedule(this.notifications);
+    //  console.log("Notifications to be schedualed", this.notifications);
+    //  // schedule the array of notifications
+    //  this.localNotifications.schedule(this.notifications);
    }
   }
 
 
   /** 
-   * Manage cancel notifications and create new notifications
+   * Manage overwriting existing notifications and create new notifications
    * based on the updated Start and End Dates
   */
   updateNotification(){
-    //cancel any schedualed notifications
-    this.localNotifications.cancel(this.IDs);       
-    console.log("Update: notification canceled", this.IDs);
 
    // create new notification with the new start and end dated
    let firstDate = new Date(this.taskSDate);
@@ -641,8 +640,9 @@ export class AddReminderPage {
          i = i + 1;
          this.notifications.push(notification);
          this.localNotifications.schedule(notification);
+         console.log("this is a notification to be stored", notification);
      }
-     console.log("Notifications to be updated", this.notifications);
+    //  console.log("Notifications to be updated", this.notifications);
     //  this.localNotifications.schedule(this.notifications);
    }
   }
@@ -654,7 +654,10 @@ export class AddReminderPage {
   */
   cancelNotification(){
     this.IDs = this.notifyID.split(',');
-    this.localNotifications.cancel(this.IDs);       
+    for(let c of this.IDs){
+      this.localNotifications.cancel(c);
+      console.log("Delete: notification canceled", c);
+    }       
     console.log("Delete: notification canceled", this.IDs);
  }
 }
