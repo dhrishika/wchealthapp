@@ -92,12 +92,12 @@ export class RegisterPage {
       "t_password": ['', Validators.compose([
         Validators.minLength(5),
         Validators.required,
-        Validators.pattern('((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})')
+        Validators.pattern('((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})')
 
       //  (?=.*\d)		#   must contains one digit from 0-9
       //(?=.*[a-z])		#   must contains one lowercase characters
       //(?=.*[A-Z])		#   must contains one uppercase characters
-      //(?=.*[@#$%])		#   must contains one special symbols in the list "@#$%"
+      //(?=.*[@#$%!])		#   must contains one special symbols in the list "@#$%!"
       //   .		#     match anything with previous condition checking
       //{6,20}	#        length at least 6 characters and maximum of 20	
 
