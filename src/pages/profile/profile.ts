@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
@@ -30,7 +30,8 @@ export class ProfilePage {
   
      constructor(public navCtrl: NavController,
                  public http   : HttpClient,
-                 private storage2: Storage)
+                 private storage2: Storage,
+                 private alertCtrl: AlertController)
      {
       this.storage = storage2;
      }
@@ -91,5 +92,32 @@ export class ProfilePage {
 
     goHome(): void {
       this.navCtrl.setRoot('HomePage');
+    }
+
+    show_badge_1(): void{
+      let alert = this.alertCtrl.create({
+        title: 'Badge 1',
+        subTitle: 'You have answered atleast 1 whole quiz 100% correctly',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+    }
+
+    show_badge_2(){
+      let alert = this.alertCtrl.create({
+        title: 'Badge 2',
+        subTitle: 'You have answered at least 5 questions correctly',
+        buttons: ['Dismiss']
+      });
+      alert.present();
+    }
+
+    show_badge_3(){
+      let alert = this.alertCtrl.create({
+        title: 'Badge 3',
+        subTitle: 'You have answered atleast 10 questions in total',
+        buttons: ['Dismiss']
+      });
+      alert.present();
     }
   }
