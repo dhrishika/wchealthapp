@@ -1,13 +1,13 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar transparent>
     <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="background" padding>
   <div>
 
 
@@ -23,67 +23,52 @@
        <form [formGroup]="form" (ngSubmit)="register()">
 
           <ion-list>
-             <ion-item-group>
-                <ion-item-divider color="light">Email</ion-item-divider>
+              <ion-item-divider color="light">Sign up with a new account</ion-item-divider>
                 <ion-item>
+                  <ion-label floating>New email</ion-label>
                    <ion-input
                       type="text"
-                      placeholder="Enter your email..."
                       formControlName="t_email"
                       [(ngModel)]="userEmail"></ion-input>
                 </ion-item>
-             </ion-item-group>
 
-             <ion-item-group>
-                <ion-item-divider color="light">Password</ion-item-divider>
+             
                 <ion-item>
+                  <ion-label floating>New password</ion-label>
                    <ion-input
                       type="password"
-                      placeholder="Enter your password..."
                       formControlName="t_password"
                       [(ngModel)]="userPassword"></ion-input>
                 </ion-item>
-             </ion-item-group>
-             <ion-item-group>
-              <ion-item-divider color="light">Name</ion-item-divider>
+    
               <ion-item>
+                  <ion-label floating>What's your name?</ion-label>
                  <ion-input
                     type="text"
-                    placeholder="Enter your name..."
                     formControlName="u_name"
                     [(ngModel)]="userName"></ion-input>
               </ion-item>
-           </ion-item-group>
-           <ion-item-group>
-            <ion-item-divider color="light">Date of Birth</ion-item-divider>
             <ion-item>
+                <ion-label floating>When is your birthday?</ion-label>
                <ion-datetime displayFormat="DD MMM YYYY"
                   [(ngModel)]="userDOB"
-                  placeholder="Enter your date of birth..."
                   formControlName="u_dob"
                   [max]="maxDate"></ion-datetime>
             </ion-item>
-         </ion-item-group>
-         <ion-item-group>
-          <ion-item-divider color="light">Weight</ion-item-divider>
           <ion-item>
+              <ion-label floating>Weight kgs (optional)</ion-label>
              <ion-input
                 type="number"
-                placeholder="Enter your weight..."
                 formControlName="u_weight"
                 [(ngModel)]="userWeight"></ion-input>
           </ion-item>
-       </ion-item-group>
-       <ion-item-group>
-        <ion-item-divider color="light">Height</ion-item-divider>
         <ion-item>
+            <ion-label floating>Height cm (optional)</ion-label>
            <ion-input
               type="number"
-              placeholder="Enter your height..."
               formControlName="u_height"
               [(ngModel)]="userHeight"></ion-input>
         </ion-item>
-      </ion-item-group>
 
              <ion-item>
                 <button

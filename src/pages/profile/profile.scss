@@ -1,3 +1,18 @@
 page-profile {
 
+    .content{
+        background: url(../assets/imgs/profile.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+    .margin-page{
+        margin-top: 25%;
+    }
+
 }

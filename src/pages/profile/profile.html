@@ -5,56 +5,48 @@
             Edit
             </button>
         </ion-buttons>
-       <ion-title>
+       <!-- <ion-title>
         {{ item }} 
-      </ion-title>
+      </ion-title> -->
     </ion-navbar>
   </ion-header>
   
-  <ion-content padding>
+  <ion-content no-border>
   
     <ion-item *ngFor="let item of items">
 
-        <ion-card>
+        <ion-card class="margin-page">
 
-            <ion-card-header>
-              Email
-            </ion-card-header>
+                <ion-card-content class="bold">
+                        {{ item.u_name }} 
+                    </ion-card-content>
+
           
             <ion-card-content>
-                {{ item.t_email }} 
+              {{ item.t_email }} 
             </ion-card-content>
-
-            <ion-card-header>
-                Name
-              </ion-card-header>
-            
-              <ion-card-content>
-                  {{ item.u_name }} 
-              </ion-card-content>
-
-              <ion-card-header>
+<!--              <ion-card-header>
                   Date Of Birth
-                </ion-card-header>
+                </ion-card-header> -->
               
                 <ion-card-content>
-                    {{ item.u_dob }}
+                   You were born on {{ item.u_dob }}
                 </ion-card-content>
                 
-                <ion-card-header>
+                <!-- <ion-card-header>
                   Weight
-                </ion-card-header>
+                </ion-card-header> -->
               
                 <ion-card-content>
-                    {{ item.u_weight }} Kg
+                   You weigh {{ item.u_weight }} Kg
                 </ion-card-content>
 
-                <ion-card-header>
+                <!-- <ion-card-header>
                     Height
-                  </ion-card-header>
+                  </ion-card-header> -->
                 
                   <ion-card-content>
-                      {{ item.u_height }} cm
+                     Your height is {{ item.u_height }} cm
                   </ion-card-content>
           
           </ion-card>

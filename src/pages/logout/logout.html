@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar transparent>
     <ion-title>Logout</ion-title>
   </ion-navbar>
 
@@ -14,16 +14,16 @@
 
 
 <ion-content padding>
-  <h1>Are you sure you want to logout?</h1>
+  <p>Are you sure you want to logout?</p>
   <ion-grid >
       <ion-row>
         <ion-col center text-center>
-          <button ion-button block color="button" (click)="logOut()">Yes</button>
+          <button ion-button round color="mylight" (click)="logOut()">Yes</button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col center text-center>
-          <button ion-button navPop block color="button">No</button>
+          <button ion-button round navPop color="button">No</button>
         </ion-col>
       </ion-row>
     </ion-grid>
