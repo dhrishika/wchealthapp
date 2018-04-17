@@ -12,7 +12,19 @@ page-profile {
     }
 
     .margin-page{
-        margin-top: 25%;
+        margin-top: 35%;
+    }
+
+    .edit{
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .scroll-content{
+        align-content: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
     }
 
 }
