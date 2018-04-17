@@ -10,8 +10,8 @@
 <ion-content padding>
 
   <ion-list [ngClass]="'quizzes'" radio-group *ngFor="let item of items; let i=index">
-    <ion-list-header>
-      <p style="font-weight: bold; font-size: 12px; color: dark;" absolute-drag>{{ item.question }}</p>
+    <ion-list-header style="font-weight: bold; font-size: 12px; color: dark; text-transform: none;" absolute-drag>
+      {{ item.question }}
     </ion-list-header>
 
     <ion-item *ngIf="item.ans_1!=''">
@@ -36,13 +36,11 @@
 
   </ion-list>
 
-  <ion-item>
     <button 
     ion-button
     round
     color="ourpink"
     class="b-button"
     (click)="submitQuiz()">Submit Quiz</button>
- </ion-item>
 
 </ion-content>

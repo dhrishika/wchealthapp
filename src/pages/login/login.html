@@ -30,23 +30,21 @@
                 </ion-item>
 
               </ion-list>
-
-                <button
-                  class="login"
-                   ion-button small
-                   color="ourpink"
-                   text-center
-                   round
-                   align-center
-                   [disabled]="!form.valid">Login</button>
-
-             <button
-             ion-button small
-             text-center
-             clear
-             (click)="goRegister()">You don't have an account?</button>
-         
-
        </form>
+       <button
+       class="login"
+         ion-button small
+         color="ourpink"
+         text-center
+         round
+         align-center
+         [disabled]="!form.valid">Login</button>
+
+        <br>
+      <button
+      ion-button small
+      text-center
+      clear
+      (click)="goRegister()">You don't have an account?</button>
     </div>
 </ion-content>
