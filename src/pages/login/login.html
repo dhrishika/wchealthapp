@@ -31,14 +31,15 @@
 
               </ion-list>
        </form>
-       <button
-       class="login"
-         ion-button small
-         color="ourpink"
-         text-center
-         round
-         align-center
-         [disabled]="!form.valid">Login</button>
+      <button
+      class="login"
+        ion-button small
+        color="ourpink"
+        text-center
+        round
+        align-center
+        (click)="login()"
+        [disabled]="!form.valid">Login</button>
 
         <br>
       <button
