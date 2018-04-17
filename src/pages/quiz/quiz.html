@@ -14,22 +14,22 @@
     </ion-item>
 
     <ion-item *ngIf="item.ans_1!=''">
-      <ion-label>{{ item.ans_1 }}</ion-label>
+      <ion-label style="white-space: normal;">{{ item.ans_1 }}</ion-label>
       <ion-radio value="1" (ionSelect)="mcqAnswer(i,1)"></ion-radio>
     </ion-item>
 
     <ion-item *ngIf="item.ans_2!=''">
-      <ion-label>{{ item.ans_2 }}</ion-label>
+      <ion-label style="white-space: normal;">{{ item.ans_2 }}</ion-label>
       <ion-radio value="2" (ionSelect)="mcqAnswer(i,2)"></ion-radio>
     </ion-item>
 
     <ion-item *ngIf="item.ans_3!=''">
-      <ion-label>{{ item.ans_3 }}</ion-label>
+      <ion-label style="white-space: normal;">{{ item.ans_3 }}</ion-label>
       <ion-radio value="3" (ionSelect)="mcqAnswer(i,3)"></ion-radio>
     </ion-item>
 
     <ion-item *ngIf="item.ans_4!=''">
-      <ion-label>{{ item.ans_4 }}</ion-label>
+      <ion-label style="white-space: normal;">{{ item.ans_4 }}</ion-label>
       <ion-radio value="4" (ionSelect)="mcqAnswer(i,4)"></ion-radio>
     </ion-item>
   </ion-list>
