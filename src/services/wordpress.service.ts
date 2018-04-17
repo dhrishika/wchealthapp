@@ -21,7 +21,7 @@ export class WordpressService {
       + category_url +'&ts=' + Date.now())
     .map(res => res.json());
   }
-  // Genintal Concern Category
+  // Genital Concern Category
   getRecentPostsGenConc(categoryId:number, page:number = 19){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";
@@ -33,7 +33,7 @@ export class WordpressService {
     .map(res => res.json());
   }
 
-  // Plevic Floor Problems Category
+  // Pelvic Floor Problems Category
   getRecentPostsPFP(categoryId:number, page:number = 39){
     //if we want to query posts by category
     let category_url = categoryId? ("&categories=" + categoryId): "";
@@ -341,7 +341,7 @@ export class WordpressService {
     return this.http.get(
       Config.WORDPRESS_REST_API_URL
       + 'posts?categories=' + page
-      + category_url)
+      + category_url +'&ts=' + Date.now())
     .map(res => res.json());
   }
 

@@ -59,15 +59,12 @@ export class QuizPage {
         }
     }
     submitQuiz(): void{
-      console.log("BLA BLA zzzZZZZzzZZZZ");
-      // var result = document.getElementsByClassName("quizzes");
-      // console.log(result);
+      console.log("Submitted");
       var total_score = 0;
       var total_qs = this.items.length;
       for(var key in this.scores) {
         var value = this.scores[key];
         total_score += value;
-        // do something with "key" and "value" variables
       }
       console.log(total_score);
 
@@ -105,7 +102,7 @@ export class QuizPage {
       if(total_qs > 0 && total_score/total_qs > 0.5){
         let alert = this.alertCtrl.create({
           title: 'Good job!',
-          subTitle: 'You got ' + total_score.toString() + " out of " + total_qs.toString() + " questions correct!",
+          subTitle: 'You got ' + total_score.toString() + " out of " + total_qs.toString() + " questions correct! Check out your profile!",
           buttons: ['Dismiss']
         });
         alert.present();
