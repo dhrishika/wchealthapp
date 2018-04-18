@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-list [ngClass]="'quizzes'" radio-group *ngFor="let item of items; let i=index">
     <ion-item class="listh">
-      <ion-label style="white-space: normal;">{{ item.question }}</ion-label>
+      <ion-label style="white-space: normal; font-weight: Bold;">{{ item.question }}</ion-label>
     </ion-item>
 
     <ion-item *ngIf="item.ans_1!=''">
