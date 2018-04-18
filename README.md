@@ -1,6 +1,8 @@
 
+
 # Womanova App
 Welcome to the Womanova App Source Code! This application was built using the [Ionic Framework](https://ionicframework.com/framework)!
+>Login to Hostinger.com for access to the application data, server-side files, and the [WordPress content managment system](http://womanovaapp.com/).
 ## How to set up your device for development:
 
 ### Set up your environment:
@@ -17,7 +19,7 @@ $ git clone https://github.com/dhrishika/wchealthapp.git
 ```
 Now either open the application folder in your favorite IDE (that has a terminal window) or `cd` into the new cloned project directory through terminal:
 ```
-$ cd MyIonicProject
+$ cd wchealthapp
 ```
 ### Ionic CLI and Cordova
 
