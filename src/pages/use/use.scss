@@ -1,0 +1,21 @@
+page-use {
+    a{
+        font-size: 20pt;
+        position: relative;
+        top: 300px;
+        left: 100px;
+    }
+
+    a:hover {
+        color: hotpink;
+    }
+
+    .background{ 
+        background: url(../assets/imgs/Home1.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+
+    }
+
+}
