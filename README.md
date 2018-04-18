@@ -1,8 +1,26 @@
 
 
 # Womanova App
+
 Welcome to the Womanova App Source Code! This application was built using the [Ionic Framework](https://ionicframework.com/framework)!
+
 >Login to Hostinger.com for access to the application data, server-side files, and the [WordPress content managment system](http://womanovaapp.com/).
+>
+### Table of Contents:
+-  [How to set up your device for development](#how-to-set-up-your-device-for-development)
+	 - [Set up your environment](#set-up-your-environment)
+	 - [Downloading and Accessing Ionic Files](#downloading-and-accessing-ionic-files)
+	 - [Ionic CLI and Cordova](#ionic-cli-and-cordova)
+	 - [Installing Dependencies](#installing-dependencies)
+	 - [Preview the app](#preview-the-app)
+ - [New to Ionic?](#new-to-ionic)
+	 - [What is Ionic Framework?](#what-is-ionic-framework)
+	 - [What is the Ionic CLI?](#what-is-the-ionic-cli)
+	 - [What are components?](#what-are-components)
+	 - [How does navigation work?](#how-does-navigation-work)
+	 - [What is Angular?](#what-is-angular)
+ - [Further Readings and Resources](#further-readings-and-resources)
+
 ## How to set up your device for development:
 
 ### Set up your environment:
@@ -85,3 +103,5 @@ Navigation works like a stack —  **push**  a page to the stack to navigate to 
  - [Ionic Tutorial App](https://ionicframework.com/docs//intro/tutorial/)
  - [Editors and IDEs](https://ionicframework.com/docs/developer-resources/editors_and_ides/)
  - Learning Resources and Tutorials: [Josh Morony](https://www.joshmorony.com/)
+
+&#8593;[Back to the top](#womanova-app)&#8593;
