@@ -88,4 +88,6 @@
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.1" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.0.0" />
+    <allow-navigation href="https://*youtube.com/*" />
+    <plugin name="cordova-plugin-youtube-video-player" spec="^1.0.6" />
 </widget>
